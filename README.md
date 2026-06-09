@@ -31,6 +31,7 @@ Balearics**.
 11. [Client Area findability: hybrid + auto-PDF bridge](./docs/adr/0011-client-area-findability-hybrid-plus-auto-pdf-bridge.md)
 12. [Privacy-first analytics to learn and iterate](./docs/adr/0012-privacy-first-analytics-to-learn-and-iterate.md)
 13. [Big-bang launch: no public MVP](./docs/adr/0013-big-bang-launch-no-public-mvp.md)
+14. [Content parity + design upgrade; reproduce-then-refine](./docs/adr/0014-content-parity-design-upgrade-reproduce-then-refine.md)
 
 ## The one-paragraph version
 
