@@ -16,5 +16,6 @@ The new site is built and completed in a separate environment. The existing `dit
 ## Consequences
 
 - We need a staging host and a rollback plan; cutover is a planned event, not a gradual replace.
+- "Fully complete" is defined by ADR-0013: the cutover happens only when the full product (through A3 + order-status self-service) is done — a single big-bang launch, no public MVP.
 - During the build, any urgent price changes still go through the old WordPress PDF flow — the new system does not become the source of truth until cutover.
 - The old WordPress site should be archived (export) before decommissioning, not deleted outright.
