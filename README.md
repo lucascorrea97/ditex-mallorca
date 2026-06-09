@@ -33,6 +33,7 @@ Balearics**.
 13. [Big-bang launch: no public MVP](./docs/adr/0013-big-bang-launch-no-public-mvp.md)
 14. [Content parity + design upgrade; reproduce-then-refine](./docs/adr/0014-content-parity-design-upgrade-reproduce-then-refine.md)
 15. [Centralized design tokens; copy is provisional pending a marketing pass](./docs/adr/0015-centralized-design-tokens-provisional-copy.md)
+16. [Imagery: own-photography first, manifest-driven, no AI](./docs/adr/0016-imagery-own-photography-first-manifest-driven.md)
 
 ## The one-paragraph version
 
