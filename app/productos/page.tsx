@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { ImageSlot } from "@/components/ui/image-slot";
 
 export const metadata: Metadata = {
   title: "Productos — D.TEX Mallorca",
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 
 const categories = [
   {
+    imageId: "productos-espuma",
     name: "Espuma a medida",
     description:
       "Gomaespuma de alta calidad en diferentes densidades y grosores, cortada a medida para cada pedido. Disponible a volumen (m³) para proyectos de gran escala.",
@@ -21,6 +23,7 @@ const categories = [
     ],
   },
   {
+    imageId: "productos-telas",
     name: "Telas",
     description:
       "Amplia variedad de estilos, colores y texturas para adaptarse a cualquier proyecto. Desde telas durables para muebles de alta rotación hasta elegantes acabados para interiorismo.",
@@ -32,6 +35,7 @@ const categories = [
     ],
   },
   {
+    imageId: "productos-polipieles",
     name: "Polipieles",
     description:
       "Excelente alternativa al cuero natural, con acabados variados, fácil limpieza y alta durabilidad. Ideales para muebles de salón, tapicería de vehículos y embarcaciones.",
@@ -110,20 +114,29 @@ export default function Page() {
           {categories.map((cat) => (
             <div
               key={cat.name}
-              className="rounded-2xl border border-stone-200 p-8"
+              className="overflow-hidden rounded-2xl border border-stone-200"
             >
-              <h2 className="text-xl font-semibold tracking-tight">{cat.name}</h2>
-              <p className="mt-3 text-sm leading-relaxed text-stone-600">
-                {cat.description}
-              </p>
-              <ul className="mt-5 space-y-2">
-                {cat.highlights.map((h) => (
-                  <li key={h} className="flex items-start gap-2.5 text-sm text-stone-700">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
-                    {h}
-                  </li>
-                ))}
-              </ul>
+              {cat.imageId && (
+                <ImageSlot
+                  id={cat.imageId}
+                  className="rounded-none"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              )}
+              <div className="p-8">
+                <h2 className="text-xl font-semibold tracking-tight">{cat.name}</h2>
+                <p className="mt-3 text-sm leading-relaxed text-stone-600">
+                  {cat.description}
+                </p>
+                <ul className="mt-5 space-y-2">
+                  {cat.highlights.map((h) => (
+                    <li key={h} className="flex items-start gap-2.5 text-sm text-stone-700">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           ))}
         </div>

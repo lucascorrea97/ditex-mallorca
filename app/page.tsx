@@ -1,13 +1,26 @@
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { ImageSlot } from "@/components/ui/image-slot";
 
 // v1 foam-led home, built to show the design system (#27). Real copy/imagery and the
 // full homepage treatment come with content migration (#28) and the homepage issue (#10).
 
 const segments = [
-  { title: "Tapicería y mobiliario", text: "Telas, espumas y accesorios para talleres y fabricantes de muebles." },
-  { title: "Náutica", text: "Materiales y espumas a medida para tapicería de embarcaciones." },
-  { title: "Hostelería y contract", text: "Suministro para proyectos de hoteles, restaurantes y rentals." },
+  {
+    imageId: "home-segment-tapiceria",
+    title: "Tapicería y mobiliario",
+    text: "Telas, espumas y accesorios para talleres y fabricantes de muebles.",
+  },
+  {
+    imageId: "home-segment-nautica",
+    title: "Náutica",
+    text: "Materiales y espumas a medida para tapicería de embarcaciones.",
+  },
+  {
+    imageId: "home-segment-hosteleria",
+    title: "Hostelería y contract",
+    text: "Suministro para proyectos de hoteles, restaurantes y rentals.",
+  },
 ];
 
 const range = ["Espuma a medida", "Telas", "Polipieles", "PVC", "Fibras y rellenos", "Accesorios"];
@@ -35,6 +48,9 @@ export default function Home() {
             <Button href="/contacto" variant="outline">
               Contactar
             </Button>
+          </div>
+          <div className="mt-12">
+            <ImageSlot id="home-hero" sizes="(max-width: 768px) 100vw, 80vw" />
           </div>
         </Container>
       </section>
@@ -72,9 +88,12 @@ export default function Home() {
         <h2 className="text-2xl font-semibold tracking-tight">Para cada sector</h2>
         <div className="mt-8 grid gap-5 sm:grid-cols-3">
           {segments.map((s) => (
-            <div key={s.title} className="rounded-2xl border border-stone-200 p-6">
-              <h3 className="font-semibold">{s.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-stone-600">{s.text}</p>
+            <div key={s.title} className="overflow-hidden rounded-2xl border border-stone-200">
+              <ImageSlot id={s.imageId} className="rounded-none" sizes="(max-width: 640px) 100vw, 33vw" />
+              <div className="p-6">
+                <h3 className="font-semibold">{s.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-stone-600">{s.text}</p>
+              </div>
             </div>
           ))}
         </div>

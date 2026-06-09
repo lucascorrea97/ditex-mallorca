@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { ImageSlot } from "@/components/ui/image-slot";
 
 export const metadata: Metadata = {
   title: "Servicios — D.TEX Mallorca",
@@ -22,6 +23,7 @@ const services = [
     text: "Todo lo que el taller necesita: tachas, adhesivos, cinchas, velcros, hilos, grapas, argollas, rieles y sistemas de sujeción para cortinas. Materiales náuticos especializados para proyectos de embarcaciones.",
   },
   {
+    imageId: "servicios-reparto",
     name: "Reparto a todas las islas",
     text: "Servicio de distribución diario a Mallorca, Menorca, Ibiza y Formentera. Entrega eficiente y en condiciones óptimas para que el taller nunca pare de trabajar.",
   },
@@ -68,6 +70,13 @@ export default function Page() {
             Incluso otros distribuidores que ofrecen corte de espuma nos compran a
             nosotros para cubrir sus pedidos.
           </p>
+          <div className="mt-8">
+            <ImageSlot
+              id="servicios-corte-espuma"
+              className="rounded-2xl"
+              sizes="(max-width: 768px) 100vw, 80vw"
+            />
+          </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button href="/contacto">Solicitar presupuesto</Button>
             <Button href="/productos" variant="outline">
@@ -85,9 +94,14 @@ export default function Page() {
           </h2>
           <div className="mt-8 grid gap-6 sm:grid-cols-2">
             {services.map((s) => (
-              <div key={s.name} className="rounded-2xl border border-stone-200 bg-white p-6">
-                <h3 className="font-semibold text-ink">{s.name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-stone-600">{s.text}</p>
+              <div key={s.name} className="overflow-hidden rounded-2xl border border-stone-200 bg-white">
+                {s.imageId && (
+                  <ImageSlot id={s.imageId} className="rounded-none" sizes="(max-width: 640px) 100vw, 50vw" />
+                )}
+                <div className="p-6">
+                  <h3 className="font-semibold text-ink">{s.name}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-stone-600">{s.text}</p>
+                </div>
               </div>
             ))}
           </div>
