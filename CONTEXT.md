@@ -27,7 +27,7 @@ The password-protected section of the site where authorised Clients view the Pri
 _Avoid_: portal, dashboard, login area, member area
 
 **Price List** (Tarifa):
-The set of products and prices shown inside the Client Area. The same Price List is shown to every Client who has access — prices do not vary *per Client*. They do, however, vary *by destination island*: the Material tariff lists separate **Mallorca** and **Menorca/Ibiza** prices for the same item (the latter carries inter-island freight). Maintained today as two PDFs (Telas, Material) the owner's side produces and uploads manually. The PDFs already tell Clients that the website is the canonical place for up-to-date prices.
+The set of products and prices shown inside the Client Area. The same Price List is shown to every Client who has access — prices do not vary *per Client*. They do, however, vary *by destination island*: the Material tariff lists separate **Mallorca** and **Menorca/Ibiza** prices for the same item (the latter carries inter-island freight). Maintained today as PDFs (Telas, Material) generated from a Word document an employee keeps — these cover only the **subset** of products worth a printed catalogue, not the full range. A3 holds the complete catalogue and exports it as Excel. The PDFs already tell Clients that the website is the canonical place for up-to-date prices.
 _Avoid_: catalogue (the catalogue is public; the Price List is gated and includes prices)
 
 **Collection** (Colección):
