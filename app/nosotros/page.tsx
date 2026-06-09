@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { ImageSlot } from "@/components/ui/image-slot";
 
 export const metadata: Metadata = {
   title: "Nosotros — D.TEX Mallorca",
@@ -86,17 +87,20 @@ export default function Page() {
           </div>
 
           <div className="flex flex-col gap-6">
-            <div className="rounded-2xl border border-stone-200 bg-stone-50 p-8">
-              <p className="text-4xl font-semibold text-brand-600">+30</p>
-              <p className="mt-1 text-stone-600">
-                Años de experiencia acumulada en el sector textil
-              </p>
-            </div>
-            <div className="rounded-2xl border border-stone-200 bg-stone-50 p-8">
-              <p className="text-4xl font-semibold text-brand-600">2010</p>
-              <p className="mt-1 text-stone-600">
-                Año de fundación. Más de 15 años sirviendo al sector en Baleares
-              </p>
+            <ImageSlot id="nosotros-almacen" sizes="(max-width: 1024px) 100vw, 50vw" />
+            <div className="grid grid-cols-2 gap-6">
+              <div className="rounded-2xl border border-stone-200 bg-stone-50 p-8">
+                <p className="text-4xl font-semibold text-brand-600">+30</p>
+                <p className="mt-1 text-stone-600">
+                  Años de experiencia acumulada en el sector textil
+                </p>
+              </div>
+              <div className="rounded-2xl border border-stone-200 bg-stone-50 p-8">
+                <p className="text-4xl font-semibold text-brand-600">2010</p>
+                <p className="mt-1 text-stone-600">
+                  Año de fundación. Más de 15 años sirviendo al sector en Baleares
+                </p>
+              </div>
             </div>
             <div className="rounded-2xl border border-stone-200 bg-stone-50 p-8">
               <p className="text-sm font-medium text-stone-700">
@@ -108,43 +112,53 @@ export default function Page() {
         </div>
       </Container>
 
-      {/* Values */}
+      {/* Team image */}
       <section className="border-y border-stone-200 bg-stone-50">
         <Container className="py-16">
-          <h2 className="text-2xl font-semibold tracking-tight">Nuestros valores</h2>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {values.map((v) => (
-              <div key={v.name} className="rounded-2xl border border-stone-200 bg-white p-6">
-                <h3 className="font-semibold text-ink">{v.name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-stone-600">{v.text}</p>
-              </div>
-            ))}
+          <h2 className="text-2xl font-semibold tracking-tight">El equipo</h2>
+          <div className="mt-8 max-w-2xl">
+            <ImageSlot id="nosotros-equipo" sizes="(max-width: 768px) 100vw, 672px" />
           </div>
         </Container>
       </section>
 
-      {/* Why us */}
-      <Container className="py-20">
-        <h2 className="text-2xl font-semibold tracking-tight">
-          Por qué trabajar con nosotros
-        </h2>
-        <ul className="mt-8 space-y-4">
-          {reasons.map((r) => (
-            <li key={r} className="flex items-start gap-3">
-              <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-100">
-                <span className="block h-2 w-2 rounded-full bg-brand-600" />
-              </span>
-              <span className="leading-relaxed text-stone-700">{r}</span>
-            </li>
+      {/* Values */}
+      <Container className="py-16">
+        <h2 className="text-2xl font-semibold tracking-tight">Nuestros valores</h2>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {values.map((v) => (
+            <div key={v.name} className="rounded-2xl border border-stone-200 bg-white p-6">
+              <h3 className="font-semibold text-ink">{v.name}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-stone-600">{v.text}</p>
+            </div>
           ))}
-        </ul>
-        <div className="mt-12 flex flex-wrap gap-3">
-          <Button href="/contacto">Contactar</Button>
-          <Button href="/productos" variant="outline">
-            Ver productos
-          </Button>
         </div>
       </Container>
+
+      {/* Why us */}
+      <section className="border-t border-stone-200 bg-stone-50">
+        <Container className="py-20">
+          <h2 className="text-2xl font-semibold tracking-tight">
+            Por qué trabajar con nosotros
+          </h2>
+          <ul className="mt-8 space-y-4">
+            {reasons.map((r) => (
+              <li key={r} className="flex items-start gap-3">
+                <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-100">
+                  <span className="block h-2 w-2 rounded-full bg-brand-600" />
+                </span>
+                <span className="leading-relaxed text-stone-700">{r}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-12 flex flex-wrap gap-3">
+            <Button href="/contacto">Contactar</Button>
+            <Button href="/productos" variant="outline">
+              Ver productos
+            </Button>
+          </div>
+        </Container>
+      </section>
     </>
   );
 }
