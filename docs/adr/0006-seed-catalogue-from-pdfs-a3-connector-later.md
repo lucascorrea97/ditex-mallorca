@@ -18,4 +18,4 @@ The Client Area and public Catalogue launch on product/price data **parsed from 
 - Parsed PDF prices need a human sanity-check before launch (PDF table extraction is imperfect).
 - Someone on the owner's side owns keeping prices current until the Connector ships.
 - No rebuild at Connector time: same schema, the data's origin just changes from "typed by a human" to "synced from A3".
-- If A3 can already export Excel/CSV, prefer that over PDF parsing as the seed — cleaner and more reliable.
+- **Confirmed (issue #6): seed from the A3 Excel export, not the PDF.** A3 *does* export Excel (sample coming). Crucially, the current PDF is generated from a Word document an employee maintains and only contains the **subset** of products worth printing a physical catalogue for — **not** the full range Ditex sells. So the PDF is an incomplete source; the A3 Excel is the authoritative, fuller seed and is what #5 should import. Today's manual chain (update A3 → update Word → regenerate PDF → upload to site) is exactly what the new system collapses.
