@@ -1,10 +1,16 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
-import { nav, business } from "@/lib/site";
+import { navRoutes, business, type NavKey } from "@/lib/site";
+import { localePath, type Locale, type Dictionary } from "@/lib/i18n";
+
+interface FooterProps {
+  locale: Locale;
+  dict: Dictionary;
+}
 
 const year = 2026;
 
-export function Footer() {
+export function Footer({ locale, dict }: FooterProps) {
   const a = business.address;
   return (
     <footer className="mt-24 border-t border-stone-200 bg-stone-50">
@@ -12,23 +18,25 @@ export function Footer() {
         <div className="lg:col-span-2">
           <p className="text-lg font-semibold">
             d<span className="text-brand-600">·</span>tex
-            <span className="ml-2 text-sm font-normal text-stone-500">Distribuidora Textil</span>
+            <span className="ml-2 text-sm font-normal text-stone-500">{dict.footer.tagline}</span>
           </p>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-stone-600">
-            Especialistas en espuma a medida y materiales para tapicería profesional en
-            Mallorca y Baleares desde 2010.
+            {dict.footer.description}
           </p>
         </div>
 
         <div>
           <h3 className="text-xs font-semibold uppercase tracking-widest text-stone-400">
-            Navegación
+            {dict.footer.navHeading}
           </h3>
           <ul className="mt-4 space-y-2.5">
-            {nav.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="text-sm text-stone-600 hover:text-ink">
-                  {item.label}
+            {navRoutes.map((item) => (
+              <li key={item.key}>
+                <Link
+                  href={localePath(locale, item.href)}
+                  className="text-sm text-stone-600 hover:text-ink"
+                >
+                  {dict.nav[item.key as NavKey]}
                 </Link>
               </li>
             ))}
@@ -37,7 +45,7 @@ export function Footer() {
 
         <div>
           <h3 className="text-xs font-semibold uppercase tracking-widest text-stone-400">
-            Contacto
+            {dict.footer.contactHeading}
           </h3>
           <address className="mt-4 space-y-2.5 text-sm not-italic text-stone-600">
             <p>
@@ -57,7 +65,7 @@ export function Footer() {
                 {business.email}
               </a>
             </p>
-            <p>{business.hours}</p>
+            <p>{dict.footer.hours}</p>
           </address>
           <div className="mt-4 flex gap-4 text-sm text-stone-600">
             <a href={business.social.instagram} className="hover:text-ink">
@@ -75,7 +83,7 @@ export function Footer() {
           <p>
             © {year} {business.name} · {business.legalName}
           </p>
-          <p>Aviso legal · Política de privacidad · Cookies</p>
+          <p>{dict.footer.legal}</p>
         </Container>
       </div>
     </footer>

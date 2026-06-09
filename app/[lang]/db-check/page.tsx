@@ -4,8 +4,6 @@ import { db } from "@/db";
 // server-side. Remove when the real catalogue (#7) and gated prices (#14) land.
 export const dynamic = "force-dynamic";
 
-// Postgres numeric comes back coerced to a JS number, so trailing zeros are lost.
-// Price-display layers (#7/#14) MUST format explicitly — here's the minimal version.
 function eur(amount: string | number | null) {
   if (amount === null) return "consultar";
   return `${Number(amount).toFixed(2)}€`;

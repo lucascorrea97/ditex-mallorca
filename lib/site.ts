@@ -1,14 +1,19 @@
-// Single source of truth for site-wide constants (nav + business contact details).
+// Single source of truth for site-wide constants (nav routes + business contact details).
 // Real data from the current ditexmallorca.es. Used by the header, footer, and later
 // the contact page and LocalBusiness structured data (#9).
+//
+// Nav labels are NOT here — they live in messages/*.json so each locale renders its own.
+// Use navRoutes[].key to look up the label from the active dictionary.
 
-export const nav = [
-  { href: "/", label: "Inicio" },
-  { href: "/nosotros", label: "Nosotros" },
-  { href: "/servicios", label: "Servicios" },
-  { href: "/productos", label: "Productos" },
-  { href: "/contacto", label: "Contacto" },
-] as const;
+export const navRoutes = [
+  { key: "home", href: "/" },
+  { key: "nosotros", href: "/nosotros" },
+  { key: "servicios", href: "/servicios" },
+  { key: "productos", href: "/productos" },
+  { key: "contacto", href: "/contacto" },
+] as const satisfies ReadonlyArray<{ key: string; href: string }>;
+
+export type NavKey = (typeof navRoutes)[number]["key"];
 
 export const business = {
   name: "D.TEX Mallorca",
@@ -21,7 +26,6 @@ export const business = {
   },
   phone: { display: "+34 971 25 41 27", href: "tel:+34971254127" },
   email: "pedidos@ditexmallorca.com",
-  hours: "Lun – Vie: 7:00 a 14:00h",
   social: {
     instagram: "https://www.instagram.com/ditex_mallorca/",
     linkedin: "https://www.linkedin.com/company/ditex-mallorca/",

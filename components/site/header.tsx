@@ -2,32 +2,38 @@ import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { nav, business } from "@/lib/site";
+import { LanguageSwitcher } from "@/components/site/language-switcher";
+import { navRoutes, business, type NavKey } from "@/lib/site";
+import { localePath, type Locale, type Dictionary } from "@/lib/i18n";
 import logo from "@/public/brand/ditex-logo.png";
 
-// Sticky site header: logo + primary nav + phone CTA. Mobile uses a JS-free <details>
-// menu. Language switcher is a placeholder until i18n (#2).
-export function Header() {
+interface HeaderProps {
+  locale: Locale;
+  dict: Dictionary;
+}
+
+export function Header({ locale, dict }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 border-b border-stone-200 bg-white/90 backdrop-blur">
       <Container className="flex h-16 items-center justify-between gap-4">
-        <Link href="/" aria-label={business.name} className="shrink-0">
+        <Link href={localePath(locale, "/")} aria-label={business.name} className="shrink-0">
           <Image src={logo} alt={business.name} priority className="h-8 w-auto" />
         </Link>
 
         <nav className="hidden items-center gap-7 md:flex">
-          {nav.map((item) => (
+          {navRoutes.map((item) => (
             <Link
-              key={item.href}
-              href={item.href}
+              key={item.key}
+              href={localePath(locale, item.href)}
               className="text-sm font-medium text-stone-600 transition-colors hover:text-ink"
             >
-              {item.label}
+              {dict.nav[item.key as NavKey]}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="hidden items-center gap-4 md:flex">
+          <LanguageSwitcher locale={locale} />
           <Button href={business.phone.href} variant="outline">
             {business.phone.display}
           </Button>
@@ -42,13 +48,13 @@ export function Header() {
             </svg>
           </summary>
           <div className="absolute right-0 mt-2 w-56 rounded-xl border border-stone-200 bg-white p-2 shadow-lg">
-            {nav.map((item) => (
+            {navRoutes.map((item) => (
               <Link
-                key={item.href}
-                href={item.href}
+                key={item.key}
+                href={localePath(locale, item.href)}
                 className="block rounded-lg px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-100"
               >
-                {item.label}
+                {dict.nav[item.key as NavKey]}
               </Link>
             ))}
             <a
@@ -57,6 +63,9 @@ export function Header() {
             >
               {business.phone.display}
             </a>
+            <div className="mt-2 flex justify-center border-t border-stone-100 pt-2">
+              <LanguageSwitcher locale={locale} />
+            </div>
           </div>
         </details>
       </Container>

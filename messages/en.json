@@ -1,0 +1,179 @@
+{
+  "metadata": {
+    "defaultTitle": "D.TEX Mallorca — Custom foam cutting and upholstery materials",
+    "defaultDescription": "The reference distributor for custom foam (volume cutting in m³), fabrics, faux leather, PVC and accessories for professional upholstery in Mallorca and the Balearic Islands."
+  },
+  "nav": {
+    "home": "Home",
+    "nosotros": "About",
+    "servicios": "Services",
+    "productos": "Products",
+    "contacto": "Contact"
+  },
+  "footer": {
+    "tagline": "Textile Distributor",
+    "description": "Specialists in custom foam cutting and materials for professional upholstery in Mallorca and the Balearic Islands since 2010.",
+    "navHeading": "Navigation",
+    "contactHeading": "Contact",
+    "legal": "Legal notice · Privacy policy · Cookies",
+    "hours": "Mon – Fri: 7:00 am – 2:00 pm"
+  },
+  "pagePlaceholder": {
+    "eyebrow": "Under construction",
+    "body": "The content of this page is being migrated from the current website. Coming soon."
+  },
+  "home": {
+    "title": "D.TEX Mallorca — Custom foam cutting and upholstery materials",
+    "description": "The reference distributor for custom foam (volume cutting in m³), fabrics, faux leather, PVC and accessories for professional upholstery in Mallorca and the Balearic Islands.",
+    "badge": "Textile distributor · Balearic Islands",
+    "h1Before": "Mallorca's specialists in",
+    "h1Accent": "custom foam cutting",
+    "h1After": ".",
+    "lead": "We cut foam to any size, including by volume (m³). We complete your workshop with fabrics, faux leather, PVC and accessories — all from a single supplier, with delivery to all islands.",
+    "ctaProducts": "View products",
+    "ctaContact": "Contact us",
+    "trustBefore": "We are the go-to foam supplier in the Balearics: even other distributors who offer foam cutting",
+    "trustAccent": "buy from us",
+    "trustAfter": ".",
+    "rangeHeading": "Complete range",
+    "range": ["Custom foam", "Fabrics", "Faux leather", "PVC", "Fibres & fillings", "Accessories"],
+    "sectorsHeading": "For every sector",
+    "segments": [
+      { "imageId": "home-segment-tapiceria", "title": "Furniture & upholstery", "text": "Fabrics, foam and accessories for workshops and furniture manufacturers." },
+      { "imageId": "home-segment-nautica", "title": "Marine", "text": "Custom materials and foam for boat upholstery." },
+      { "imageId": "home-segment-hosteleria", "title": "Hospitality & contract", "text": "Supply for hotel, restaurant and rental property projects." }
+    ]
+  },
+  "nosotros": {
+    "title": "About — D.TEX Mallorca",
+    "description": "Textile distributor in Mallorca since 2010. Specialists in custom foam cutting and professional upholstery materials.",
+    "eyebrow": "About",
+    "h1": "Specialists in foam and upholstery materials",
+    "h1Accent": "in Mallorca and the Balearics",
+    "lead": "Since 2010 we have supplied upholsterers, furniture manufacturers, marine companies and hospitality projects with everything they need: custom foam, fabrics, faux leather, PVC and accessories, with delivery to all islands.",
+    "storyHeading": "Our story",
+    "storyP1": "D.TEX Mallorca was founded in 2010 with the aim of providing a serious and professional service to the upholstery sector in the Balearic Islands. Two entrepreneurs with decades of experience in textiles launched a distributorship that is now the reference in the archipelago.",
+    "storyP2": "Over time we have become the go-to supplier for custom foam in the Balearics. We cut foam to any dimension, including by volume (m³) and in high densities — a capability that very few can offer. In fact, other distributors who offer foam cutting buy from us to fulfil their orders.",
+    "storyP3": "Around that core we have built a complete range of upholstery materials — fabrics, faux leather, PVC, fibres and accessories — so that our clients can complete any project from a single supplier, without wasting time or taking on coordination risk.",
+    "stat1Value": "+30",
+    "stat1Label": "Years of accumulated experience in the textile sector",
+    "stat2Value": "2010",
+    "stat2Label": "Year founded. Over 15 years serving the sector in the Balearics",
+    "locationLabel": "Polígono Industrial Can Valero, Palma de Mallorca — delivery to",
+    "locationAccent": "all islands",
+    "teamHeading": "The team",
+    "valuesHeading": "Our values",
+    "values": [
+      { "name": "Professionalism", "text": "A highly trained team with decades of experience in the textile and upholstery sector." },
+      { "name": "Trust", "text": "Transparency and commitment as the foundation of every client relationship." },
+      { "name": "Progress", "text": "Continuous improvement through learning and innovation in materials and service." },
+      { "name": "Commitment", "text": "Exceeding our clients' expectations and building long-term relationships." }
+    ],
+    "whyHeading": "Why work with us",
+    "reasons": [
+      "Custom foam with volume cutting (m³) — unique capability in the Balearics",
+      "Complete range: fabrics, faux leather, PVC, fibres and accessories from a single supplier",
+      "Daily delivery to all islands",
+      "Personalised attention and technical advice",
+      "Over 30 years of accumulated industry experience"
+    ],
+    "ctaContact": "Contact us",
+    "ctaProducts": "View products"
+  },
+  "servicios": {
+    "title": "Services — D.TEX Mallorca",
+    "description": "Custom foam cutting (m³), supply of fabrics, faux leather, PVC and accessories for upholstery. Daily delivery to all the Balearic Islands.",
+    "eyebrow": "Services",
+    "h1Before": "Everything you need for upholstery,",
+    "h1Accent": "from a single supplier",
+    "h1After": ".",
+    "lead": "From volume foam cutting to delivery to any island. Over 30 years of sector experience so you can focus on your craft.",
+    "starServiceEyebrow": "Flagship service",
+    "starServiceHeading": "Custom foam cutting",
+    "starServiceBody": "We cut foam to any size, in multiple densities and thicknesses. Including by volume (m³) — a capability very few distributors in the Balearics can offer. Workshops, furniture manufacturers, marine companies and hospitality projects trust us for their custom foam orders.",
+    "starServiceNote": "Even other distributors who offer foam cutting buy from us to fulfil their orders.",
+    "starServiceCtaContact": "Request a quote",
+    "starServiceCtaProducts": "View foam range",
+    "materialsHeading": "Materials and supplies",
+    "ctaContact": "Contact us",
+    "ctaQuestion": "Have a project? Tell us what you need and we'll advise you with no obligation.",
+    "services": [
+      { "name": "Upholstery fabrics", "text": "Wide variety of textures, colours and styles — from durable options for high-turnover furniture to elegant fabrics for interior design projects. Available by the linear metre or full roll." },
+      { "name": "Faux leather & PVC", "text": "Excellent alternative to natural leather with varied finishes, easy cleaning and high durability. PVC is ideal for outdoor use: resistant to water, mould and UV rays. Available in multiple colours for furniture, vehicle and boat upholstery." },
+      { "name": "Accessories & supplies", "text": "Everything the workshop needs: tacks, adhesives, webbing, velcro, threads, staples, rings, curtain rails and fixing systems. Specialist marine materials for boat projects." },
+      { "imageId": "servicios-reparto", "name": "Island-wide delivery", "text": "Daily distribution service to Mallorca, Menorca, Ibiza and Formentera. Efficient delivery in optimal condition so the workshop never stops." }
+    ]
+  },
+  "productos": {
+    "title": "Products — D.TEX Mallorca",
+    "description": "Catalogue of professional upholstery materials: custom foam, fabrics, faux leather, PVC, fibres and accessories. Distribution across the Balearic Islands.",
+    "eyebrow": "Catalogue",
+    "h1Before": "Professional upholstery materials,",
+    "h1Accent": "all in one place",
+    "h1After": ".",
+    "lead": "From custom foam to the most specific accessories. We supply upholstery workshops, furniture manufacturers, marine companies and hospitality projects across the Balearics.",
+    "clientAreaNote": "Prices and availability are available in the",
+    "clientAreaLabel": "Client Area",
+    "clientAreaNote2": "(restricted access for authorised clients).",
+    "ctaClientHeading": "Are you a D.TEX client?",
+    "ctaClientBody": "Access the Client Area to check prices and availability.",
+    "ctaRequestAccess": "Request access",
+    "categories": [
+      {
+        "imageId": "productos-espuma",
+        "name": "Custom foam",
+        "description": "High-quality foam in various densities and thicknesses, cut to order. Available by volume (m³) for large-scale projects.",
+        "highlights": ["Multiple densities (soft, medium, high)", "Custom cutting in any format", "Volume cutting (m³)", "For upholstery, mattresses, marine and contract"]
+      },
+      {
+        "imageId": "productos-telas",
+        "name": "Fabrics",
+        "description": "Wide variety of styles, colours and textures for any project. From durable fabrics for high-turnover furniture to elegant finishes for interior design.",
+        "highlights": ["Sold by the linear metre or full roll", "Multiple collections and finishes", "Indoor and outdoor options", "Suitable for furniture, hospitality and marine"]
+      },
+      {
+        "imageId": "productos-polipieles",
+        "name": "Faux leather",
+        "description": "Excellent alternative to natural leather, with varied finishes, easy cleaning and high durability. Ideal for living room furniture, vehicle and boat upholstery.",
+        "highlights": ["Wide variety of colours and finishes", "Easy maintenance and cleaning", "High durability", "Suitable for intensive use"]
+      },
+      {
+        "name": "PVC",
+        "description": "High-quality material particularly suited to outdoor and humid environments. Resistant to water, moisture and UV rays.",
+        "highlights": ["Resistant to water and weathering", "UV protection", "Multiple colours and designs", "Ideal for outdoor furniture and marine"]
+      },
+      {
+        "name": "Fibres & fillings",
+        "description": "Fillings and complementary materials for upholstery projects: polyester fibre, wadding, batting and other reinforcement and comfort materials.",
+        "highlights": ["Polyester fibre", "Wadding and batting", "Reinforcement materials", "Foam complements"]
+      },
+      {
+        "name": "Accessories",
+        "description": "Everything the workshop needs: fastening systems, hardware, finishing materials and specialist marine components.",
+        "highlights": ["Tacks, staples and adhesives", "Webbing and velcro", "Upholstery threads", "Rings, rails and curtain systems", "Specialist marine materials"]
+      }
+    ]
+  },
+  "contacto": {
+    "title": "Contact — D.TEX Mallorca",
+    "description": "Contact D.TEX Mallorca. C/ 4 de Noviembre Nº4, Polígono Industrial Can Valero, Palma. Tel: +34 971 25 41 27. Monday to Friday, 7:00 am – 2:00 pm.",
+    "eyebrow": "Contact",
+    "h1": "We're here to help.",
+    "lead": "For orders, technical enquiries or Client Area access requests, call or email us.",
+    "detailsHeading": "Contact details",
+    "addressLabel": "Address",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "hoursLabel": "Opening hours",
+    "mapLabel": "Map",
+    "mapNote": "Polígono Industrial Can Valero, Palma",
+    "mapLink": "Open in Google Maps →",
+    "formHeading": "Send us a message",
+    "formNote": "Contact form — coming soon.",
+    "formNameLabel": "Name",
+    "formEmailLabel": "Email",
+    "formMessageLabel": "Message",
+    "formPrivacy": "Data controller: RIBOT FUSTER, S.L. (D.TEX MALLORCA). Your data will be processed to handle your enquiry in accordance with our privacy policy.",
+    "hours": "Mon – Fri: 7:00 am – 2:00 pm"
+  }
+}

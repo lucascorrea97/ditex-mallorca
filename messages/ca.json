@@ -1,0 +1,179 @@
+{
+  "metadata": {
+    "defaultTitle": "D.TEX Mallorca — Escuma a mida i materials per a tapisseria",
+    "defaultDescription": "Distribuïdor de referència en escuma a mida (tall en m³), teixits, similcuirs, PVC i accessoris per a tapisseria professional a Mallorca i Balears."
+  },
+  "nav": {
+    "home": "Inici",
+    "nosotros": "Nosaltres",
+    "servicios": "Serveis",
+    "productos": "Productes",
+    "contacto": "Contacte"
+  },
+  "footer": {
+    "tagline": "Distribuïdora Tèxtil",
+    "description": "Especialistes en escuma a mida i materials per a tapisseria professional a Mallorca i Balears des del 2010.",
+    "navHeading": "Navegació",
+    "contactHeading": "Contacte",
+    "legal": "Avís legal · Política de privacitat · Galetes",
+    "hours": "Dl – Dv: 7:00 a 14:00h"
+  },
+  "pagePlaceholder": {
+    "eyebrow": "En construcció",
+    "body": "El contingut d'aquesta pàgina s'està migrant des del web actual. Properament."
+  },
+  "home": {
+    "title": "D.TEX Mallorca — Escuma a mida i materials per a tapisseria",
+    "description": "Distribuïdor de referència en escuma a mida (tall en m³), teixits, similcuirs, PVC i accessoris per a tapisseria professional a Mallorca i Balears.",
+    "badge": "Distribuïdora tèxtil · Balears",
+    "h1Before": "Els especialistes en",
+    "h1Accent": "escuma a mida",
+    "h1After": "de Mallorca.",
+    "lead": "Tallem escuma a qualsevol mida, fins i tot a volum (m³). I completem el vostre taller amb teixits, similcuirs, PVC i accessoris — tot en un sol proveïdor, amb repartiment a totes les illes.",
+    "ctaProducts": "Veure productes",
+    "ctaContact": "Contactar",
+    "trustBefore": "Som referència en escuma a Balears: fins i tot altres distribuïdors que ofereixen tall d'escuma",
+    "trustAccent": "ens compren a nosaltres",
+    "trustAfter": ".",
+    "rangeHeading": "Una gamma completa",
+    "range": ["Escuma a mida", "Teixits", "Similcuirs", "PVC", "Fibres i farcits", "Accessoris"],
+    "sectorsHeading": "Per a cada sector",
+    "segments": [
+      { "imageId": "home-segment-tapiceria", "title": "Tapisseria i mobles", "text": "Teixits, escumes i accessoris per a tallers i fabricants de mobles." },
+      { "imageId": "home-segment-nautica", "title": "Nàutica", "text": "Materials i escumes a mida per a tapisseria d'embarcacions." },
+      { "imageId": "home-segment-hosteleria", "title": "Hostaleria i contract", "text": "Subministrament per a projectes d'hotels, restaurants i lloguer vacacional." }
+    ]
+  },
+  "nosotros": {
+    "title": "Nosaltres — D.TEX Mallorca",
+    "description": "Distribuïdora tèxtil a Mallorca des del 2010. Especialistes en escuma a mida i materials per a tapisseria professional.",
+    "eyebrow": "Nosaltres",
+    "h1": "Especialistes en escuma i materials per a tapisseria",
+    "h1Accent": "a Mallorca i Balears",
+    "lead": "Des del 2010 subministrem a tapissers, fabricants de mobles, empreses nàutiques i projectes d'hostaleria amb tot el que necessiten per treballar: escuma a mida, teixits, similcuirs, PVC i accessoris, amb repartiment a totes les illes.",
+    "storyHeading": "La nostra història",
+    "storyP1": "D.TEX Mallorca va néixer el 2010 amb la vocació de donar un servei seriós i professional al sector de la tapisseria a les Illes Balears. Dos emprenedors amb dècades d'experiència en el tèxtil van posar en marxa una distribuïdora que avui és referència a l'arxipèlag.",
+    "storyP2": "Amb el temps ens hem convertit en el proveïdor de referència per a escuma a mida a Balears. Tallem escuma a qualsevol dimensió, inclòs a volum (m³) i en altes densitats — una capacitat que pocs poden oferir. De fet, altres distribuïdors que ofereixen tall d'escuma ens compren a nosaltres per cobrir les seves comandes.",
+    "storyP3": "Al voltant d'aquest nucli hem construït una gamma completa de materials de tapisseria — teixits, similcuirs, PVC, fibres i accessoris — perquè els nostres clients puguin resoldre qualsevol projecte des d'un sol proveïdor, sense perdre temps ni assumir riscos de coordinació.",
+    "stat1Value": "+30",
+    "stat1Label": "Anys d'experiència acumulada en el sector tèxtil",
+    "stat2Value": "2010",
+    "stat2Label": "Any de fundació. Més de 15 anys servint al sector a Balears",
+    "locationLabel": "Polígon Industrial Can Valero, Palma de Mallorca — distribució a",
+    "locationAccent": "totes les illes",
+    "teamHeading": "L'equip",
+    "valuesHeading": "Els nostres valors",
+    "values": [
+      { "name": "Professionalitat", "text": "Equip altament format amb dècades d'experiència en el sector tèxtil i de la tapisseria." },
+      { "name": "Confiança", "text": "Transparència i compliment de compromisos com a base de cada relació amb els nostres clients." },
+      { "name": "Progrés", "text": "Millora contínua a través de l'aprenentatge i la innovació en materials i servei." },
+      { "name": "Compromís", "text": "Superar les expectatives dels nostres clients i construir relacions a llarg termini." }
+    ],
+    "whyHeading": "Per què treballar amb nosaltres",
+    "reasons": [
+      "Escuma a mida amb tall a volum (m³) — capacitat única a Balears",
+      "Gamma completa: teixits, similcuirs, PVC, fibres i accessoris en un sol proveïdor",
+      "Repartiment diari a totes les illes",
+      "Atenció personalitzada i assessorament tècnic",
+      "Més de 30 anys d'experiència sectorial acumulada"
+    ],
+    "ctaContact": "Contactar",
+    "ctaProducts": "Veure productes"
+  },
+  "servicios": {
+    "title": "Serveis — D.TEX Mallorca",
+    "description": "Tall d'escuma a mida (m³), subministrament de teixits, similcuirs, PVC i accessoris per a tapisseria. Repartiment diari a totes les Illes Balears.",
+    "eyebrow": "Serveis",
+    "h1Before": "Tot el que necessites per a tapisseria,",
+    "h1Accent": "en un sol proveïdor",
+    "h1After": ".",
+    "lead": "Des del tall d'escuma a volum fins al repartiment a qualsevol illa. Portem més de 30 anys d'experiència en el sector perquè tu puguis centrar-te en el teu ofici.",
+    "starServiceEyebrow": "Servei estrella",
+    "starServiceHeading": "Tall d'escuma a mida",
+    "starServiceBody": "Tallem gomaespuma a qualsevol mida, en múltiples densitats i gruixos. Inclòs a volum (m³) — una capacitat que molt pocs distribuïdors a Balears poden oferir. Tallers, fabricants de mobles, empreses nàutiques i projectes d'hostaleria confien en nosaltres per a les seves comandes d'escuma personalitzades.",
+    "starServiceNote": "Fins i tot altres distribuïdors que ofereixen tall d'escuma ens compren a nosaltres per cobrir les seves comandes.",
+    "starServiceCtaContact": "Sol·licitar pressupost",
+    "starServiceCtaProducts": "Veure gamma d'escumes",
+    "materialsHeading": "Materials i subministraments",
+    "ctaContact": "Contactar",
+    "ctaQuestion": "Tens un projecte? Explica'ns què necessites i t'assessorem sense compromís.",
+    "services": [
+      { "name": "Teixits per a tapisseria", "text": "Gran varietat de textures, colors i estils — des d'opcions duradores per a mobles d'alta rotació fins a teixits elegants per a projectes d'interiorisme. Disponibles per metre lineal (metratge) o rotllo complet (peça)." },
+      { "name": "Similcuirs i PVC", "text": "Excel·lent alternativa al cuir natural amb acabats variats, fàcil neteja i alta durabilitat. El PVC és ideal per a exteriors: resistent a l'aigua, la humitat i els raigs UV. Disponibles en múltiples colors per a tapisseria de mobles, vehicles i embarcacions." },
+      { "name": "Accessoris i subministraments", "text": "Tot el que el taller necessita: tatxes, adhesius, cinches, velcros, fils, grapes, argolles, rails i sistemes de subjecció per a cortines. Materials nàutics especialitzats per a projectes d'embarcacions." },
+      { "imageId": "servicios-reparto", "name": "Repartiment a totes les illes", "text": "Servei de distribució diari a Mallorca, Menorca, Eivissa i Formentera. Entrega eficient i en condicions òptimes perquè el taller no pari mai de treballar." }
+    ]
+  },
+  "productos": {
+    "title": "Productes — D.TEX Mallorca",
+    "description": "Catàleg de materials per a tapisseria professional: escuma a mida, teixits, similcuirs, PVC, fibres i accessoris. Distribució a totes les Illes Balears.",
+    "eyebrow": "Catàleg",
+    "h1Before": "Materials per a tapisseria professional,",
+    "h1Accent": "tot en un sol lloc",
+    "h1After": ".",
+    "lead": "Des d'escuma a mida fins als accessoris més específics. Subministrem a tallers de tapisseria, fabricants de mobles, empreses nàutiques i projectes d'hostaleria a tota Balears.",
+    "clientAreaNote": "Els preus i disponibilitat estan disponibles a l'",
+    "clientAreaLabel": "Àrea de Clients",
+    "clientAreaNote2": "(accés restringit a clients autoritzats).",
+    "ctaClientHeading": "Ets client de D.TEX?",
+    "ctaClientBody": "Accedeix a l'Àrea de Clients per consultar preus i disponibilitat.",
+    "ctaRequestAccess": "Sol·licitar accés",
+    "categories": [
+      {
+        "imageId": "productos-espuma",
+        "name": "Escuma a mida",
+        "description": "Gomaespuma d'alta qualitat en diferents densitats i gruixos, tallada a mida per a cada comanda. Disponible a volum (m³) per a projectes a gran escala.",
+        "highlights": ["Múltiples densitats (tova, mitjana, alta)", "Tall a mida en qualsevol format", "Tall a volum (m³)", "Per a tapisseria, matalasseria, nàutica i contract"]
+      },
+      {
+        "imageId": "productos-telas",
+        "name": "Teixits",
+        "description": "Gran varietat d'estils, colors i textures per adaptar-se a qualsevol projecte. Des de teles duradores per a mobles d'alta rotació fins a elegants acabats per a interiorisme.",
+        "highlights": ["Venda per metre lineal (metratge) o rotllo complet (peça)", "Múltiples col·leccions i acabats", "Opcions per a interior i exterior", "Adequats per a mobles, hostaleria i nàutica"]
+      },
+      {
+        "imageId": "productos-polipieles",
+        "name": "Similcuirs",
+        "description": "Excel·lent alternativa al cuir natural, amb acabats variats, fàcil neteja i alta durabilitat. Ideals per a mobles de saló, tapisseria de vehicles i embarcacions.",
+        "highlights": ["Gran varietat de colors i acabats", "Fàcil manteniment i neteja", "Alta durabilitat", "Adequats per a ús intensiu"]
+      },
+      {
+        "name": "PVC",
+        "description": "Material d'alta qualitat especialment indicat per a exteriors i entorns humits. Resistent a l'aigua, la humitat i els raigs UV.",
+        "highlights": ["Resistent a l'aigua i a la intempèrie", "Protecció UV", "Múltiples colors i dissenys", "Ideal per a mobles d'exterior i nàutica"]
+      },
+      {
+        "name": "Fibres i farcits",
+        "description": "Farcits i materials complementaris per a projectes de tapisseria: fibra de polièster, guata, vatelina i altres materials de reforç i confort.",
+        "highlights": ["Fibra de polièster", "Guata i vatelina", "Materials de reforç", "Complements per a escumes"]
+      },
+      {
+        "name": "Accessoris",
+        "description": "Tot el necessari per al taller: sistemes de subjecció, ferramenta, materials d'acabat i components especialitzats per a nàutica.",
+        "highlights": ["Tatxes, grapes i adhesius", "Cinches i velcros", "Fils per a tapisseria", "Argolles, rails i sistemes per a cortines", "Materials nàutics especialitzats"]
+      }
+    ]
+  },
+  "contacto": {
+    "title": "Contacte — D.TEX Mallorca",
+    "description": "Contacta amb D.TEX Mallorca. C/ 4 de Noviembre Nº4, Polígon Industrial Can Valero, Palma. Tel: +34 971 25 41 27. Dilluns a divendres, 7:00–14:00h.",
+    "eyebrow": "Contacte",
+    "h1": "Som aquí per ajudar-te.",
+    "lead": "Per a comandes, consultes tècniques o sol·licituds d'accés a l'Àrea de Clients, truca'ns o escriu-nos.",
+    "detailsHeading": "Dades de contacte",
+    "addressLabel": "Adreça",
+    "phoneLabel": "Telèfon",
+    "emailLabel": "Correu electrònic",
+    "hoursLabel": "Horari",
+    "mapLabel": "Mapa",
+    "mapNote": "Polígon Industrial Can Valero, Palma",
+    "mapLink": "Obrir a Google Maps →",
+    "formHeading": "Envia'ns un missatge",
+    "formNote": "Formulari de contacte — properament disponible.",
+    "formNameLabel": "Nom",
+    "formEmailLabel": "Correu electrònic",
+    "formMessageLabel": "Missatge",
+    "formPrivacy": "Responsable del tractament: RIBOT FUSTER, S.L. (D.TEX MALLORCA). Les dades es tractaran per gestionar la seva consulta conforme a la nostra política de privacitat.",
+    "hours": "Dl – Dv: 7:00 a 14:00h"
+  }
+}

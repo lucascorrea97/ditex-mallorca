@@ -1,0 +1,179 @@
+{
+  "metadata": {
+    "defaultTitle": "D.TEX Mallorca — Espuma a medida y materiales para tapicería",
+    "defaultDescription": "Distribuidor de referencia en espuma a medida (corte en m³), telas, polipieles, PVC y accesorios para tapicería profesional en Mallorca y Baleares."
+  },
+  "nav": {
+    "home": "Inicio",
+    "nosotros": "Nosotros",
+    "servicios": "Servicios",
+    "productos": "Productos",
+    "contacto": "Contacto"
+  },
+  "footer": {
+    "tagline": "Distribuidora Textil",
+    "description": "Especialistas en espuma a medida y materiales para tapicería profesional en Mallorca y Baleares desde 2010.",
+    "navHeading": "Navegación",
+    "contactHeading": "Contacto",
+    "legal": "Aviso legal · Política de privacidad · Cookies",
+    "hours": "Lun – Vie: 7:00 a 14:00h"
+  },
+  "pagePlaceholder": {
+    "eyebrow": "En construcción",
+    "body": "El contenido de esta página se está migrando desde la web actual. Próximamente."
+  },
+  "home": {
+    "title": "D.TEX Mallorca — Espuma a medida y materiales para tapicería",
+    "description": "Distribuidor de referencia en espuma a medida (corte en m³), telas, polipieles, PVC y accesorios para tapicería profesional en Mallorca y Baleares.",
+    "badge": "Distribuidora textil · Baleares",
+    "h1Before": "Los especialistas en",
+    "h1Accent": "espuma a medida",
+    "h1After": "de Mallorca.",
+    "lead": "Cortamos espuma a cualquier medida, incluso a volumen (m³). Y completamos tu taller con telas, polipieles, PVC y accesorios — todo en un solo proveedor, con reparto a todas las islas.",
+    "ctaProducts": "Ver productos",
+    "ctaContact": "Contactar",
+    "trustBefore": "Somos referencia en espuma en Baleares: hasta otros distribuidores que ofrecen corte de espuma",
+    "trustAccent": "nos compran a nosotros",
+    "trustAfter": ".",
+    "rangeHeading": "Una gama completa",
+    "range": ["Espuma a medida", "Telas", "Polipieles", "PVC", "Fibras y rellenos", "Accesorios"],
+    "sectorsHeading": "Para cada sector",
+    "segments": [
+      { "imageId": "home-segment-tapiceria", "title": "Tapicería y mobiliario", "text": "Telas, espumas y accesorios para talleres y fabricantes de muebles." },
+      { "imageId": "home-segment-nautica", "title": "Náutica", "text": "Materiales y espumas a medida para tapicería de embarcaciones." },
+      { "imageId": "home-segment-hosteleria", "title": "Hostelería y contract", "text": "Suministro para proyectos de hoteles, restaurantes y rentals." }
+    ]
+  },
+  "nosotros": {
+    "title": "Nosotros — D.TEX Mallorca",
+    "description": "Distribuidora textil en Mallorca desde 2010. Especialistas en espuma a medida y materiales para tapicería profesional.",
+    "eyebrow": "Nosotros",
+    "h1": "Especialistas en espuma y materiales para tapicería",
+    "h1Accent": "en Mallorca y Baleares",
+    "lead": "Desde 2010 suministramos a tapiceros, fabricantes de muebles, empresas náuticas y proyectos de hostelería con todo lo que necesitan para trabajar: espuma a medida, telas, polipieles, PVC y accesorios, con reparto a todas las islas.",
+    "storyHeading": "Nuestra historia",
+    "storyP1": "D.TEX Mallorca nació en 2010 con la vocación de dar un servicio serio y profesional al sector de la tapicería en las Islas Baleares. Dos emprendedores con décadas de experiencia en el textil pusieron en marcha una distribuidora que hoy es referencia en el archipiélago.",
+    "storyP2": "Con el tiempo nos hemos convertido en el proveedor de referencia para espuma a medida en Baleares. Cortamos espuma a cualquier dimensión, incluido a volumen (m³) y en altas densidades — una capacidad que pocos pueden ofrecer. De hecho, otros distribuidores que ofrecen corte de espuma nos compran a nosotros para cubrir sus pedidos.",
+    "storyP3": "Alrededor de ese núcleo hemos construido una gama completa de materiales de tapicería — telas, polipieles, PVC, fibras y accesorios — para que nuestros clientes puedan resolver cualquier proyecto desde un solo proveedor, sin perder tiempo ni asumir riesgos de coordinación.",
+    "stat1Value": "+30",
+    "stat1Label": "Años de experiencia acumulada en el sector textil",
+    "stat2Value": "2010",
+    "stat2Label": "Año de fundación. Más de 15 años sirviendo al sector en Baleares",
+    "locationLabel": "Polígono Industrial Can Valero, Palma de Mallorca — distribución a",
+    "locationAccent": "todas las islas",
+    "teamHeading": "El equipo",
+    "valuesHeading": "Nuestros valores",
+    "values": [
+      { "name": "Profesionalidad", "text": "Equipo altamente formado con décadas de experiencia en el sector textil y de la tapicería." },
+      { "name": "Confianza", "text": "Transparencia y cumplimiento de compromisos como base de cada relación con nuestros clientes." },
+      { "name": "Progreso", "text": "Mejora continua a través del aprendizaje y la innovación en materiales y servicio." },
+      { "name": "Compromiso", "text": "Superar las expectativas de nuestros clientes y construir relaciones a largo plazo." }
+    ],
+    "whyHeading": "Por qué trabajar con nosotros",
+    "reasons": [
+      "Espuma a medida con corte a volumen (m³) — capacidad única en Baleares",
+      "Gama completa: telas, polipieles, PVC, fibras y accesorios en un solo proveedor",
+      "Reparto diario a todas las islas",
+      "Atención personalizada y asesoramiento técnico",
+      "Más de 30 años de experiencia sectorial acumulada"
+    ],
+    "ctaContact": "Contactar",
+    "ctaProducts": "Ver productos"
+  },
+  "servicios": {
+    "title": "Servicios — D.TEX Mallorca",
+    "description": "Corte de espuma a medida (m³), suministro de telas, polipieles, PVC y accesorios para tapicería. Reparto diario a todas las Islas Baleares.",
+    "eyebrow": "Servicios",
+    "h1Before": "Todo lo que necesitas para tapicería,",
+    "h1Accent": "en un solo proveedor",
+    "h1After": ".",
+    "lead": "Desde el corte de espuma a volumen hasta el reparto a cualquier isla. Llevamos más de 30 años de experiencia en el sector para que tú puedas centrarte en tu oficio.",
+    "starServiceEyebrow": "Servicio estrella",
+    "starServiceHeading": "Corte de espuma a medida",
+    "starServiceBody": "Cortamos gomaespuma a cualquier medida, en múltiples densidades y grosores. Incluido a volumen (m³) — una capacidad que muy pocos distribuidores en Baleares pueden ofrecer. Talleres, fabricantes de muebles, empresas náuticas y proyectos de hostelería confían en nosotros para sus pedidos de espuma personalizados.",
+    "starServiceNote": "Incluso otros distribuidores que ofrecen corte de espuma nos compran a nosotros para cubrir sus pedidos.",
+    "starServiceCtaContact": "Solicitar presupuesto",
+    "starServiceCtaProducts": "Ver gama de espumas",
+    "materialsHeading": "Materiales y suministros",
+    "ctaContact": "Contactar",
+    "ctaQuestion": "¿Tienes un proyecto? Cuéntanos qué necesitas y te asesoramos sin compromiso.",
+    "services": [
+      { "name": "Telas para tapicería", "text": "Amplia variedad de texturas, colores y estilos — desde opciones durables para muebles de alta rotación hasta tejidos elegantes para proyectos de interiorismo. Disponibles por metro lineal (metraje) o rollo completo (pieza)." },
+      { "name": "Polipieles y PVC", "text": "Excelente alternativa al cuero natural con acabados variados, fácil limpieza y alta durabilidad. El PVC es ideal para exteriores: resistente al agua, moho y rayos UV. Disponibles en múltiples colores para tapicería de muebles, vehículos y embarcaciones." },
+      { "name": "Accesorios y suministros", "text": "Todo lo que el taller necesita: tachas, adhesivos, cinchas, velcros, hilos, grapas, argollas, rieles y sistemas de sujeción para cortinas. Materiales náuticos especializados para proyectos de embarcaciones." },
+      { "imageId": "servicios-reparto", "name": "Reparto a todas las islas", "text": "Servicio de distribución diario a Mallorca, Menorca, Ibiza y Formentera. Entrega eficiente y en condiciones óptimas para que el taller nunca pare de trabajar." }
+    ]
+  },
+  "productos": {
+    "title": "Productos — D.TEX Mallorca",
+    "description": "Catálogo de materiales para tapicería profesional: espuma a medida, telas, polipieles, PVC, fibras y accesorios. Distribución a todas las Islas Baleares.",
+    "eyebrow": "Catálogo",
+    "h1Before": "Materiales para tapicería profesional,",
+    "h1Accent": "todo en un solo lugar",
+    "h1After": ".",
+    "lead": "Desde espuma a medida hasta los accesorios más específicos. Suministramos a talleres de tapicería, fabricantes de muebles, empresas náuticas y proyectos de hostelería en toda Baleares.",
+    "clientAreaNote": "Los precios y disponibilidad están disponibles en el",
+    "clientAreaLabel": "Área de Clientes",
+    "clientAreaNote2": "(acceso restringido a clientes autorizados).",
+    "ctaClientHeading": "¿Eres cliente de D.TEX?",
+    "ctaClientBody": "Accede al Área de Clientes para consultar precios y disponibilidad.",
+    "ctaRequestAccess": "Solicitar acceso",
+    "categories": [
+      {
+        "imageId": "productos-espuma",
+        "name": "Espuma a medida",
+        "description": "Gomaespuma de alta calidad en diferentes densidades y grosores, cortada a medida para cada pedido. Disponible a volumen (m³) para proyectos de gran escala.",
+        "highlights": ["Múltiples densidades (blanda, media, alta)", "Corte a medida en cualquier formato", "Corte a volumen (m³)", "Para tapicería, colchonería, náutica y contract"]
+      },
+      {
+        "imageId": "productos-telas",
+        "name": "Telas",
+        "description": "Amplia variedad de estilos, colores y texturas para adaptarse a cualquier proyecto. Desde telas durables para muebles de alta rotación hasta elegantes acabados para interiorismo.",
+        "highlights": ["Venta por metro lineal (metraje) o rollo completo (pieza)", "Múltiples colecciones y acabados", "Opciones para interior y exterior", "Adecuadas para muebles, hostelería y náutica"]
+      },
+      {
+        "imageId": "productos-polipieles",
+        "name": "Polipieles",
+        "description": "Excelente alternativa al cuero natural, con acabados variados, fácil limpieza y alta durabilidad. Ideales para muebles de salón, tapicería de vehículos y embarcaciones.",
+        "highlights": ["Gran variedad de colores y acabados", "Fácil mantenimiento y limpieza", "Alta durabilidad", "Adecuadas para uso intensivo"]
+      },
+      {
+        "name": "PVC",
+        "description": "Material de alta calidad especialmente indicado para exteriores y entorns húmedos. Resistente al agua, moho y rayos UV.",
+        "highlights": ["Resistente al agua y a la intemperie", "Protección UV", "Múltiples colores y diseños", "Ideal para muebles de exterior y náutica"]
+      },
+      {
+        "name": "Fibras y rellenos",
+        "description": "Rellenos y materiales complementarios para proyectos de tapicería: fibra de poliéster, vatelina, guata y otros materiales de refuerzo y confort.",
+        "highlights": ["Fibra de poliéster", "Vatelina y guata", "Materiales de refuerzo", "Complementos para espumas"]
+      },
+      {
+        "name": "Accesorios",
+        "description": "Todo lo necesario para el taller: sistemas de sujeción, herrajes, materiales de acabado y componentes especializados para náutica.",
+        "highlights": ["Tachas, grapas y adhesivos", "Cinchas y velcros", "Hilos para tapicería", "Argollas, rieles y sistemas para cortinas", "Materiales náuticos especializados"]
+      }
+    ]
+  },
+  "contacto": {
+    "title": "Contacto — D.TEX Mallorca",
+    "description": "Contacta con D.TEX Mallorca. C/ 4 de Noviembre Nº4, Polígono Industrial Can Valero, Palma. Tel: +34 971 25 41 27. Lunes a viernes, 7:00–14:00h.",
+    "eyebrow": "Contacto",
+    "h1": "Estamos aquí para ayudarte.",
+    "lead": "Para pedidos, consultas técnicas o solicitudes de acceso al Área de Clientes, llámanos o escríbenos.",
+    "detailsHeading": "Datos de contacto",
+    "addressLabel": "Dirección",
+    "phoneLabel": "Teléfono",
+    "emailLabel": "Email",
+    "hoursLabel": "Horario",
+    "mapLabel": "Mapa",
+    "mapNote": "Polígono Industrial Can Valero, Palma",
+    "mapLink": "Abrir en Google Maps →",
+    "formHeading": "Envíanos un mensaje",
+    "formNote": "Formulario de contacto — próximamente disponible.",
+    "formNameLabel": "Nombre",
+    "formEmailLabel": "Email",
+    "formMessageLabel": "Mensaje",
+    "formPrivacy": "Responsable del tratamiento: RIBOT FUSTER, S.L. (D.TEX MALLORCA). Los datos se tratarán para gestionar su consulta conforme a nuestra política de privacidad.",
+    "hours": "Lun – Vie: 7:00 a 14:00h"
+  }
+}
