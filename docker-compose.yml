@@ -1,0 +1,18 @@
+# Local development database. Production uses a managed Postgres (Neon / Vercel Postgres)
+# via DATABASE_URL — see ADR-0007. Start with: docker compose up -d
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: ditex-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ditex
+    ports:
+      - "5432:5432"
+    volumes:
+      - ditex_pg:/var/lib/postgresql/data
+
+volumes:
+  ditex_pg:
