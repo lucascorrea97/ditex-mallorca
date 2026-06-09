@@ -64,8 +64,9 @@ done and signed off. (ADR-0005, ADR-0013)
 > first, then layer A3/self-service — is the #1 revisit candidate. (ADR-0013)
 
 ### Build milestones (all pre-launch)
-- **M1 — Foundation:** foam-led public site + full public Catalogue (PDF-seeded) + structured
-  data + i18n + analytics instrumentation + first batch of foam/application content.
+- **M1 — Foundation:** design system + content-complete baseline (all current-site content/images
+  ported onto a better, foam-led design — ADR-0014) → then foam-led public site + full public
+  Catalogue (PDF-seeded) + structured data + i18n + analytics + first batch of foam/application content.
 - **M2 — Client Area:** Auth.js login, prices (both island columns), hybrid search/browse,
   auto-generated PDF, simple custom admin for price/content edits.
 - **M3 — A3 Connector:** A3 becomes source of truth for catalogue/prices/stock.
