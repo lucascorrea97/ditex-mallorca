@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "@/app/globals.css";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
@@ -38,6 +40,8 @@ export default async function LocaleLayout({
         <Header locale={lang} dict={dict} />
         <main className="flex-1">{children}</main>
         <Footer locale={lang} dict={dict} />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
