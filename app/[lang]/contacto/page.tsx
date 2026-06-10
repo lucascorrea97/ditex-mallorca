@@ -1,30 +1,44 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/container";
 import { business } from "@/lib/site";
+import { getDictionary, hasLocale } from "@/lib/i18n";
 
-export const metadata: Metadata = {
-  title: "Contacto — D.TEX Mallorca",
-  description:
-    "Contacta con D.TEX Mallorca. C/ 4 de Noviembre Nº4, Polígono Industrial Can Valero, Palma. Tel: +34 971 25 41 27. Lunes a viernes, 7:00–14:00h.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  if (!hasLocale(lang)) return {};
+  const dict = await getDictionary(lang);
+  return { title: dict.contacto.title, description: dict.contacto.description };
+}
 
-const a = business.address;
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+  if (!hasLocale(lang)) notFound();
+  const dict = await getDictionary(lang);
+  const d = dict.contacto;
+  const a = business.address;
 
-export default function Page() {
   return (
     <>
       {/* Intro */}
       <section className="border-b border-stone-200 bg-stone-50">
         <Container className="py-20 sm:py-24">
           <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-stone-400">
-            Contacto
+            {d.eyebrow}
           </p>
           <h1 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-            Estamos aquí para ayudarte.
+            {d.h1}
           </h1>
           <p className="mt-5 max-w-lg text-lg leading-relaxed text-stone-600">
-            Para pedidos, consultas técnicas o solicitudes de acceso al Área de Clientes,
-            llámanos o escríbenos.
+            {d.lead}
           </p>
         </Container>
       </section>
@@ -34,7 +48,7 @@ export default function Page() {
 
           {/* Contact details */}
           <div>
-            <h2 className="text-xl font-semibold tracking-tight">Datos de contacto</h2>
+            <h2 className="text-xl font-semibold tracking-tight">{d.detailsHeading}</h2>
             <address className="mt-8 space-y-6 not-italic">
 
               <div className="flex gap-4">
@@ -46,7 +60,7 @@ export default function Page() {
                 </div>
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
-                    Dirección
+                    {d.addressLabel}
                   </p>
                   <p className="mt-1 text-stone-700">
                     {a.street}
@@ -66,12 +80,9 @@ export default function Page() {
                 </div>
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
-                    Teléfono
+                    {d.phoneLabel}
                   </p>
-                  <a
-                    href={business.phone.href}
-                    className="mt-1 block text-stone-700 hover:text-ink"
-                  >
+                  <a href={business.phone.href} className="mt-1 block text-stone-700 hover:text-ink">
                     {business.phone.display}
                   </a>
                 </div>
@@ -86,7 +97,7 @@ export default function Page() {
                 </div>
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
-                    Email
+                    {d.emailLabel}
                   </p>
                   <a
                     href={`mailto:${business.email}`}
@@ -106,9 +117,9 @@ export default function Page() {
                 </div>
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
-                    Horario
+                    {d.hoursLabel}
                   </p>
-                  <p className="mt-1 text-stone-700">{business.hours}</p>
+                  <p className="mt-1 text-stone-700">{d.hours}</p>
                 </div>
               </div>
             </address>
@@ -116,17 +127,15 @@ export default function Page() {
             {/* Map placeholder */}
             <div className="mt-10 flex h-52 items-center justify-center rounded-2xl border border-stone-200 bg-stone-100">
               <div className="text-center">
-                <p className="text-sm font-medium text-stone-500">Mapa</p>
-                <p className="mt-1 text-xs text-stone-400">
-                  Polígono Industrial Can Valero, Palma
-                </p>
+                <p className="text-sm font-medium text-stone-500">{d.mapLabel}</p>
+                <p className="mt-1 text-xs text-stone-400">{d.mapNote}</p>
                 <a
                   href="https://maps.google.com/?q=C%2F+4+de+Noviembre+N%C2%BA4,+Pol%C3%ADgono+Industrial+Can+Valero,+07014+Palma+de+Mallorca"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-3 inline-block text-xs font-medium text-brand-600 hover:underline"
                 >
-                  Abrir en Google Maps →
+                  {d.mapLink}
                 </a>
               </div>
             </div>
@@ -134,39 +143,33 @@ export default function Page() {
 
           {/* Contact form */}
           <div>
-            <h2 className="text-xl font-semibold tracking-tight">Envíanos un mensaje</h2>
-            <p className="mt-2 text-sm text-stone-500">
-              Formulario de contacto — próximamente disponible.
-            </p>
+            <h2 className="text-xl font-semibold tracking-tight">{d.formHeading}</h2>
+            <p className="mt-2 text-sm text-stone-500">{d.formNote}</p>
 
             {/* Form placeholder */}
             <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 p-8">
               <div className="space-y-5">
                 <div>
                   <label className="block text-sm font-medium text-stone-700">
-                    Nombre
+                    {d.formNameLabel}
                   </label>
                   <div className="mt-1.5 h-11 rounded-lg border border-stone-300 bg-white" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-stone-700">
-                    Email
+                    {d.formEmailLabel}
                   </label>
                   <div className="mt-1.5 h-11 rounded-lg border border-stone-300 bg-white" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-stone-700">
-                    Mensaje
+                    {d.formMessageLabel}
                   </label>
                   <div className="mt-1.5 h-28 rounded-lg border border-stone-300 bg-white" />
                 </div>
                 <div className="h-11 rounded-full bg-stone-200" />
               </div>
-              <p className="mt-5 text-xs text-stone-400">
-                Responsable del tratamiento: RIBOT FUSTER, S.L. (D.TEX MALLORCA). Los
-                datos se tratarán para gestionar su consulta conforme a nuestra política
-                de privacidad.
-              </p>
+              <p className="mt-5 text-xs text-stone-400">{d.formPrivacy}</p>
             </div>
           </div>
         </div>
