@@ -15,6 +15,7 @@ Balearics**.
 | [PLAN.md](./PLAN.md) | The whole plan on one page — vision, architecture, launch model, milestones, open questions. |
 | [CONTEXT.md](./CONTEXT.md) | The domain glossary — the shared language for this project. Read before naming anything. |
 | [docs/adr/](./docs/adr/) | The decision log — *why* every choice was made. Index below. |
+| [docs/business/](./docs/business/) | How the business actually operates (AS-IS processes) + the automation-opportunity map. |
 
 ## Decisions (ADRs)
 
