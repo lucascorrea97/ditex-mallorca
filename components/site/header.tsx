@@ -34,6 +34,12 @@ export function Header({ locale, dict }: HeaderProps) {
 
         <div className="hidden items-center gap-4 md:flex">
           <LanguageSwitcher locale={locale} />
+          <Link
+            href={localePath(locale, "/area-clientes")}
+            className="inline-flex h-9 items-center rounded-full border border-brand-600 px-4 text-sm font-medium text-brand-600 transition-colors hover:bg-brand-50"
+          >
+            {dict.nav.areaClientes}
+          </Link>
           <Button href={business.phone.href} variant="outline">
             {business.phone.display}
           </Button>
@@ -57,6 +63,12 @@ export function Header({ locale, dict }: HeaderProps) {
                 {dict.nav[item.key as NavKey]}
               </Link>
             ))}
+            <Link
+              href={localePath(locale, "/area-clientes")}
+              className="mt-1 block rounded-lg border border-brand-600 px-3 py-2.5 text-center text-sm font-medium text-brand-600 hover:bg-brand-50"
+            >
+              {dict.nav.areaClientes}
+            </Link>
             <a
               href={business.phone.href}
               className="mt-1 block rounded-lg bg-brand-600 px-3 py-2.5 text-center text-sm font-medium text-white"
