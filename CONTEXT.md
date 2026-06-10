@@ -15,8 +15,12 @@ A professional buyer of Ditex (an upholsterer, boat-fitter, hotel/contract furni
 _Avoid_: customer, user, buyer
 
 **Foam cutting** (corte de espuma a medida):
-Ditex's signature capability: cutting foam (gomaespuma) to exact specification, including to volume (m³) and high densities. The basis of their wholesale authority — even other foam-cutters buy from Ditex. Treated as the hero of the brand, not just a product line.
+Ditex's signature capability: cutting foam (gomaespuma) to exact specification, including to volume (m³) and high densities. The basis of their wholesale authority — even other foam-cutters buy from Ditex. **65% of all sales involve a cut; 95% of cuts are made-to-order** (80–100 cut orders/day). Treated as the hero of the brand, not just a product line.
 _Avoid_: foam service, cushion cutting
+
+**Cut order** (orden de corte):
+The instruction the cutting team works from: client, foam grade, units, measures, client reference, date. Today it is a **paper** note with no unique identifier — the cut piece is labelled by writing the client's name on it in marker. Digitising this (unique IDs, standard sheet, second check) is a key automation opportunity (see docs/business/).
+_Avoid_: cut ticket, work order
 
 **Trade segments**:
 The professional buyer groups the site targets, in priority order: (1) **local upholstery trade** — sole traders, workshops, furniture-makers (the core, defend it); (2) **marine / nautical** — yacht refit and boat upholstery (higher value, international-leaning, growth wedge); (3) **contract / hospitality** — hotels, restaurants, holiday rentals. Retail individuals are out of focus.
@@ -39,7 +43,7 @@ The two ways a fabric is priced and sold: **Metraje** = price per linear metre (
 _Avoid_: unit price, bulk price
 
 **Mallorca / Men-Ibz pricing**:
-The two-column island pricing on Material items. **Mallorca** = local price; **Men-Ibz** (Menorca / Ibiza) = the higher price reflecting inter-island shipping. Some items read CONSULTA (price on request) for the second column.
+The two-column island pricing on Material items. **Mallorca** = local price (delivered by Ditex's own two vans); **Men-Ibz** (Menorca / Ibiza) = the higher price reflecting the **external carrier** used for inter-island shipping. Some items read CONSULTA (price on request) for the second column.
 _Avoid_: zone pricing, regional pricing
 
 **Catalogue**:
