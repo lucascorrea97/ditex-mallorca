@@ -229,7 +229,16 @@
       "pvc": "Material resistente al agua, moho y rayos UV. Ideal para exteriores y náutica.",
       "material": "Rellenos, fibras y materiales complementarios para proyectos de tapicería.",
       "accessory": "Todo lo que el taller necesita: tachas, velcros, hilos, grapas y más."
-    }
+    },
+    "searchHeading": "Buscar en el catálogo",
+    "searchPlaceholder": "Buscar por nombre o aplicación...",
+    "searchLabel": "Buscar en el catálogo",
+    "searchButton": "Buscar",
+    "searchResultSingular": "resultado para",
+    "searchResultPlural": "resultados para",
+    "searchNoResults": "Sin resultados para",
+    "searchNoResultsBody": "Prueba con otro término o explora las categorías.",
+    "viewProduct": "Ver →"
   },
   "contacto": {
     "title": "Contacto — D.TEX Mallorca",

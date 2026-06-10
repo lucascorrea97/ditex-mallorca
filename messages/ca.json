@@ -229,7 +229,16 @@
       "pvc": "Material resistent a l'aigua, la humitat i els raigs UV. Ideal per a exteriors i nàutica.",
       "material": "Farcits, fibres i materials complementaris per a projectes de tapisseria.",
       "accessory": "Tot el que el taller necessita: tatxes, velcros, fils, grapes i més."
-    }
+    },
+    "searchHeading": "Cercar al catàleg",
+    "searchPlaceholder": "Cercar per nom o aplicació...",
+    "searchLabel": "Cercar al catàleg",
+    "searchButton": "Cercar",
+    "searchResultSingular": "resultat per a",
+    "searchResultPlural": "resultats per a",
+    "searchNoResults": "Sense resultats per a",
+    "searchNoResultsBody": "Prova amb un altre terme o explora les categories.",
+    "viewProduct": "Veure →"
   },
   "contacto": {
     "title": "Contacte — D.TEX Mallorca",
