@@ -155,6 +155,28 @@
       }
     ]
   },
+  "areaClientes": {
+    "title": "Client Area — D.TEX Mallorca",
+    "description": "Access the D.TEX Mallorca Client Area to check prices and availability.",
+    "eyebrow": "Client Area",
+    "h1": "Welcome to the Client Area",
+    "lead": "From here you can view the up-to-date price list.",
+    "comingSoon": "The price list will be available in this section soon.",
+    "logoutLabel": "Sign out"
+  },
+  "acceder": {
+    "title": "Sign in — D.TEX Mallorca Client Area",
+    "description": "Enter your password to access the D.TEX Mallorca Client Area.",
+    "eyebrow": "Client Area",
+    "h1": "Access the Client Area",
+    "lead": "Enter the password we provided to view the up-to-date price list.",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Access password",
+    "submitLabel": "Sign in",
+    "errorInvalid": "Incorrect password. Contact us if you need access.",
+    "requestAccessLabel": "Don't have access yet?",
+    "requestAccessCta": "Request access"
+  },
   "catalogo": {
     "title": "Catalogue — D.TEX Mallorca",
     "description": "Catalogue of custom foam, fabrics, faux leather, PVC and accessories for professional upholstery in Mallorca and the Balearic Islands.",

@@ -155,6 +155,28 @@
       }
     ]
   },
+  "areaClientes": {
+    "title": "Àrea de Clients — D.TEX Mallorca",
+    "description": "Accedeix a l'Àrea de Clients de D.TEX Mallorca per consultar preus i disponibilitat.",
+    "eyebrow": "Àrea de Clients",
+    "h1": "Benvingut a l'Àrea de Clients",
+    "lead": "Des d'aquí podràs consultar la tarifa de preus actualitzada.",
+    "comingSoon": "La tarifa de preus estarà disponible en aquesta secció properament.",
+    "logoutLabel": "Tancar sessió"
+  },
+  "acceder": {
+    "title": "Accedir — Àrea de Clients D.TEX Mallorca",
+    "description": "Introdueix la teva contrasenya per accedir a l'Àrea de Clients de D.TEX Mallorca.",
+    "eyebrow": "Àrea de Clients",
+    "h1": "Accedeix a l'Àrea de Clients",
+    "lead": "Introdueix la contrasenya que t'hem facilitat per consultar els preus actualitzats.",
+    "passwordLabel": "Contrasenya",
+    "passwordPlaceholder": "Contrasenya d'accés",
+    "submitLabel": "Entrar",
+    "errorInvalid": "Contrasenya incorrecta. Contacta amb nosaltres si no tens accés.",
+    "requestAccessLabel": "Encara no tens accés?",
+    "requestAccessCta": "Sol·licitar accés"
+  },
   "catalogo": {
     "title": "Catàleg — D.TEX Mallorca",
     "description": "Catàleg d'escuma a mida, teixits, similcuirs, PVC i accessoris per a tapisseria professional a Mallorca i Balears.",

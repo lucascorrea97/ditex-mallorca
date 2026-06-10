@@ -155,6 +155,28 @@
       }
     ]
   },
+  "areaClientes": {
+    "title": "Área de Clientes — D.TEX Mallorca",
+    "description": "Accede al Área de Clientes de D.TEX Mallorca para consultar precios y disponibilidad.",
+    "eyebrow": "Área de Clientes",
+    "h1": "Bienvenido al Área de Clientes",
+    "lead": "Desde aquí podrás consultar la tarifa de precios actualizada.",
+    "comingSoon": "La tarifa de precios estará disponible en esta sección próximamente.",
+    "logoutLabel": "Cerrar sesión"
+  },
+  "acceder": {
+    "title": "Acceder — Área de Clientes D.TEX Mallorca",
+    "description": "Introduce tu contraseña para acceder al Área de Clientes de D.TEX Mallorca.",
+    "eyebrow": "Área de Clientes",
+    "h1": "Accede al Área de Clientes",
+    "lead": "Introduce la contraseña que te hemos facilitado para consultar los precios actualizados.",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Contraseña de acceso",
+    "submitLabel": "Entrar",
+    "errorInvalid": "Contraseña incorrecta. Contacta con nosotros si no tienes acceso.",
+    "requestAccessLabel": "¿Aún no tienes acceso?",
+    "requestAccessCta": "Solicitar acceso"
+  },
   "catalogo": {
     "title": "Catálogo — D.TEX Mallorca",
     "description": "Catálogo de espuma a medida, telas, polipieles, PVC y accesorios para tapicería profesional en Mallorca y Baleares.",
