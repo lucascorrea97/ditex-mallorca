@@ -30,31 +30,31 @@ export default async function Page({
     <>
       {/* Intro */}
       <section className="border-b border-stone-200 bg-stone-50">
-        <Container className="py-20 sm:py-28">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-stone-400">
+        <Container className="py-hero sm:py-hero-sm">
+          <p className="mb-4 type-eyebrow text-stone-400">
             {d.eyebrow}
           </p>
-          <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+          <h1 className="max-w-3xl type-h1">
             {d.h1Before}{" "}
             <span className="text-brand-600">{d.h1Accent}</span>
             {d.h1After}
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-stone-600">
+          <p className="mt-6 max-w-xl type-lead text-stone-600">
             {d.lead}
           </p>
         </Container>
       </section>
 
       {/* Featured: foam cutting */}
-      <Container className="py-20">
+      <Container className="py-section-lg">
         <div className="rounded-3xl border border-brand-200 bg-brand-50 p-8 sm:p-12">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-brand-600">
+          <p className="mb-3 type-eyebrow text-brand-600">
             {d.starServiceEyebrow}
           </p>
-          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+          <h2 className="type-h2-featured">
             {d.starServiceHeading}
           </h2>
-          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-stone-700">
+          <p className="mt-5 max-w-2xl type-lead text-stone-700">
             {d.starServiceBody}
           </p>
           <p className="mt-4 text-sm font-medium text-brand-700">
@@ -78,8 +78,8 @@ export default async function Page({
 
       {/* Other services */}
       <section className="border-y border-stone-200 bg-stone-50">
-        <Container className="py-16">
-          <h2 className="text-2xl font-semibold tracking-tight">{d.materialsHeading}</h2>
+        <Container className="py-section">
+          <h2 className="type-h2">{d.materialsHeading}</h2>
           <div className="mt-8 grid gap-6 sm:grid-cols-2">
             {d.services.map((s) => (
               <div
@@ -104,8 +104,8 @@ export default async function Page({
       </section>
 
       {/* CTA */}
-      <Container className="py-20">
-        <p className="mx-auto max-w-2xl text-center text-2xl font-medium leading-snug sm:text-3xl">
+      <Container className="py-section-lg">
+        <p className="mx-auto max-w-2xl text-center type-trust">
           {d.ctaQuestion}
         </p>
         <div className="mt-10 flex justify-center gap-4">

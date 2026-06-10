@@ -26,7 +26,7 @@ export function Footer({ locale, dict }: FooterProps) {
         </div>
 
         <div>
-          <h3 className="text-xs font-semibold uppercase tracking-widest text-stone-400">
+          <h3 className="type-eyebrow text-stone-400">
             {dict.footer.navHeading}
           </h3>
           <ul className="mt-4 space-y-2.5">
@@ -44,7 +44,7 @@ export function Footer({ locale, dict }: FooterProps) {
         </div>
 
         <div>
-          <h3 className="text-xs font-semibold uppercase tracking-widest text-stone-400">
+          <h3 className="type-eyebrow text-stone-400">
             {dict.footer.contactHeading}
           </h3>
           <address className="mt-4 space-y-2.5 text-sm not-italic text-stone-600">

@@ -30,25 +30,25 @@ export default async function Page({
     <>
       {/* Intro */}
       <section className="border-b border-stone-200 bg-stone-50">
-        <Container className="py-20 sm:py-24">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-stone-400">
+        <Container className="py-hero sm:py-hero-sm">
+          <p className="mb-4 type-eyebrow text-stone-400">
             {d.eyebrow}
           </p>
-          <h1 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+          <h1 className="max-w-2xl type-h1">
             {d.h1}
           </h1>
-          <p className="mt-5 max-w-lg text-lg leading-relaxed text-stone-600">
+          <p className="mt-5 max-w-lg type-lead text-stone-600">
             {d.lead}
           </p>
         </Container>
       </section>
 
-      <Container className="py-20">
+      <Container className="py-section-lg">
         <div className="grid gap-14 lg:grid-cols-2 lg:gap-20">
 
           {/* Contact details */}
           <div>
-            <h2 className="text-xl font-semibold tracking-tight">{d.detailsHeading}</h2>
+            <h2 className="type-h2-minor">{d.detailsHeading}</h2>
             <address className="mt-8 space-y-6 not-italic">
 
               <div className="flex gap-4">
@@ -59,7 +59,7 @@ export default async function Page({
                   </svg>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
+                  <p className="type-eyebrow text-stone-400">
                     {d.addressLabel}
                   </p>
                   <p className="mt-1 text-stone-700">
@@ -79,7 +79,7 @@ export default async function Page({
                   </svg>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
+                  <p className="type-eyebrow text-stone-400">
                     {d.phoneLabel}
                   </p>
                   <a href={business.phone.href} className="mt-1 block text-stone-700 hover:text-ink">
@@ -96,7 +96,7 @@ export default async function Page({
                   </svg>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
+                  <p className="type-eyebrow text-stone-400">
                     {d.emailLabel}
                   </p>
                   <a
@@ -116,7 +116,7 @@ export default async function Page({
                   </svg>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
+                  <p className="type-eyebrow text-stone-400">
                     {d.hoursLabel}
                   </p>
                   <p className="mt-1 text-stone-700">{d.hours}</p>
@@ -143,7 +143,7 @@ export default async function Page({
 
           {/* Contact form */}
           <div>
-            <h2 className="text-xl font-semibold tracking-tight">{d.formHeading}</h2>
+            <h2 className="type-h2-minor">{d.formHeading}</h2>
             <p className="mt-2 text-sm text-stone-500">{d.formNote}</p>
 
             {/* Form placeholder */}
