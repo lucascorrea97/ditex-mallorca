@@ -117,6 +117,7 @@
     "clientAreaNote2": "(restricted access for authorised clients).",
     "ctaClientHeading": "Are you a D.TEX client?",
     "ctaClientBody": "Access the Client Area to check prices and availability.",
+    "ctaBrowseCatalogue": "Browse catalogue",
     "ctaRequestAccess": "Request access",
     "categories": [
       {
@@ -153,6 +154,59 @@
         "highlights": ["Tacks, staples and adhesives", "Webbing and velcro", "Upholstery threads", "Rings, rails and curtain systems", "Specialist marine materials"]
       }
     ]
+  },
+  "catalogo": {
+    "title": "Catalogue — D.TEX Mallorca",
+    "description": "Catalogue of custom foam, fabrics, faux leather, PVC and accessories for professional upholstery in Mallorca and the Balearic Islands.",
+    "eyebrow": "Catalogue",
+    "h1Before": "Foam and upholstery materials,",
+    "h1Accent": "all in one catalogue",
+    "h1After": ".",
+    "lead": "Custom-cut foam — our unique specialty in the Balearics — and the complete range of professional upholstery materials.",
+    "pricesNote": "Prices are available in the",
+    "clientAreaLabel": "Client Area",
+    "pricesNote2": "for authorised clients.",
+    "clientAreaCta": "Are you a D.TEX client?",
+    "requestAccess": "Request access",
+    "products": "products",
+    "viewAll": "View all",
+    "backToCatalogue": "Catalogue",
+    "backToCategory": "Back",
+    "stockNoteLabel": "Availability",
+    "deliveryTermsLabel": "Delivery terms",
+    "widthLabel": "Width",
+    "codeLabel": "Code",
+    "noProducts": "No products available yet.",
+    "collectionProducts": "Products in this collection",
+    "availableAs": "Available per",
+    "onRequest": "Price on request",
+    "contactCta": "Request a quote",
+    "collectionLabel": "Collection",
+    "categoryLabel": "Category",
+    "saleUnits": {
+      "metro": "linear metre",
+      "pieza": "piece (full roll)",
+      "kg": "kg",
+      "metro_lineal": "linear metre",
+      "unidad": "unit",
+      "m3": "m³"
+    },
+    "categoryNames": {
+      "foam": "Custom foam",
+      "fabric": "Fabrics",
+      "polipiel": "Faux leather",
+      "pvc": "PVC",
+      "material": "Material",
+      "accessory": "Accessories"
+    },
+    "categoryDescriptions": {
+      "foam": "We cut foam to any size, including by volume (m³). A unique capability in the Balearics.",
+      "fabric": "Upholstery fabrics in multiple collections, colours and textures. By the metre or roll.",
+      "polipiel": "Excellent alternative to natural leather with varied finishes and high durability.",
+      "pvc": "Material resistant to water, moisture and UV rays. Ideal for outdoor and marine use.",
+      "material": "Fillings, fibres and complementary materials for upholstery projects.",
+      "accessory": "Everything the workshop needs: tacks, velcro, threads, staples and more."
+    }
   },
   "contacto": {
     "title": "Contact — D.TEX Mallorca",
