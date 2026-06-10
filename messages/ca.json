@@ -118,6 +118,7 @@
     "clientAreaNote2": "(accés restringit a clients autoritzats).",
     "ctaClientHeading": "Ets client de D.TEX?",
     "ctaClientBody": "Accedeix a l'Àrea de Clients per consultar preus i disponibilitat.",
+    "ctaBrowseCatalogue": "Explorar catàleg",
     "ctaRequestAccess": "Sol·licitar accés",
     "categories": [
       {
@@ -154,6 +155,81 @@
         "highlights": ["Tatxes, grapes i adhesius", "Cinches i velcros", "Fils per a tapisseria", "Argolles, rails i sistemes per a cortines", "Materials nàutics especialitzats"]
       }
     ]
+  },
+  "areaClientes": {
+    "title": "Àrea de Clients — D.TEX Mallorca",
+    "description": "Accedeix a l'Àrea de Clients de D.TEX Mallorca per consultar preus i disponibilitat.",
+    "eyebrow": "Àrea de Clients",
+    "h1": "Benvingut a l'Àrea de Clients",
+    "lead": "Des d'aquí podràs consultar la tarifa de preus actualitzada.",
+    "comingSoon": "La tarifa de preus estarà disponible en aquesta secció properament.",
+    "logoutLabel": "Tancar sessió"
+  },
+  "acceder": {
+    "title": "Accedir — Àrea de Clients D.TEX Mallorca",
+    "description": "Introdueix la teva contrasenya per accedir a l'Àrea de Clients de D.TEX Mallorca.",
+    "eyebrow": "Àrea de Clients",
+    "h1": "Accedeix a l'Àrea de Clients",
+    "lead": "Introdueix la contrasenya que t'hem facilitat per consultar els preus actualitzats.",
+    "passwordLabel": "Contrasenya",
+    "passwordPlaceholder": "Contrasenya d'accés",
+    "submitLabel": "Entrar",
+    "errorInvalid": "Contrasenya incorrecta. Contacta amb nosaltres si no tens accés.",
+    "requestAccessLabel": "Encara no tens accés?",
+    "requestAccessCta": "Sol·licitar accés"
+  },
+  "catalogo": {
+    "title": "Catàleg — D.TEX Mallorca",
+    "description": "Catàleg d'escuma a mida, teixits, similcuirs, PVC i accessoris per a tapisseria professional a Mallorca i Balears.",
+    "eyebrow": "Catàleg",
+    "h1Before": "Escuma i materials per a tapisseria,",
+    "h1Accent": "tot en un catàleg",
+    "h1After": ".",
+    "lead": "Escuma tallada a mida — la nostra especialitat única a Balears — i la gamma completa de materials per a tapisseria professional.",
+    "pricesNote": "Els preus estan disponibles a l'",
+    "clientAreaLabel": "Àrea de Clients",
+    "pricesNote2": "per a clients autoritzats.",
+    "clientAreaCta": "Ets client de D.TEX?",
+    "requestAccess": "Sol·licitar accés",
+    "products": "productes",
+    "viewAll": "Veure tots",
+    "backToCatalogue": "Catàleg",
+    "backToCategory": "Tornar",
+    "stockNoteLabel": "Disponibilitat",
+    "deliveryTermsLabel": "Terminis d'entrega",
+    "widthLabel": "Amplada",
+    "codeLabel": "Codi",
+    "noProducts": "Sense productes disponibles encara.",
+    "collectionProducts": "Productes d'aquesta col·lecció",
+    "availableAs": "Disponible per",
+    "onRequest": "Preu a consultar",
+    "contactCta": "Sol·licitar pressupost",
+    "collectionLabel": "Col·lecció",
+    "categoryLabel": "Categoria",
+    "saleUnits": {
+      "metro": "metre lineal",
+      "pieza": "peça (rotllo)",
+      "kg": "kg",
+      "metro_lineal": "metre lineal",
+      "unidad": "unitat",
+      "m3": "m³"
+    },
+    "categoryNames": {
+      "foam": "Escuma a mida",
+      "fabric": "Teixits",
+      "polipiel": "Similcuirs",
+      "pvc": "PVC",
+      "material": "Material",
+      "accessory": "Accessoris"
+    },
+    "categoryDescriptions": {
+      "foam": "Tallem gomaespuma a qualsevol mida, fins i tot a volum (m³). Capacitat única a Balears.",
+      "fabric": "Teixits per a tapisseria en múltiples col·leccions, colors i textures. Per metre o peça.",
+      "polipiel": "Excel·lent alternativa al cuir natural amb acabats variats i alta durabilitat.",
+      "pvc": "Material resistent a l'aigua, la humitat i els raigs UV. Ideal per a exteriors i nàutica.",
+      "material": "Farcits, fibres i materials complementaris per a projectes de tapisseria.",
+      "accessory": "Tot el que el taller necessita: tatxes, velcros, fils, grapes i més."
+    }
   },
   "contacto": {
     "title": "Contacte — D.TEX Mallorca",

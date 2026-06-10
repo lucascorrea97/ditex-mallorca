@@ -118,6 +118,7 @@
     "clientAreaNote2": "(acceso restringido a clientes autorizados).",
     "ctaClientHeading": "¿Eres cliente de D.TEX?",
     "ctaClientBody": "Accede al Área de Clientes para consultar precios y disponibilidad.",
+    "ctaBrowseCatalogue": "Explorar catálogo",
     "ctaRequestAccess": "Solicitar acceso",
     "categories": [
       {
@@ -154,6 +155,81 @@
         "highlights": ["Tachas, grapas y adhesivos", "Cinchas y velcros", "Hilos para tapicería", "Argollas, rieles y sistemas para cortinas", "Materiales náuticos especializados"]
       }
     ]
+  },
+  "areaClientes": {
+    "title": "Área de Clientes — D.TEX Mallorca",
+    "description": "Accede al Área de Clientes de D.TEX Mallorca para consultar precios y disponibilidad.",
+    "eyebrow": "Área de Clientes",
+    "h1": "Bienvenido al Área de Clientes",
+    "lead": "Desde aquí podrás consultar la tarifa de precios actualizada.",
+    "comingSoon": "La tarifa de precios estará disponible en esta sección próximamente.",
+    "logoutLabel": "Cerrar sesión"
+  },
+  "acceder": {
+    "title": "Acceder — Área de Clientes D.TEX Mallorca",
+    "description": "Introduce tu contraseña para acceder al Área de Clientes de D.TEX Mallorca.",
+    "eyebrow": "Área de Clientes",
+    "h1": "Accede al Área de Clientes",
+    "lead": "Introduce la contraseña que te hemos facilitado para consultar los precios actualizados.",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Contraseña de acceso",
+    "submitLabel": "Entrar",
+    "errorInvalid": "Contraseña incorrecta. Contacta con nosotros si no tienes acceso.",
+    "requestAccessLabel": "¿Aún no tienes acceso?",
+    "requestAccessCta": "Solicitar acceso"
+  },
+  "catalogo": {
+    "title": "Catálogo — D.TEX Mallorca",
+    "description": "Catálogo de espuma a medida, telas, polipieles, PVC y accesorios para tapicería profesional en Mallorca y Baleares.",
+    "eyebrow": "Catálogo",
+    "h1Before": "Espuma y materiales para tapicería,",
+    "h1Accent": "todo en un catálogo",
+    "h1After": ".",
+    "lead": "Espuma cortada a medida — nuestra especialidad única en Baleares — y la gama completa de materiales para tapicería profesional.",
+    "pricesNote": "Los precios están disponibles en el",
+    "clientAreaLabel": "Área de Clientes",
+    "pricesNote2": "para clientes autorizados.",
+    "clientAreaCta": "¿Eres cliente de D.TEX?",
+    "requestAccess": "Solicitar acceso",
+    "products": "productos",
+    "viewAll": "Ver todos",
+    "backToCatalogue": "Catálogo",
+    "backToCategory": "Volver",
+    "stockNoteLabel": "Disponibilidad",
+    "deliveryTermsLabel": "Plazos de entrega",
+    "widthLabel": "Ancho",
+    "codeLabel": "Código",
+    "noProducts": "Sin productos disponibles aún.",
+    "collectionProducts": "Productos en esta colección",
+    "availableAs": "Disponible por",
+    "onRequest": "Precio a consultar",
+    "contactCta": "Solicitar presupuesto",
+    "collectionLabel": "Colección",
+    "categoryLabel": "Categoría",
+    "saleUnits": {
+      "metro": "metro lineal",
+      "pieza": "pieza (rollo)",
+      "kg": "kg",
+      "metro_lineal": "metro lineal",
+      "unidad": "unidad",
+      "m3": "m³"
+    },
+    "categoryNames": {
+      "foam": "Espuma a medida",
+      "fabric": "Telas",
+      "polipiel": "Polipieles",
+      "pvc": "PVC",
+      "material": "Material",
+      "accessory": "Accesorios"
+    },
+    "categoryDescriptions": {
+      "foam": "Cortamos gomaespuma a cualquier medida, incluso a volumen (m³). Capacidad única en Baleares.",
+      "fabric": "Telas para tapicería en múltiples colecciones, colores y texturas. Por metro o pieza.",
+      "polipiel": "Excelente alternativa al cuero natural con acabados variados y alta durabilidad.",
+      "pvc": "Material resistente al agua, moho y rayos UV. Ideal para exteriores y náutica.",
+      "material": "Rellenos, fibras y materiales complementarios para proyectos de tapicería.",
+      "accessory": "Todo lo que el taller necesita: tachas, velcros, hilos, grapas y más."
+    }
   },
   "contacto": {
     "title": "Contacto — D.TEX Mallorca",

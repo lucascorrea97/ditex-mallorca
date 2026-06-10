@@ -47,6 +47,11 @@ export default async function Page({
             <strong className="text-stone-700">{d.clientAreaLabel}</strong>{" "}
             {d.clientAreaNote2}
           </p>
+          <div className="mt-8">
+            <Button href={localePath(lang, "/catalogo")}>
+              {d.ctaBrowseCatalogue}
+            </Button>
+          </div>
         </Container>
       </section>
 
