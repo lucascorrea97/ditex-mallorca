@@ -30,15 +30,15 @@ export default async function Home({
     <>
       {/* Hero */}
       <section className="border-b border-stone-200 bg-stone-50">
-        <Container className="py-20 sm:py-28">
-          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium uppercase tracking-widest text-brand-700">
+        <Container className="py-hero sm:py-hero-sm">
+          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 type-eyebrow font-medium text-brand-700">
             {d.badge}
           </p>
-          <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-6xl">
+          <h1 className="max-w-3xl type-h1-hero">
             {d.h1Before} <span className="text-brand-600">{d.h1Accent}</span>{" "}
             {d.h1After}
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-stone-600">
+          <p className="mt-6 max-w-xl type-lead text-stone-600">
             {d.lead}
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
@@ -54,8 +54,8 @@ export default async function Home({
       </section>
 
       {/* Trust signal — the foam moat (ADR-0008) */}
-      <Container className="py-16">
-        <p className="mx-auto max-w-3xl text-center text-2xl font-medium leading-snug sm:text-3xl">
+      <Container className="py-section">
+        <p className="mx-auto max-w-3xl text-center type-trust">
           {d.trustBefore}{" "}
           <span className="text-brand-600">{d.trustAccent}</span>
           {d.trustAfter}
@@ -64,7 +64,7 @@ export default async function Home({
 
       {/* One-stop range */}
       <section className="border-y border-stone-200 bg-stone-50">
-        <Container className="py-16">
+        <Container className="py-section">
           <h2 className="text-sm font-semibold uppercase tracking-widest text-stone-400">
             {d.rangeHeading}
           </h2>
@@ -82,8 +82,8 @@ export default async function Home({
       </section>
 
       {/* Segments */}
-      <Container className="py-16">
-        <h2 className="text-2xl font-semibold tracking-tight">{d.sectorsHeading}</h2>
+      <Container className="py-section">
+        <h2 className="type-h2">{d.sectorsHeading}</h2>
         <div className="mt-8 grid gap-5 sm:grid-cols-3">
           {d.segments.map((s) => (
             <div key={s.title} className="overflow-hidden rounded-2xl border border-stone-200">

@@ -10,12 +10,12 @@ export function PagePlaceholder({
   body: string;
 }) {
   return (
-    <Container className="py-20 sm:py-28">
-      <p className="mb-3 text-xs font-medium uppercase tracking-widest text-stone-400">
+    <Container className="py-hero sm:py-hero-sm">
+      <p className="mb-3 type-eyebrow font-medium text-stone-400">
         {eyebrow}
       </p>
-      <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">{title}</h1>
-      <p className="mt-5 max-w-xl text-lg leading-relaxed text-stone-600">{body}</p>
+      <h1 className="type-h1">{title}</h1>
+      <p className="mt-5 max-w-xl type-lead text-stone-600">{body}</p>
     </Container>
   );
 }

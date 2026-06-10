@@ -30,25 +30,25 @@ export default async function Page({
     <>
       {/* Intro */}
       <section className="border-b border-stone-200 bg-stone-50">
-        <Container className="py-20 sm:py-28">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-stone-400">
+        <Container className="py-hero sm:py-hero-sm">
+          <p className="mb-4 type-eyebrow text-stone-400">
             {d.eyebrow}
           </p>
-          <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+          <h1 className="max-w-3xl type-h1">
             {d.h1}{" "}
             <span className="text-brand-600">{d.h1Accent}</span>.
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-stone-600">
+          <p className="mt-6 max-w-xl type-lead text-stone-600">
             {d.lead}
           </p>
         </Container>
       </section>
 
       {/* Story */}
-      <Container className="py-20">
+      <Container className="py-section-lg">
         <div className="grid gap-14 lg:grid-cols-2 lg:gap-20">
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight">{d.storyHeading}</h2>
+            <h2 className="type-h2">{d.storyHeading}</h2>
             <div className="mt-5 space-y-4 text-stone-600 leading-relaxed">
               <p>{d.storyP1}</p>
               <p>{d.storyP2}</p>
@@ -60,11 +60,11 @@ export default async function Page({
             <ImageSlot id="nosotros-almacen" sizes="(max-width: 1024px) 100vw, 50vw" />
             <div className="grid grid-cols-2 gap-6">
               <div className="rounded-2xl border border-stone-200 bg-stone-50 p-8">
-                <p className="text-4xl font-semibold text-brand-600">{d.stat1Value}</p>
+                <p className="type-stat text-brand-600">{d.stat1Value}</p>
                 <p className="mt-1 text-stone-600">{d.stat1Label}</p>
               </div>
               <div className="rounded-2xl border border-stone-200 bg-stone-50 p-8">
-                <p className="text-4xl font-semibold text-brand-600">{d.stat2Value}</p>
+                <p className="type-stat text-brand-600">{d.stat2Value}</p>
                 <p className="mt-1 text-stone-600">{d.stat2Label}</p>
               </div>
             </div>
@@ -80,8 +80,8 @@ export default async function Page({
 
       {/* Team image */}
       <section className="border-y border-stone-200 bg-stone-50">
-        <Container className="py-16">
-          <h2 className="text-2xl font-semibold tracking-tight">{d.teamHeading}</h2>
+        <Container className="py-section">
+          <h2 className="type-h2">{d.teamHeading}</h2>
           <div className="mt-8 max-w-2xl">
             <ImageSlot id="nosotros-equipo" sizes="(max-width: 768px) 100vw, 672px" />
           </div>
@@ -89,8 +89,8 @@ export default async function Page({
       </section>
 
       {/* Values */}
-      <Container className="py-16">
-        <h2 className="text-2xl font-semibold tracking-tight">{d.valuesHeading}</h2>
+      <Container className="py-section">
+        <h2 className="type-h2">{d.valuesHeading}</h2>
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {d.values.map((v) => (
             <div key={v.name} className="rounded-2xl border border-stone-200 bg-white p-6">
@@ -103,8 +103,8 @@ export default async function Page({
 
       {/* Why us */}
       <section className="border-t border-stone-200 bg-stone-50">
-        <Container className="py-20">
-          <h2 className="text-2xl font-semibold tracking-tight">{d.whyHeading}</h2>
+        <Container className="py-section-lg">
+          <h2 className="type-h2">{d.whyHeading}</h2>
           <ul className="mt-8 space-y-4">
             {d.reasons.map((r) => (
               <li key={r} className="flex items-start gap-3">

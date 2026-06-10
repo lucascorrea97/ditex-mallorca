@@ -15,10 +15,107 @@
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Type scale (#31) — each --dt-* is the single knob for that heading/body step.
+     Font-weight, tracking, and line-height are bundled in the .type-* classes below;
+     only font-size lives here as a retunable value. */
+  --dt-eyebrow:        0.75rem;  /* 12px — uppercase section labels          */
+  --dt-lead:           1.125rem; /* 18px — intro paragraphs                  */
+  --dt-h2-minor:       1.25rem;  /* 20px — sub-section headings              */
+  --dt-h2:             1.5rem;   /* 24px — section headings                  */
+  --dt-h2-featured:    1.875rem; /* 30px — featured call-outs (mobile)       */
+  --dt-h2-featured-sm: 2.25rem;  /* 36px — featured call-outs (sm+)         */
+  --dt-trust:          1.5rem;   /* 24px — trust / CTA statements (mobile)   */
+  --dt-trust-sm:       1.875rem; /* 30px — trust / CTA statements (sm+)      */
+  --dt-stat:           2.25rem;  /* 36px — large numerical stat values       */
+  --dt-h1:             2.25rem;  /* 36px — page hero headings (mobile)       */
+  --dt-h1-sm:          3rem;     /* 48px — page hero headings (sm+)          */
+  --dt-h1-hero-sm:     3.75rem;  /* 60px — home hero heading (sm+)           */
+
+  /* Spacing density (#31) — drives section vertical rhythm.
+     Tailwind generates py-section, py-section-lg, py-hero, sm:py-hero-sm
+     utilities from these; change a token here to retune that tier everywhere. */
+  --spacing-section:    4rem;    /* 64px  — standard section  (was py-16)    */
+  --spacing-section-lg: 5rem;    /* 80px  — relaxed section   (was py-20)    */
+  --spacing-hero:       5rem;    /* 80px  — hero base         (was py-20)    */
+  --spacing-hero-sm:    7rem;    /* 112px — hero sm+          (was sm:py-28) */
 }
 
 body {
   background: #ffffff;
   color: var(--color-ink);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Semantic type scale (#31).
+   Each class bundles the font-size token above with the matching weight,
+   tracking, and line-height — retune the --dt-* token, every consumer updates. */
+@layer components {
+  /* Uppercase section label (e.g. "Nuestros Servicios") */
+  .type-eyebrow {
+    font-size: var(--dt-eyebrow);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Intro / lead paragraph */
+  .type-lead {
+    font-size: var(--dt-lead);
+    line-height: 1.625;
+  }
+
+  /* Page hero H1 — standard pages (sm: 5xl) */
+  .type-h1 {
+    font-size: var(--dt-h1);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    @media (min-width: 640px) { font-size: var(--dt-h1-sm); }
+  }
+
+  /* Page hero H1 — home, larger sm+ bump (sm: 6xl) */
+  .type-h1-hero {
+    font-size: var(--dt-h1);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    @media (min-width: 640px) { font-size: var(--dt-h1-hero-sm); }
+  }
+
+  /* Section H2 — standard */
+  .type-h2 {
+    font-size: var(--dt-h2);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+
+  /* Section H2 — sub-sections, smaller prominence */
+  .type-h2-minor {
+    font-size: var(--dt-h2-minor);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+
+  /* Section H2 — hero call-out blocks (star service, etc.) */
+  .type-h2-featured {
+    font-size: var(--dt-h2-featured);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    @media (min-width: 640px) { font-size: var(--dt-h2-featured-sm); }
+  }
+
+  /* Trust / CTA statement */
+  .type-trust {
+    font-size: var(--dt-trust);
+    font-weight: 500;
+    line-height: 1.375;
+    @media (min-width: 640px) { font-size: var(--dt-trust-sm); }
+  }
+
+  /* Large numerical stat value */
+  .type-stat {
+    font-size: var(--dt-stat);
+    font-weight: 600;
+  }
 }

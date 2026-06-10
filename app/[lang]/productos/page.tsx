@@ -30,16 +30,16 @@ export default async function Page({
     <>
       {/* Intro */}
       <section className="border-b border-stone-200 bg-stone-50">
-        <Container className="py-20 sm:py-28">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-stone-400">
+        <Container className="py-hero sm:py-hero-sm">
+          <p className="mb-4 type-eyebrow text-stone-400">
             {d.eyebrow}
           </p>
-          <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+          <h1 className="max-w-3xl type-h1">
             {d.h1Before}{" "}
             <span className="text-brand-600">{d.h1Accent}</span>
             {d.h1After}
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-stone-600">
+          <p className="mt-6 max-w-xl type-lead text-stone-600">
             {d.lead}
           </p>
           <p className="mt-4 text-sm text-stone-500">
@@ -51,7 +51,7 @@ export default async function Page({
       </section>
 
       {/* Categories */}
-      <Container className="py-20">
+      <Container className="py-section-lg">
         <div className="grid gap-8 lg:grid-cols-2">
           {d.categories.map((cat) => (
             <div
@@ -66,7 +66,7 @@ export default async function Page({
                 />
               )}
               <div className="p-8">
-                <h2 className="text-xl font-semibold tracking-tight">{cat.name}</h2>
+                <h2 className="type-h2-minor">{cat.name}</h2>
                 <p className="mt-3 text-sm leading-relaxed text-stone-600">
                   {cat.description}
                 </p>
@@ -89,10 +89,10 @@ export default async function Page({
 
       {/* CTA */}
       <section className="border-t border-stone-200 bg-stone-50">
-        <Container className="py-16">
+        <Container className="py-section">
           <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2 className="text-xl font-semibold tracking-tight">{d.ctaClientHeading}</h2>
+              <h2 className="type-h2-minor">{d.ctaClientHeading}</h2>
               <p className="mt-2 text-stone-600">{d.ctaClientBody}</p>
             </div>
             <div className="flex shrink-0 flex-wrap gap-3">
