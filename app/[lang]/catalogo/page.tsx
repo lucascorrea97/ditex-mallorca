@@ -64,6 +64,20 @@ export default async function CataloguePage({
             <strong className="text-stone-700">{d.clientAreaLabel}</strong>
             {" "}{d.pricesNote2}
           </p>
+          <form
+            action={localePath(lang, "/catalogo/buscar")}
+            method="GET"
+            className="mt-6 flex gap-3"
+          >
+            <input
+              type="search"
+              name="q"
+              placeholder={d.searchPlaceholder}
+              aria-label={d.searchLabel}
+              className="min-w-0 flex-1 rounded-xl border border-stone-300 bg-white px-4 py-3 text-stone-900 placeholder:text-stone-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+            />
+            <Button variant="primary">{d.searchButton}</Button>
+          </form>
         </Container>
       </section>
 

@@ -229,7 +229,16 @@
       "pvc": "Material resistant to water, moisture and UV rays. Ideal for outdoor and marine use.",
       "material": "Fillings, fibres and complementary materials for upholstery projects.",
       "accessory": "Everything the workshop needs: tacks, velcro, threads, staples and more."
-    }
+    },
+    "searchHeading": "Search the catalogue",
+    "searchPlaceholder": "Search by name or application...",
+    "searchLabel": "Search the catalogue",
+    "searchButton": "Search",
+    "searchResultSingular": "result for",
+    "searchResultPlural": "results for",
+    "searchNoResults": "No results for",
+    "searchNoResultsBody": "Try a different term or browse the categories.",
+    "viewProduct": "View →"
   },
   "contacto": {
     "title": "Contact — D.TEX Mallorca",
