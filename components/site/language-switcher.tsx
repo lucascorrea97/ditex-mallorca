@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { locales, type Locale } from "@/lib/i18n";
 
 const labels: Record<Locale, string> = { es: "ES", ca: "CA", en: "EN" };
+const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
 
 export function LanguageSwitcher({ locale }: { locale: Locale }) {
   const pathname = usePathname();
@@ -15,6 +16,10 @@ export function LanguageSwitcher({ locale }: { locale: Locale }) {
     return segments.join("/") || `/${target}`;
   }
 
+  function persistLocale(target: Locale) {
+    document.cookie = `NEXT_LOCALE=${target}; Path=/; Max-Age=${COOKIE_MAX_AGE}; SameSite=Lax`;
+  }
+
   return (
     <div className="flex items-center gap-0.5">
       {locales.map((code, i) => (
@@ -22,6 +27,7 @@ export function LanguageSwitcher({ locale }: { locale: Locale }) {
           {i > 0 && <span className="text-stone-300">·</span>}
           <Link
             href={buildHref(code)}
+            onClick={() => persistLocale(code)}
             aria-current={code === locale ? "true" : undefined}
             className={
               code === locale
