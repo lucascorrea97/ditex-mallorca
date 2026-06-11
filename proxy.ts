@@ -1,9 +1,16 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
-import { locales, defaultLocale } from "@/lib/i18n";
+import { locales, defaultLocale, hasLocale } from "@/lib/i18n";
 import type { NextAuthRequest } from "next-auth";
 
+const LOCALE_COOKIE = "NEXT_LOCALE";
+
 function getPreferredLocale(request: NextAuthRequest): string {
+  // 1. Explicit cookie — set when the user manually switches language
+  const cookie = request.cookies.get(LOCALE_COOKIE)?.value;
+  if (cookie && hasLocale(cookie)) return cookie;
+
+  // 2. Accept-Language header
   const acceptLanguage = request.headers.get("accept-language") ?? "";
   for (const entry of acceptLanguage.split(",")) {
     const lang = entry.split(";")[0].trim().toLowerCase();
@@ -11,6 +18,8 @@ function getPreferredLocale(request: NextAuthRequest): string {
     const prefix = lang.split("-")[0];
     if ((locales as readonly string[]).includes(prefix)) return prefix;
   }
+
+  // 3. Default locale
   return defaultLocale;
 }
 
