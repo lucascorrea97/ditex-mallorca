@@ -5,12 +5,13 @@ import { db, schema } from "./index";
 // and rendering end-to-end. The full seed comes from the PDF importer (#5) and is later
 // superseded by the A3 Connector (ADR-0006). Re-runnable: clears then inserts.
 async function seed() {
-  const { collections, products, prices } = schema;
+  const { collections, products, prices, articles } = schema;
 
   // Order matters: prices -> products -> collections (FKs).
   await db.delete(prices);
   await db.delete(products);
   await db.delete(collections);
+  await db.delete(articles);
 
   const [charline] = await db
     .insert(collections)
@@ -85,10 +86,24 @@ async function seed() {
     .insert(prices)
     .values({ productId: foam.id, zone: "all", unit: "m3", onRequest: true });
 
+  // One flagship foam guide — the kind of expertise-fed content the admin manages (ADR-0010).
+  await db.insert(articles).values({
+    locale: "es",
+    slug: "guia-densidad-espuma-tapiceria",
+    title: "Cómo elegir la densidad de espuma para tapicería",
+    excerpt:
+      "Guía práctica de densidades de gomaespuma según el uso: sofás, colchones, náutica y hostelería.",
+    body: "# Cómo elegir la densidad de espuma\n\nLa densidad (kg/m³) determina la durabilidad y el confort de la espuma. En D.TEX cortamos a medida, incluso a volumen (m³)...",
+    status: "published",
+    useTags: ["espuma", "sofa", "nautica", "hosteleria"],
+    publishedAt: new Date(),
+  });
+
   const counts = {
     collections: (await db.select().from(collections)).length,
     products: (await db.select().from(products)).length,
     prices: (await db.select().from(prices)).length,
+    articles: (await db.select().from(articles)).length,
   };
   console.log("Seeded:", counts);
 }
