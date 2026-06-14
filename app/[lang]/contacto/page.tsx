@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/container";
 import { business } from "@/lib/site";
 import { getDictionary, hasLocale } from "@/lib/i18n";
+import { localizedMetadata } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -12,7 +13,10 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang);
-  return { title: dict.contacto.title, description: dict.contacto.description };
+  return localizedMetadata(lang, "/contacto", {
+    title: dict.contacto.title,
+    description: dict.contacto.description,
+  });
 }
 
 export default async function Page({

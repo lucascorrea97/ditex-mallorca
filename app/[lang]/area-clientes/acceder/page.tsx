@@ -15,7 +15,12 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang);
-  return { title: dict.acceder.title, description: dict.acceder.description };
+  return {
+    title: dict.acceder.title,
+    description: dict.acceder.description,
+    // Gated login — never index (stays noindex after the cutover flip).
+    robots: { index: false, follow: false },
+  };
 }
 
 export default async function LoginPage({

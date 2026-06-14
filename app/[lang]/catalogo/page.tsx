@@ -5,6 +5,7 @@ import { eq, count } from "drizzle-orm";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { getDictionary, hasLocale, localePath } from "@/lib/i18n";
+import { localizedMetadata } from "@/lib/seo";
 import { db, schema } from "@/db";
 import { CATEGORY_ORDER, CATEGORY_SLUGS } from "@/lib/catalogue";
 import type { CategoryValue } from "@/lib/catalogue";
@@ -19,7 +20,10 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang);
-  return { title: dict.catalogo.title, description: dict.catalogo.description };
+  return localizedMetadata(lang, "/catalogo", {
+    title: dict.catalogo.title,
+    description: dict.catalogo.description,
+  });
 }
 
 export default async function CataloguePage({

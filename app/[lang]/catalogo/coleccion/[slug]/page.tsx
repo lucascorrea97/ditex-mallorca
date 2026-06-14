@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { getDictionary, hasLocale, localePath } from "@/lib/i18n";
 import { db, schema } from "@/db";
+import { localizedMetadata } from "@/lib/seo";
 import { CATEGORY_SLUGS } from "@/lib/catalogue";
 import type { CategoryValue } from "@/lib/catalogue";
 
@@ -29,10 +30,10 @@ export async function generateMetadata({
     col.category
       ? (dict.catalogo.categoryNames as Record<string, string>)[col.category]
       : undefined;
-  return {
+  return localizedMetadata(lang, `/catalogo/coleccion/${slug}`, {
     title: `${col.name}${catName ? ` — ${catName}` : ""} | D.TEX Mallorca`,
     description: `${col.name}: ${dict.catalogo.collectionProducts.toLowerCase()} — D.TEX Mallorca`,
-  };
+  });
 }
 
 export default async function CollectionPage({

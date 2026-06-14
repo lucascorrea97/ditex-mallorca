@@ -18,14 +18,21 @@ export type NavKey = (typeof navRoutes)[number]["key"];
 export const business = {
   name: "D.TEX Mallorca",
   legalName: "RIBOT FUSTER, S.L.",
+  foundingDate: "2010",
   address: {
     street: "C/ 4 de Noviembre Nº4",
     area: "Polígono Industrial Can Valero",
     postalCode: "07014",
     city: "Palma de Mallorca",
+    region: "Islas Baleares",
+    country: "ES",
   },
   phone: { display: "+34 971 25 41 27", href: "tel:+34971254127" },
   email: "pedidos@ditexmallorca.com",
+  // Lun–Vie 7:00–14:00 (mirrors footer/contact copy). Used for openingHoursSpecification.
+  openingHours: { days: ["Mo", "Tu", "We", "Th", "Fr"], opens: "07:00", closes: "14:00" },
+  // The trade geography Ditex serves (CONTEXT.md). Drives LocalBusiness areaServed.
+  areaServed: ["Mallorca", "Menorca", "Ibiza", "Formentera"],
   social: {
     instagram: "https://www.instagram.com/ditex_mallorca/",
     linkedin: "https://www.linkedin.com/company/ditex-mallorca/",
