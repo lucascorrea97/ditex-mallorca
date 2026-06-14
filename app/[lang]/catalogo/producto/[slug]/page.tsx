@@ -5,6 +5,9 @@ import { eq } from "drizzle-orm";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { getDictionary, hasLocale, localePath } from "@/lib/i18n";
+import { absoluteUrl, localizedMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/json-ld";
+import { productJsonLd, breadcrumbJsonLd } from "@/lib/json-ld";
 import { db, schema } from "@/db";
 import { CATEGORY_SLUGS } from "@/lib/catalogue";
 import type { CategoryValue } from "@/lib/catalogue";
@@ -27,10 +30,10 @@ export async function generateMetadata({
   const catName = (dict.catalogo.categoryNames as Record<string, string>)[
     product.category
   ];
-  return {
+  return localizedMetadata(lang, `/catalogo/producto/${slug}`, {
     title: `${product.name}${catName ? ` — ${catName}` : ""} | D.TEX Mallorca`,
     description: product.description ?? `${product.name} — D.TEX Mallorca`,
-  };
+  });
 }
 
 export default async function ProductPage({
@@ -67,8 +70,29 @@ export default async function ProductPage({
   // Attributes: key-value pairs from the JSONB field
   const attrs = Object.entries(product.attributes ?? {});
 
+  // Structured data (ADR-0002). No price/offers — the public Catalogue is price-free
+  // (ADR-0011); prices live in the gated Client Area.
+  const canonicalUrl = absoluteUrl(localePath(lang, `/catalogo/producto/${slug}`));
+  const productLd = productJsonLd({
+    name: product.name,
+    description: product.description ?? `${product.name} — ${categoryName}`,
+    category: categoryName,
+    sku: product.code,
+    url: canonicalUrl,
+  });
+  const breadcrumbLd = breadcrumbJsonLd([
+    { name: d.backToCatalogue, url: absoluteUrl(localePath(lang, "/catalogo")) },
+    { name: categoryName, url: absoluteUrl(categoryHref) },
+    ...(product.collection && collectionHref
+      ? [{ name: product.collection.name, url: absoluteUrl(collectionHref) }]
+      : []),
+    { name: product.name, url: canonicalUrl },
+  ]);
+
   return (
     <>
+      <JsonLd data={productLd} />
+      <JsonLd data={breadcrumbLd} />
       {/* Breadcrumb + Intro */}
       <section className="border-b border-stone-200 bg-stone-50">
         <Container className="py-hero sm:py-hero-sm">

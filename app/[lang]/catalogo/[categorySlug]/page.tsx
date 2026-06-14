@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { getDictionary, hasLocale, localePath } from "@/lib/i18n";
 import { db, schema } from "@/db";
+import { localizedMetadata } from "@/lib/seo";
 import { SLUG_TO_CATEGORY, CATEGORY_SLUGS } from "@/lib/catalogue";
 import type { CategoryValue } from "@/lib/catalogue";
 
@@ -24,12 +25,12 @@ export async function generateMetadata({
   const name =
     (dict.catalogo.categoryNames as Record<string, string>)[category] ??
     categorySlug;
-  return {
+  return localizedMetadata(lang, `/catalogo/${categorySlug}`, {
     title: `${name} — D.TEX Mallorca`,
     description: (dict.catalogo.categoryDescriptions as Record<string, string>)[
       category
     ],
-  };
+  });
 }
 
 export default async function CategoryPage({
