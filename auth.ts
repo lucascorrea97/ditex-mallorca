@@ -65,6 +65,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
   session: { strategy: "jwt" },
 
+  // Trust the deployment host. Vercel preview deployments get dynamic *.vercel.app URLs,
+  // which Auth.js otherwise rejects (UntrustedHost -> "problem with the server
+  // configuration"). Safe because we control where this runs (Vercel preview/prod).
+  trustHost: true,
+
   pages: {
     signIn: "/area-clientes/acceder",
     error: "/area-clientes/acceder",
