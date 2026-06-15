@@ -17,6 +17,11 @@ export function LanguageSwitcher({ locale }: { locale: Locale }) {
   }
 
   function persistLocale(target: Locale) {
+    // Writing the locale cookie is a deliberate DOM side effect, only ever run
+    // from the Link onClick handler below — not during render. The immutability
+    // rule can't see that and flags the `document.cookie` write as a forbidden
+    // mutation, so disable it for this one line.
+    // eslint-disable-next-line react-hooks/immutability
     document.cookie = `NEXT_LOCALE=${target}; Path=/; Max-Age=${COOKIE_MAX_AGE}; SameSite=Lax`;
   }
 
