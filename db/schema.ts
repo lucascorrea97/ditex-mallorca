@@ -10,6 +10,7 @@ import {
   serial,
   text,
   timestamp,
+  uniqueIndex,
 } from "drizzle-orm/pg-core";
 
 // The product kinds Ditex sells. Foam is the moat (ADR-0008) but modelled as one
@@ -37,6 +38,10 @@ export const saleUnitEnum = pgEnum("sale_unit", [
   "unidad",
   "m3",
 ]);
+
+// Editorial content state. The owner's daughter drafts/reviews AI-assisted articles
+// (ADR-0010) and only "published" ones ever reach the public site.
+export const articleStatusEnum = pgEnum("article_status", ["draft", "published"]);
 
 // A Collection groups fabrics (CHARLINE, NEW GENERATION...) and carries shared stock
 // and delivery terms (CONTEXT.md). Nullable category so material groupings can reuse it.
@@ -98,6 +103,33 @@ export const prices = pgTable(
     updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
   },
   (t) => [index("prices_product_idx").on(t.productId)],
+);
+
+// Editorial content — the foam/application guides and local-intent pages that power the
+// SEO/GEO moat (ADR-0008, ADR-0010). Produced by AI agents, reviewed and published by the
+// non-technical editor through /admin until the content engine matures. One row per
+// (slug, locale) so the same article can carry an ES/CA/EN translation (ADR-0009).
+export const articles = pgTable(
+  "articles",
+  {
+    id: serial("id").primaryKey(),
+    locale: text("locale").notNull().default("es"), // "es" | "ca" | "en" (lib/i18n)
+    slug: text("slug").notNull(),
+    title: text("title").notNull(),
+    excerpt: text("excerpt"), // short summary for listings / meta description
+    body: text("body").notNull().default(""), // markdown, pasted from the AI draft
+    status: articleStatusEnum("status").default("draft").notNull(),
+    // Use/application tags mirror products — drive related-content links and GEO intent.
+    useTags: text("use_tags").array().default([]).notNull(),
+    publishedAt: timestamp("published_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (t) => [
+    // A slug is unique within a locale; the same slug across locales = translations.
+    uniqueIndex("articles_slug_locale_idx").on(t.slug, t.locale),
+    index("articles_status_idx").on(t.status),
+  ],
 );
 
 export const collectionsRelations = relations(collections, ({ many }) => ({

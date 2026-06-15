@@ -29,6 +29,22 @@ function getPreferredLocale(request: NextAuthRequest): string {
 export const proxy = auth(function proxy(request) {
   const { pathname } = request.nextUrl;
 
+  // ── Admin back-office gate ──────────────────────────────────────────────────
+  // /admin is an internal, single-locale tool (ADR-0007) — it lives OUTSIDE the
+  // [lang] routing, so it must be handled before locale detection (which would
+  // otherwise redirect /admin → /es/admin). Requires an admin-role session;
+  // the login page itself is always reachable to avoid a redirect loop.
+  if (pathname === "/admin" || pathname.startsWith("/admin/")) {
+    const isLoginPage = pathname === "/admin/login";
+    const role = (request.auth?.user as { role?: string } | undefined)?.role;
+    if (!isLoginPage && role !== "admin") {
+      const loginUrl = new URL("/admin/login", request.url);
+      loginUrl.searchParams.set("callbackUrl", pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+    return; // never apply locale routing to the admin
+  }
+
   // ── Locale detection ──────────────────────────────────────────────────────
   const pathnameHasLocale = locales.some(
     (locale) =>
