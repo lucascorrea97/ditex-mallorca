@@ -30,11 +30,14 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Typecheck
-        run: npm run typecheck
-
-      # The db client is lazy (see db/index.ts), so `next build` needs no live
-      # DATABASE_URL. Migrations are NOT run here — Vercel runs them on deploy
-      # via the buildCommand in vercel.json.
+      # Build runs before Typecheck on purpose: `next build` generates the type
+      # declarations `tsc` needs (next-env.d.ts — which types static image
+      # imports — and .next/types route validators), both gitignored and absent
+      # on a fresh checkout. The db client is lazy (see db/index.ts), so this
+      # needs no live DATABASE_URL. Migrations are NOT run here — Vercel runs
+      # them on deploy via the buildCommand in vercel.json.
       - name: Build
         run: npm run build
+
+      - name: Typecheck
+        run: npm run typecheck
