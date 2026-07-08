@@ -39,7 +39,7 @@ A named grouping of fabrics within the Telas tariff (e.g. CHARLINE, NEW GENERATI
 _Avoid_: range, family, group
 
 **Product** (line):
-One commercial line — what the Catalogue shows as **one page**: ALLANTE, OTELLO, VIVO ALGODON 3. Keyed by the normalised **A3 familia description** (`Desc. familia`), the colour-less line name the business already curates in A3. A Product contains one or more Variants. (ADR-0019)
+One commercial line — what the Catalogue shows as **one page**: ALLANTE, OTELLO, VIVO ALGODON 3. Keyed by the **article-name colour convention** in A3: the normalised name before the ` C-` colour marker (`ALLANTE C-832 BURGUNDY` → ALLANTE); names without the marker are standalone Products. Overrides correct the exceptions. A Product contains one or more Variants. (ADR-0019, update section)
 _Avoid_: article (that's a Variant), item
 
 **Variant** (colourway):

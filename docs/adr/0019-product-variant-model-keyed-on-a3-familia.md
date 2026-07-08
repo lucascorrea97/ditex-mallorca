@@ -1,6 +1,7 @@
-# Product/variant model keyed on A3's familia description
+# Product/variant model keyed on the article-name colour convention
 
-**Status:** Accepted
+**Status:** Accepted — grouping key changed 2026-07-08, see the Update section (the original
+familia-description key rested on a file that turned out not to be A3 data)
 **Relates to:** ADR-0003 (website owns its data), ADR-0018 (A3 export seed), ADR-0011 (Client Area pricing)
 
 ## Context
@@ -67,3 +68,35 @@ articles newer than Feb fall back to name-prefix matching + review.
   remains website-owned and stable across syncs.
 - Risk accepted: familia-name typos can split a Product until an override fixes it; the
   import report makes these visible rather than silent.
+
+## Update (2026-07-08): grouping key corrected — article-name convention, not `Desc. familia`
+
+**Provenance correction.** The business clarified that `tarifa intento.xlsx` is **not an A3
+export**: the partner built it with AI assistance and a pivot table. Its `Desc. familia`
+column is therefore AI-derived grouping, not ERP master data — everything above that treats
+it as "deliberately curated by the business in A3" is wrong. A cross-check against the real
+article names found 307/5,004 disagreements, including outright AI errors (a MACHO part
+grouped under a HEMBRA line; CREMALLERA VISLON renamed "NAUTICA"). The file is **demoted to
+a one-time review aid**; it is not a data source. (This also removes it as the width /
+metros-por-pieza source — see ADR-0018's corresponding update.)
+
+**New grouping key.** The real, business-maintained signal is the **article-name colour
+convention** in A3 itself: colourways are named `LINE C-<code/colour>` (`ALLANTE C-832
+BURGUNDY`). Measured on the full real catalogue (familia master, 6,971 articles):
+
+- 5,573 articles carry the ` C-` marker → parse `line = name before " C-"`,
+  `variant label = the rest`. Result: **612 multi-colour Products** (OTELLO 61, MYSTIC 54 …)
+  + 193 single-colour lines.
+- 1,398 articles have no marker → standalone Products (one default Variant). This keeps
+  `VIVO ALGODON 3/4/5/8/9` correctly separate.
+- **~2,200 Products** for 6,971 articles overall.
+
+**Known under-grouping, accepted.** 629 no-marker articles look like colour-*word* variants
+(`CABO 4 mm NEGRO/BLANCO POLYESTER`). They stay standalone until an **override** merges
+them — under-grouping shows a few extra thin pages; wrong grouping shows lies. The import
+report lists these (near-duplicate names differing by one token) plus single-member ` C-`
+groups for human review; overrides are the only correction mechanism (never hand-edits),
+so re-runs stay stable.
+
+Everything else in this ADR stands: the Collection → Product → Variant model, the schema
+shape, website-owned grouping, per-variant price overrides, per-Product slugs/pages.
