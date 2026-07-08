@@ -7,7 +7,7 @@ import { db, schema } from "@/db";
 
 export async function listProducts() {
   return db.query.products.findMany({
-    with: { collection: true, prices: true },
+    with: { collection: true, prices: true, variants: { with: { prices: true } } },
     orderBy: (p) => [asc(p.category), asc(p.name)],
   });
 }
@@ -15,7 +15,11 @@ export async function listProducts() {
 export async function getProduct(id: number) {
   return db.query.products.findFirst({
     where: eq(schema.products.id, id),
-    with: { collection: true, prices: { orderBy: (pr) => [asc(pr.zone), asc(pr.unit)] } },
+    with: {
+      collection: true,
+      prices: { orderBy: (pr) => [asc(pr.zone), asc(pr.unit)] },
+      variants: { with: { prices: true }, orderBy: (v) => [asc(v.label)] },
+    },
   });
 }
 

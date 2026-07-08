@@ -2,6 +2,7 @@
 // ADR-0018). No I/O here — reading files is db/import-catalogue.ts's job.
 
 import { parsePriceInput } from "@/lib/price";
+import { slugify } from "@/lib/admin/form";
 import type { CategoryValue } from "@/lib/catalogue";
 
 // A row as read from an xlsx sheet, keyed by header name (not column position —
@@ -135,6 +136,10 @@ export type ParsedArticleTariffRow = {
   active: boolean;
   ancho: string | null;
   metrosPorPieza: string | null;
+  // A3's internal fine-grained familia description (e.g. "OTELLO", "ALLANTE") —
+  // the ADR-0019 Product-grouping key. Only the old-format export carries it; the
+  // go-forward filtro doesn't (grouping falls back to name-prefix matching).
+  familiaDescripcion: string | null;
   tariffCode: number;
   tariffName: string;
   amount: string | null;
@@ -156,6 +161,7 @@ export function parseNewFormatRow(row: SourceRow): ParsedArticleTariffRow | null
     active: normaliseCode(row["Bloqueado"]).toLowerCase() !== "sí",
     ancho: null, // not exported by the new-format filtro (ADR-0018)
     metrosPorPieza: null, // not exported by the new-format filtro (ADR-0018)
+    familiaDescripcion: null, // not exported by the new-format filtro (ADR-0019)
     tariffCode,
     tariffName: normaliseCode(row["Nombre de la tarifa"]),
     amount: normaliseAmount(row["Precio de la tarifa"]),
@@ -163,8 +169,9 @@ export function parseNewFormatRow(row: SourceRow): ParsedArticleTariffRow | null
 }
 
 // Old-format export (tarifa intento.xlsx, Feb 2026) — the one-off source of
-// Ancho/Metros por pieza. No Bloqueado column, so active always defaults true.
-// ` Cód familia`/`Desc. familia` (A3's internal collection-like familia) and the
+// Ancho/Metros por pieza, and (ADR-0019) `Desc. familia`, the Product-grouping
+// key. No Bloqueado column, so active always defaults true. ` Cód familia` (A3's
+// internal familia code — reused across unrelated lines, ADR-0019) and the
 // top-level `PVP` column are out of scope for this issue and intentionally unread.
 export function parseOldFormatRow(row: SourceRow): ParsedArticleTariffRow | null {
   const sku = normaliseCode(row["CODART"]);
@@ -177,6 +184,7 @@ export function parseOldFormatRow(row: SourceRow): ParsedArticleTariffRow | null
     active: true, // this format has no Bloqueado column
     ancho: normaliseOptionalText(row["Ancho"]),
     metrosPorPieza: normaliseOptionalText(row["Metros por pieza"]),
+    familiaDescripcion: normaliseOptionalText(row["Desc. familia"]),
     tariffCode,
     tariffName: normaliseCode(row["DESCTARIFA"]),
     amount: normaliseAmount(row["Precio tarifa"]),
@@ -255,6 +263,60 @@ export function buildPriceRecords(rows: ParsedArticleTariffRow[]): PriceRecord[]
 }
 
 // ---------------------------------------------------------------------------
+// Product/Variant grouping (ADR-0019): A3 articles group into one Product (line)
+// per normalised `Desc. familia`, with each article becoming a Variant inside it.
+// ---------------------------------------------------------------------------
+
+// Uppercase + collapsed whitespace — the join key for grouping, and for comparing
+// an article name against its line name regardless of A3's spacing/casing quirks.
+export function normaliseLineKey(raw: string): string {
+  return raw.trim().replace(/\s+/g, " ").toUpperCase();
+}
+
+// Strips the (already-normalised) line name off an article name to get the
+// variant label, e.g. "ALLANTE C-832 BURGUNDY" under line "ALLANTE" -> "C-832
+// BURGUNDY" (ADR-0019's own worked example). Three outcomes:
+// - name == line: label "" (the ~5 known "name==line" cases — caller supplies a
+//   placeholder and flags it, since a real label needs an override).
+// - name starts with "<line> ": label = the remainder.
+// - name doesn't start with the line at all: "suspect" (ADR-0019: ~95% of
+//   articles are consistent with their familia; the rest are typos, not wrong
+//   groupings) — still grouped under this line, just flagged for review.
+export function deriveVariantLabel(
+  articleName: string,
+  lineKey: string,
+): { label: string; suspect: boolean } {
+  const name = articleName.trim().replace(/\s+/g, " ");
+  const nameKey = name.toUpperCase();
+  if (nameKey === lineKey) return { label: "", suspect: false };
+  if (nameKey.startsWith(`${lineKey} `)) return { label: name.slice(lineKey.length).trim(), suspect: false };
+  return { label: name, suspect: true };
+}
+
+// A token that looks like part of a colour/size code rather than the line name
+// itself — e.g. "C-832", "9128", a bare digit. Mirrors the real A3 naming
+// convention ("ALLANTE C-832 BURGUNDY") closely enough to recover it when
+// `Desc. familia` isn't available at all (go-forward export, or a SKU missing
+// from the Feb file) — ADR-0019's "fall back to name-prefix matching".
+const CODE_LIKE_TOKEN = /\d/;
+
+// Fallback grouping for articles with no `Desc. familia` anywhere: splits the
+// name at the first code-like token. No such token -> the whole name is its own
+// singleton line (nothing to safely group it with).
+export function deriveFallbackGroup(articleName: string): { lineKey: string; label: string } {
+  const name = articleName.trim().replace(/\s+/g, " ");
+  const tokens = name.split(" ");
+  const splitIndex = tokens.findIndex((t) => CODE_LIKE_TOKEN.test(t));
+
+  if (splitIndex <= 0) return { lineKey: name.toUpperCase(), label: "" };
+
+  return {
+    lineKey: tokens.slice(0, splitIndex).join(" ").toUpperCase(),
+    label: tokens.slice(splitIndex).join(" "),
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Familia master + stock parsers
 // ---------------------------------------------------------------------------
 
@@ -305,21 +367,48 @@ export function aggregateStock(rows: StockRow[]): {
 }
 
 // ---------------------------------------------------------------------------
-// Top-level join: familia master (the web-visible SKU universe, ADR-0018) +
-// tariff rows + stock -> built products, and an import report for #6.
+// Manual corrections for the exceptions the import report flags (ADR-0019:
+// "overrides beat heuristics"). The importer CLI supplies these from
+// lib/import/overrides.ts; kept as an injected param here so this module stays
+// pure/dependency-free and easy to test. Never hand-edit generated rows —
+// fix the override instead, so re-runs stay stable.
 // ---------------------------------------------------------------------------
 
-export type BuiltProduct = {
+export type ImportOverrides = {
+  // Raw `Desc. familia` value -> the corrected line text it should have been
+  // (fixes a typo/whitespace variant splitting a group into two).
+  familiaLineCorrections?: Record<string, string>;
+  // SKU -> a line name to force it into, bypassing whatever `Desc. familia` (or
+  // the name-prefix fallback) would have produced (fixes a misfiled/suspect SKU).
+  groupOverrides?: Record<string, string>;
+  // SKU -> a real variant label, replacing the SKU placeholder used when the
+  // derived label came out empty.
+  variantLabelOverrides?: Record<string, string>;
+};
+
+// ---------------------------------------------------------------------------
+// Top-level join: familia master (the web-visible SKU universe, ADR-0018),
+// grouped into Collection -> Product (line) -> Variant (colourway) per
+// ADR-0019, plus tariff rows + stock -> an import report for #6.
+// ---------------------------------------------------------------------------
+
+export type BuiltVariant = {
   externalId: string;
+  label: string;
+  active: boolean;
+  stockTotal: string | null;
+  prices: PriceRecord[]; // empty = inherits the product-level default
+};
+
+export type BuiltProduct = {
   slug: string;
   name: string;
   category: CategoryValue;
   familia: string | null;
-  active: boolean;
   width: string | null;
   attributes: Record<string, string>;
-  stockTotal: string | null;
-  prices: PriceRecord[];
+  prices: PriceRecord[]; // product-level default, shown for every variant unless overridden
+  variants: BuiltVariant[];
 };
 
 export type ImportReport = {
@@ -330,14 +419,31 @@ export type ImportReport = {
   duplicateTariffRowCount: number;
   defaultedCategorySkus: string[];
   stockConflictSkus: string[];
+  // ADR-0019 additions:
+  suspectGroupSkus: string[]; // grouped under a line, but the article name doesn't start with it
+  emptyVariantLabelSkus: string[]; // name==line; got the SKU as a placeholder label
+  inconsistentFamiliaGroupKeys: string[]; // a group's members disagree on web Familia
+  noLineDataSkus: string[]; // no Desc. familia anywhere; grouped via name-prefix fallback instead
 };
+
+// Canonical, order-independent key for a set of price records — used to find the
+// "mode" (most common) price set among a group's variants.
+function priceSetKey(prices: PriceRecord[]): string {
+  return JSON.stringify(
+    [...prices].sort((a, b) => `${a.zone}:${a.unit}`.localeCompare(`${b.zone}:${b.unit}`)),
+  );
+}
 
 export function buildCatalogue(input: {
   familiaMaster: FamiliaMasterRow[];
   tariffRows: ParsedArticleTariffRow[];
   stock: StockRow[];
+  overrides?: ImportOverrides;
 }): { products: BuiltProduct[]; report: ImportReport } {
-  const { familiaMaster, tariffRows, stock } = input;
+  const { familiaMaster, tariffRows, stock, overrides = {} } = input;
+  const familiaLineCorrections = overrides.familiaLineCorrections ?? {};
+  const groupOverrides = overrides.groupOverrides ?? {};
+  const variantLabelOverrides = overrides.variantLabelOverrides ?? {};
 
   const skuUniverse = new Set(familiaMaster.map((r) => r.sku));
 
@@ -360,35 +466,165 @@ export function buildCatalogue(input: {
     .filter((sku, i, all) => all.indexOf(sku) === i) // unique
     .filter((sku) => !skuUniverse.has(sku));
 
+  // First non-null Desc. familia found for a SKU, with the typo-correction
+  // override applied before normalising (so "ALANTE" and "ALLANTE" join the
+  // same group once corrected).
+  const familiaDescriptionBySku = new Map<string, string>();
+  for (const row of dedupedTariffRows) {
+    if (!row.familiaDescripcion || familiaDescriptionBySku.has(row.sku)) continue;
+    const corrected = familiaLineCorrections[row.familiaDescripcion] ?? row.familiaDescripcion;
+    familiaDescriptionBySku.set(row.sku, corrected);
+  }
+
   const emptyFamiliaSkus: string[] = [];
   const articlesWithoutTariffRows: string[] = [];
-  const defaultedCategorySkus: string[] = [];
+  const suspectGroupSkus: string[] = [];
+  const emptyVariantLabelSkus: string[] = [];
+  const inconsistentFamiliaGroupKeys: string[] = [];
+  const noLineDataSkus: string[] = [];
 
-  const products: BuiltProduct[] = familiaMaster.map((master) => {
+  // Pass 1: resolve each SKU's group (lineKey/displayName) and variant label.
+  type ResolvedMember = {
+    master: FamiliaMasterRow;
+    lineKey: string;
+    lineDisplay: string;
+    label: string;
+  };
+  const groups = new Map<string, { displayName: string; members: ResolvedMember[] }>();
+
+  for (const master of familiaMaster) {
     if (!master.familia) emptyFamiliaSkus.push(master.sku);
 
     const rowsForSku = tariffRowsBySku.get(master.sku) ?? [];
     if (rowsForSku.length === 0) articlesWithoutTariffRows.push(master.sku);
 
-    const { category, defaulted } = categoryForFamilia(master.familia);
-    if (defaulted) defaultedCategorySkus.push(master.sku);
+    let lineKey: string;
+    let lineDisplay: string;
+    let label: string;
 
-    const ancho = rowsForSku.find((r) => r.ancho !== null)?.ancho ?? null;
-    const metrosPorPieza = rowsForSku.find((r) => r.metrosPorPieza !== null)?.metrosPorPieza ?? null;
+    if (groupOverrides[master.sku]) {
+      lineDisplay = groupOverrides[master.sku];
+      lineKey = normaliseLineKey(lineDisplay);
+      label = deriveVariantLabel(master.name, lineKey).label;
+    } else {
+      const familiaDescripcion = familiaDescriptionBySku.get(master.sku);
+      if (familiaDescripcion) {
+        lineDisplay = familiaDescripcion.trim().replace(/\s+/g, " ");
+        lineKey = normaliseLineKey(lineDisplay);
+        const derived = deriveVariantLabel(master.name, lineKey);
+        label = derived.label;
+        if (derived.suspect) suspectGroupSkus.push(master.sku);
+      } else {
+        noLineDataSkus.push(master.sku);
+        const fallback = deriveFallbackGroup(master.name);
+        lineKey = fallback.lineKey;
+        lineDisplay = fallback.lineKey;
+        label = fallback.label;
+      }
+    }
+
+    if (variantLabelOverrides[master.sku]) {
+      label = variantLabelOverrides[master.sku];
+    } else if (label === "") {
+      label = master.sku;
+      emptyVariantLabelSkus.push(master.sku);
+    }
+
+    const group = groups.get(lineKey) ?? { displayName: lineDisplay, members: [] };
+    group.members.push({ master, lineKey, lineDisplay, label });
+    groups.set(lineKey, group);
+  }
+
+  // Pass 2: build a Product per group, with its Variants and product/variant prices.
+  const defaultedCategorySkus: string[] = [];
+  const usedSlugs = new Set<string>();
+
+  const products: BuiltProduct[] = [...groups.values()].map(({ displayName, members }) => {
+    // Web Familia (37-category): mode across the group's members.
+    const familiaCounts = new Map<string | null, number>();
+    for (const m of members) {
+      familiaCounts.set(m.master.familia, (familiaCounts.get(m.master.familia) ?? 0) + 1);
+    }
+    let productFamilia: string | null = null;
+    let bestCount = -1;
+    for (const m of members) {
+      // Iterate in member order so ties break on first-seen, deterministically.
+      const c = familiaCounts.get(m.master.familia) ?? 0;
+      if (c > bestCount) {
+        bestCount = c;
+        productFamilia = m.master.familia;
+      }
+    }
+    if (new Set(members.map((m) => m.master.familia)).size > 1) {
+      inconsistentFamiliaGroupKeys.push(members[0].lineKey);
+    }
+
+    for (const m of members) {
+      if (categoryForFamilia(m.master.familia).defaulted) defaultedCategorySkus.push(m.master.sku);
+    }
+    const { category } = categoryForFamilia(productFamilia);
+
+    // Width/Metros por pieza enrichment: first non-null across the whole group.
+    let width: string | null = null;
+    let metrosPorPieza: string | null = null;
+    for (const m of members) {
+      const rows = tariffRowsBySku.get(m.master.sku) ?? [];
+      if (width === null) width = rows.find((r) => r.ancho !== null)?.ancho ?? null;
+      if (metrosPorPieza === null) {
+        metrosPorPieza = rows.find((r) => r.metrosPorPieza !== null)?.metrosPorPieza ?? null;
+      }
+    }
     const attributes: Record<string, string> = {};
     if (metrosPorPieza) attributes.metros_por_pieza = metrosPorPieza;
 
+    // Build each variant's own full price set first.
+    const variantPrices = members.map((m) => buildPriceRecords(tariffRowsBySku.get(m.master.sku) ?? []));
+
+    // The product-level default is the most common price set among variants
+    // (ADR-0019: "attach prices at product level unless they differ").
+    const counts = new Map<string, { prices: PriceRecord[]; count: number }>();
+    for (const prices of variantPrices) {
+      const key = priceSetKey(prices);
+      const entry = counts.get(key);
+      if (entry) entry.count++;
+      else counts.set(key, { prices, count: 1 });
+    }
+    let defaultPrices: PriceRecord[] = [];
+    let defaultCount = -1;
+    for (const prices of variantPrices) {
+      const entry = counts.get(priceSetKey(prices))!;
+      if (entry.count > defaultCount) {
+        defaultCount = entry.count;
+        defaultPrices = entry.prices;
+      }
+    }
+    const defaultKey = priceSetKey(defaultPrices);
+
+    const variants: BuiltVariant[] = members.map((m, i) => ({
+      externalId: m.master.sku,
+      label: m.label,
+      active: (tariffRowsBySku.get(m.master.sku) ?? []).every((r) => r.active),
+      stockTotal: stockBySku.get(m.master.sku) ?? null,
+      prices: priceSetKey(variantPrices[i]) === defaultKey ? [] : variantPrices[i],
+    }));
+
+    let slug = slugify(displayName);
+    if (usedSlugs.has(slug)) {
+      let n = 2;
+      while (usedSlugs.has(`${slug}-${n}`)) n++;
+      slug = `${slug}-${n}`;
+    }
+    usedSlugs.add(slug);
+
     return {
-      externalId: master.sku,
-      slug: master.sku.toLowerCase(),
-      name: master.name,
+      slug,
+      name: displayName,
       category,
-      familia: master.familia,
-      active: rowsForSku.every((r) => r.active),
-      width: ancho,
+      familia: productFamilia,
+      width,
       attributes,
-      stockTotal: stockBySku.get(master.sku) ?? null,
-      prices: buildPriceRecords(rowsForSku),
+      prices: defaultPrices,
+      variants,
     };
   });
 
@@ -402,6 +638,10 @@ export function buildCatalogue(input: {
       duplicateTariffRowCount: duplicates.length,
       defaultedCategorySkus,
       stockConflictSkus,
+      suspectGroupSkus,
+      emptyVariantLabelSkus,
+      inconsistentFamiliaGroupKeys,
+      noLineDataSkus,
     },
   };
 }

@@ -5,10 +5,11 @@ import { db, schema } from "./index";
 // and rendering end-to-end. The full seed comes from the PDF importer (#5) and is later
 // superseded by the A3 Connector (ADR-0006). Re-runnable: clears then inserts.
 async function seed() {
-  const { collections, products, prices, articles } = schema;
+  const { collections, products, variants, prices, articles } = schema;
 
-  // Order matters: prices -> products -> collections (FKs).
+  // Order matters: prices -> variants -> products -> collections (FKs).
   await db.delete(prices);
+  await db.delete(variants);
   await db.delete(products);
   await db.delete(collections);
   await db.delete(articles);
@@ -26,6 +27,8 @@ async function seed() {
     .returning();
 
   // CHARLINE fabrics: name, ANCHO, metraje (€/m), pieza (€/m on a full roll).
+  // Each is a single-colourway line for this hand-written fixture, so one default
+  // Variant per Product (ADR-0019) — real multi-colourway grouping comes from #5/#66.
   const fabrics: Array<[string, string, string, number, number]> = [
     ["chanel", "CHANEL", "140 CM", 18.5, 13.2],
     ["karan", "KARAN", "140 CM", 13.5, 9.7],
@@ -45,6 +48,7 @@ async function seed() {
         useTags: ["tapiceria", "decoracion"],
       })
       .returning();
+    await db.insert(variants).values({ productId: p.id, label: "", active: true });
     await db.insert(prices).values([
       { productId: p.id, zone: "all", unit: "metro", amount: metraje.toFixed(2) },
       { productId: p.id, zone: "all", unit: "pieza", amount: pieza.toFixed(2) },
@@ -64,6 +68,9 @@ async function seed() {
       useTags: ["relleno", "tapiceria"],
     })
     .returning();
+  await db
+    .insert(variants)
+    .values({ productId: boatell.id, externalId: "41230-T", label: "", active: true, stockTotal: "120.00" });
   await db.insert(prices).values([
     { productId: boatell.id, zone: "mallorca", unit: "kg", amount: "5.80" },
     { productId: boatell.id, zone: "men_ibz", unit: "kg", amount: "10.75", qualifier: "15KG" },
@@ -82,6 +89,7 @@ async function seed() {
         "Gomaespuma de densidad 25 cortada a medida, incluso a volumen (m³). Consultar precio según medidas.",
     })
     .returning();
+  await db.insert(variants).values({ productId: foam.id, label: "", active: true });
   await db
     .insert(prices)
     .values({ productId: foam.id, zone: "all", unit: "m3", onRequest: true });
@@ -102,6 +110,7 @@ async function seed() {
   const counts = {
     collections: (await db.select().from(collections)).length,
     products: (await db.select().from(products)).length,
+    variants: (await db.select().from(variants)).length,
     prices: (await db.select().from(prices)).length,
     articles: (await db.select().from(articles)).length,
   };

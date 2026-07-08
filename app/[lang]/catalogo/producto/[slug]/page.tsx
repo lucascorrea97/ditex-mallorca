@@ -49,9 +49,11 @@ export default async function ProductPage({
 
   const product = await db.query.products.findFirst({
     where: eq(schema.products.slug, slug),
-    with: { collection: true, prices: true },
+    with: { collection: true, prices: true, variants: true },
   });
-  if (!product || !product.active) notFound();
+  // A Product line is visible when at least one of its Variants (A3 articles) is
+  // active — Bloqueado now lives per-SKU on the Variant, not the line (ADR-0019).
+  if (!product || !product.variants.some((v) => v.active)) notFound();
 
   const dict = await getDictionary(lang);
   const d = dict.catalogo;

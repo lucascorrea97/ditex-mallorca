@@ -4,7 +4,7 @@ import { requireAdmin } from "@/lib/admin/auth";
 import { getProduct, listCollections } from "@/lib/admin/data";
 import { ZONE_OPTIONS, UNIT_OPTIONS } from "@/lib/admin/constants";
 import { ProductForm } from "@/components/admin/product-form";
-import { Field, Input, Select, SubmitButton } from "@/components/admin/ui";
+import { Badge, Field, Input, Select, SubmitButton } from "@/components/admin/ui";
 import {
   addPrice,
   deletePrice,
@@ -120,16 +120,69 @@ export default async function EditProductPage({
         action={updateProduct.bind(null, productId)}
         collections={collections}
         product={product}
+        active={product.variants.some((v) => v.active)}
         submitLabel="Guardar cambios"
       />
+
+      {/* Variants — read-only for now (ADR-0019). One product line groups the A3
+          colourway articles that made it a Product in the first place; editing
+          individual variants (label, stock, per-colour price) is a future ticket. */}
+      <section className="space-y-4">
+        <div>
+          <h2 className="text-lg font-semibold">Variantes</h2>
+          <p className="mt-1 text-sm text-stone-600">
+            Los artículos A3 (colores/variantes) agrupados en esta línea. La casilla
+            “activo” de arriba actualiza todas las variantes a la vez.
+          </p>
+        </div>
+
+        {product.variants.length === 0 ? (
+          <p className="text-sm text-stone-500">Este producto todavía no tiene variantes.</p>
+        ) : (
+          <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white">
+            <table className="w-full text-left text-sm">
+              <thead className="border-b border-stone-200 bg-stone-50 text-xs uppercase tracking-wide text-stone-500">
+                <tr>
+                  <th className="px-5 py-3 font-medium">SKU</th>
+                  <th className="px-5 py-3 font-medium">Etiqueta</th>
+                  <th className="px-5 py-3 font-medium">Stock</th>
+                  <th className="px-5 py-3 font-medium">Precio propio</th>
+                  <th className="px-5 py-3 font-medium">Estado</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-stone-100">
+                {product.variants.map((v) => (
+                  <tr key={v.id}>
+                    <td className="px-5 py-3 font-mono text-xs text-stone-700">
+                      {v.externalId ?? "—"}
+                    </td>
+                    <td className="px-5 py-3 text-stone-700">{v.label || "—"}</td>
+                    <td className="px-5 py-3 text-stone-600">{v.stockTotal ?? "—"}</td>
+                    <td className="px-5 py-3 text-stone-600">
+                      {v.prices.length > 0 ? `${v.prices.length} (anula la línea)` : "Hereda de la línea"}
+                    </td>
+                    <td className="px-5 py-3">
+                      {v.active ? (
+                        <Badge tone="green">Activo</Badge>
+                      ) : (
+                        <Badge tone="neutral">Inactivo</Badge>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
 
       {/* Prices */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-lg font-semibold">Precios</h2>
+          <h2 className="text-lg font-semibold">Precios (línea)</h2>
           <p className="mt-1 text-sm text-stone-600">
-            Una línea por isla y unidad. Marca “Consulta” cuando el precio sea bajo
-            petición (CONSULTA).
+            El precio por defecto de la línea. Una línea por isla y unidad. Marca
+            “Consulta” cuando el precio sea bajo petición (CONSULTA).
           </p>
         </div>
 

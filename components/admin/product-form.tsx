@@ -9,15 +9,20 @@ type Collection = InferSelectModel<typeof collectionsTable>;
 
 // The core product fields. Shared by the create and edit pages so they never drift.
 // `action` is a bound Server Action; `product` is undefined when creating.
+// `active` lives on Variants now, not Product (ADR-0019) — the caller computes
+// it (e.g. "any variant active") and passes it in, since it isn't part of the
+// products row itself.
 export function ProductForm({
   action,
   collections,
   product,
+  active = true,
   submitLabel,
 }: {
   action: (form: FormData) => void | Promise<void>;
   collections: Collection[];
   product?: Product;
+  active?: boolean;
   submitLabel: string;
 }) {
   return (
@@ -87,7 +92,7 @@ export function ProductForm({
         <input
           type="checkbox"
           name="active"
-          defaultChecked={product?.active ?? true}
+          defaultChecked={active}
           className="h-5 w-5 rounded border-stone-300 text-brand-600 focus:ring-brand-500"
         />
         Visible en el sitio (activo)

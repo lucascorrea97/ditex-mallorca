@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
-import { asc, eq } from "drizzle-orm";
+import { asc, inArray } from "drizzle-orm";
 import { locales } from "@/lib/i18n";
 import { alternatesFor } from "@/lib/seo";
 import { CATEGORY_ORDER, CATEGORY_SLUGS } from "@/lib/catalogue";
 import { db, schema } from "@/db";
+import { activeProductIds } from "@/lib/products";
 
 // Dynamic: the sitemap reads the product DB, which isn't available at build time
 // (matches the catalogue pages — ADR-0006/0007).
@@ -57,7 +58,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     db
       .select({ slug: schema.products.slug, updatedAt: schema.products.updatedAt })
       .from(schema.products)
-      .where(eq(schema.products.active, true))
+      .where(inArray(schema.products.id, activeProductIds()))
       .orderBy(asc(schema.products.slug)),
   ]);
 

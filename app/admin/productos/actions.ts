@@ -28,9 +28,17 @@ export async function createProduct(form: FormData) {
       description: nullable(form, "description"),
       collectionId: collectionId ? Number(collectionId) : null,
       useTags: tags(form, "useTags"),
-      active: checkbox(form, "active"),
     })
     .returning();
+
+  // Manually-created admin products aren't A3 articles, so they get a single
+  // unlabelled default Variant to carry `active` (ADR-0019 moved it off Product).
+  // Per-variant editing (labels, multiple colourways) is a future admin ticket.
+  await db.insert(schema.variants).values({
+    productId: created.id,
+    label: "",
+    active: checkbox(form, "active"),
+  });
 
   revalidatePath("/admin/productos");
   redirect(`/admin/productos/${created.id}`);
@@ -54,10 +62,18 @@ export async function updateProduct(id: number, form: FormData) {
       description: nullable(form, "description"),
       collectionId: collectionId ? Number(collectionId) : null,
       useTags: tags(form, "useTags"),
-      active: checkbox(form, "active"),
       updatedAt: new Date(),
     })
     .where(eq(schema.products.id, id));
+
+  // Simplification: this form has one "active" checkbox for the whole line, so
+  // it sets every existing Variant to match. Fine for admin-created single-
+  // variant products; per-variant toggling for imported multi-colourway lines
+  // is a future admin ticket (ADR-0019).
+  await db
+    .update(schema.variants)
+    .set({ active: checkbox(form, "active"), updatedAt: new Date() })
+    .where(eq(schema.variants.productId, id));
 
   revalidatePath("/admin/productos");
   revalidatePath(`/admin/productos/${id}`);

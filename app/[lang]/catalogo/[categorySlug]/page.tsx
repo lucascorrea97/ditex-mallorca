@@ -10,6 +10,7 @@ import { db, schema } from "@/db";
 import { localizedMetadata } from "@/lib/seo";
 import { SLUG_TO_CATEGORY } from "@/lib/catalogue";
 import type { CategoryValue } from "@/lib/catalogue";
+import { activeProductIds } from "@/lib/products";
 import { auth } from "@/auth";
 import { PriceInline } from "@/components/site/price-table";
 import type { PriceRow } from "@/lib/prices";
@@ -76,7 +77,7 @@ export default async function CategoryPage({
       .where(
         and(
           eq(schema.products.category, category),
-          eq(schema.products.active, true),
+          inArray(schema.products.id, activeProductIds()),
           isFabric ? isNull(schema.products.collectionId) : undefined,
         ),
       )
@@ -93,7 +94,7 @@ export default async function CategoryPage({
             .where(
               and(
                 eq(schema.products.collectionId, col.id),
-                eq(schema.products.active, true),
+                inArray(schema.products.id, activeProductIds()),
               ),
             );
           return { id: col.id, total: row?.total ?? 0 };
