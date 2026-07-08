@@ -133,3 +133,21 @@ foam's Mallorca/Men-Ibz columns would render automatically from the imported tar
   zone columns, and no inline price string — never a bare unformatted leak.
 - Consequence: for foam, expect a "contact us to negotiate" treatment wherever the site would
   otherwise render a price — that UI copy is a follow-up, not built yet.
+
+## Update (2026-07-08): `tarifa intento.xlsx` is not an A3 export — demoted
+
+The business clarified that `tarifa intento.xlsx` was **built by the partner with AI
+assistance plus a pivot table**, not exported from A3. Everything above that treats it as
+"the Feb-2026 full export" must be read accordingly:
+
+- **Not a grouping source.** Its `Desc. familia` column is AI-derived; product/variant
+  grouping now keys on the article-name colour convention instead (ADR-0019 update).
+- **Prices/names seeded from it are placeholders** with unverified provenance. The fresh
+  full articles+tariffs export (#60) supersedes them on the next `db:import` run; the #6
+  verification should use that, not the current seed.
+- **`Ancho` / `Metros por pieza` keep provisional status only** — likely pivoted from
+  something real, but unverifiable. Kept for now (better than nothing pre-launch), added to
+  the #6 spot-check list; the Connector (M3) or admin edits are the real fix.
+
+The three confirmed-real A3 files (articles+tariffs samples, familia master, stock
+snapshot) are unaffected and remain the trusted sources.
