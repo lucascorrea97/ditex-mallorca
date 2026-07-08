@@ -24,8 +24,21 @@ export type PriceRow = {
 const ZONE_ORDER = ["mallorca", "men_ibz", "all"] as const;
 
 // Row order across the mixed unit range so fabrics read Metraje→Pieza and materials
-// group naturally.
-const UNIT_ORDER = ["metro", "pieza", "metro_lineal", "kg", "unidad", "m3"];
+// group naturally. "pvp" (A3 tariffs PVP / ESPUMA PVP) is deliberately absent — those
+// are retail walk-in prices, stored per ADR-0018 but never shown on the web; leaving
+// them out of this whitelist is what makes buildPriceTable/formatPriceWithUnit skip
+// them automatically.
+const UNIT_ORDER = [
+  "metro",
+  "pieza",
+  "metro_lineal",
+  "kg",
+  "unidad",
+  "m3",
+  "plancha",
+  "caja",
+  "embalaje",
+];
 
 // Short suffix appended after the amount so every price reads with its unit
 // ("18,50 €/m", "5,80 €/kg") — the acceptance criterion "prices shown with units".
@@ -36,6 +49,9 @@ export const UNIT_SUFFIX: Record<string, string> = {
   kg: "kg",
   unidad: "ud",
   m3: "m³",
+  plancha: "plancha",
+  caja: "caja",
+  embalaje: "embalaje",
 };
 
 // Euro-using locale tag per site language, so Intl formats "18,50 €" (es/ca) vs
