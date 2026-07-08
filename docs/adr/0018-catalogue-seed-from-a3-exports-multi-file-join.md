@@ -111,3 +111,25 @@ Business answers to the two open questions:
 
 Remaining fine print for #6: whether the 150 €/15 € rule also applies to **Mallorca** van
 deliveries or only inter-island, and whether the 15 € fee is identical for Menorca and Ibiza.
+
+## Update (2026-07-08): foam prices are hidden — negotiated manually, not sold off A3
+
+Business rule (owner's son-in-law, reviewing #5's seeded catalogue): **foam pricing is
+negotiated per Client separately** — the A3 `CORTE`/`CORTE ISLAS`/`PLANCHA`/`PLANCHA ISLAS`
+tariff amounts must never reach a Client, on the public Catalogue or in the Client Area.
+This **supersedes** the "Update (2026-07-08): island pricing..." section above, which assumed
+foam's Mallorca/Men-Ibz columns would render automatically from the imported tariff.
+
+- Foam products still **show in the Catalogue and Client Area** — the "keep browsable, hide
+  the price" option was chosen over dropping foam from the site entirely. Foam is still the
+  hero/moat (CONTEXT.md, ADR-0014); only the *price* is withheld, not the product.
+- The importer (#5) keeps ingesting and storing `CORTE`/`CORTE ISLAS`/`PLANCHA`/`PLANCHA ISLAS`
+  as before (reference data, e.g. for a future manual-quote/admin workflow) — nothing changed
+  in `db/import-catalogue.ts` or `lib/import/parse.ts`.
+- The hiding happens one layer up, in `lib/prices.ts`: `m3`/`plancha` (foam's only two units)
+  are absent from `UNIT_ORDER`, the same defence-in-depth mechanism already used for `pvp`
+  (PVP/ESPUMA PVP retail prices). `buildPriceTable`, `formatPriceWithUnit`, and
+  `isIslandPriced` all consult this whitelist, so a foam-only price set renders no rows, no
+  zone columns, and no inline price string — never a bare unformatted leak.
+- Consequence: for foam, expect a "contact us to negotiate" treatment wherever the site would
+  otherwise render a price — that UI copy is a follow-up, not built yet.
