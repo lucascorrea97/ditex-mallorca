@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/container";
+import { Button } from "@/components/ui/button";
 import { getDictionary, hasLocale, localePath } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import { auth, signOut } from "@/auth";
@@ -80,11 +81,17 @@ export default async function ClientAreaPage({
         </Container>
       </section>
 
-      {/* Content shell — placeholder for upcoming Price List (#14) */}
+      {/* Prices now live on the catalogue pages (ADR-0011): one product DB, two views.
+          The Client Area is the gate; browsing reveals the Price List in context. */}
       <Container className="py-section-lg">
-        <div className="rounded-2xl border border-dashed border-stone-300 bg-stone-50 px-8 py-16 text-center">
-          <p className="type-eyebrow text-stone-400">{d.eyebrow}</p>
-          <p className="mt-4 text-stone-500">{d.comingSoon}</p>
+        <div className="rounded-2xl border border-stone-200 bg-stone-50 px-8 py-12">
+          <h2 className="type-h2-minor">{d.pricesLiveTitle}</h2>
+          <p className="mt-4 max-w-2xl text-stone-600">{d.pricesLiveBody}</p>
+          <div className="mt-8">
+            <Button href={localePath(lang, "/catalogo")}>
+              {d.browseCatalogueCta}
+            </Button>
+          </div>
         </div>
       </Container>
     </>

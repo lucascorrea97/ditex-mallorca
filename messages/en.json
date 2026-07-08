@@ -162,7 +162,9 @@
     "eyebrow": "Client Area",
     "h1": "Welcome to the Client Area",
     "lead": "From here you can view the up-to-date price list.",
-    "comingSoon": "The price list will be available in this section soon.",
+    "pricesLiveTitle": "Prices are visible in the catalogue",
+    "pricesLiveBody": "Now that you are signed in, prices (Mallorca and Menorca / Ibiza) appear on the product pages in the catalogue. Browse or search as usual and you will see the up-to-date price list.",
+    "browseCatalogueCta": "View the catalogue with prices",
     "logoutLabel": "Sign out"
   },
   "acceder": {
@@ -206,6 +208,13 @@
     "contactCta": "Request a quote",
     "collectionLabel": "Collection",
     "categoryLabel": "Category",
+    "pricesHeading": "Prices",
+    "pricesClientNote": "Prices for authorised clients only.",
+    "priceZones": {
+      "mallorca": "Mallorca",
+      "men_ibz": "Menorca / Ibiza",
+      "all": "Price"
+    },
     "saleUnits": {
       "metro": "linear metre",
       "pieza": "piece (full roll)",

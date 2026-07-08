@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { and, asc, eq, isNull, count } from "drizzle-orm";
+import { and, asc, eq, isNull, count, inArray } from "drizzle-orm";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { getDictionary, hasLocale, localePath } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
 import { db, schema } from "@/db";
 import { localizedMetadata } from "@/lib/seo";
-import { SLUG_TO_CATEGORY, CATEGORY_SLUGS } from "@/lib/catalogue";
+import { SLUG_TO_CATEGORY } from "@/lib/catalogue";
 import type { CategoryValue } from "@/lib/catalogue";
+import { auth } from "@/auth";
+import { PriceInline } from "@/components/site/price-table";
+import type { PriceRow } from "@/lib/prices";
 
 export const dynamic = "force-dynamic";
 
@@ -99,6 +103,38 @@ export default async function CategoryPage({
   const countByCollection = Object.fromEntries(
     collectionCounts.map((r) => [r.id, r.total]),
   );
+
+  // ADR-0011: reveal prices only to authenticated Clients. Fetch price rows for the
+  // listed products and show a compact per-row summary when logged in.
+  const session = await auth();
+  const showPrices = !!session;
+  const saleUnits = d.saleUnits as Record<string, string>;
+
+  const standaloneIds = standaloneProducts.map((p) => p.id);
+  const pricesByProduct = new Map<number, PriceRow[]>();
+  if (showPrices && standaloneIds.length > 0) {
+    const rows = await db
+      .select({
+        productId: schema.prices.productId,
+        zone: schema.prices.zone,
+        unit: schema.prices.unit,
+        amount: schema.prices.amount,
+        onRequest: schema.prices.onRequest,
+        qualifier: schema.prices.qualifier,
+      })
+      .from(schema.prices)
+      .where(inArray(schema.prices.productId, standaloneIds));
+    for (const r of rows) {
+      if (!pricesByProduct.has(r.productId)) pricesByProduct.set(r.productId, []);
+      pricesByProduct.get(r.productId)!.push({
+        zone: r.zone,
+        unit: r.unit,
+        amount: r.amount,
+        onRequest: r.onRequest,
+        qualifier: r.qualifier,
+      });
+    }
+  }
 
   const categoryName = catNames[category];
   const categoryDesc = catDescs[category];
@@ -195,6 +231,19 @@ export default async function CategoryPage({
                         </li>
                       ))}
                     </ul>
+                  )}
+                  {showPrices && (
+                    <div className="mt-2">
+                      <PriceInline
+                        prices={pricesByProduct.get(product.id) ?? []}
+                        locale={lang as Locale}
+                        labels={{
+                          zoneLabels: d.priceZones as Record<string, string>,
+                          unitLabels: saleUnits,
+                          onRequestLabel: d.onRequest,
+                        }}
+                      />
+                    </div>
                   )}
                 </div>
                 <span className="shrink-0 text-sm text-brand-600 group-hover:underline">
