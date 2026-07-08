@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { requireAdmin } from "@/lib/admin/auth";
 import { checkbox, nullable, slugify, str, tags } from "@/lib/admin/form";
+import { parsePriceInput } from "@/lib/price";
 
 // ── Products ─────────────────────────────────────────────────────────────────
 
@@ -76,10 +77,7 @@ export async function deleteProduct(id: number) {
 function priceAmount(form: FormData): { amount: string | null; onRequest: boolean } {
   const onRequest = checkbox(form, "onRequest");
   if (onRequest) return { amount: null, onRequest: true };
-  const raw = str(form, "amount").replace(",", ".");
-  const num = Number(raw);
-  if (raw === "" || Number.isNaN(num)) return { amount: null, onRequest: false };
-  return { amount: num.toFixed(2), onRequest: false };
+  return { amount: parsePriceInput(str(form, "amount")), onRequest: false };
 }
 
 export async function addPrice(productId: number, form: FormData) {
