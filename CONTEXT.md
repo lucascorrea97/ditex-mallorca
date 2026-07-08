@@ -35,8 +35,12 @@ The set of products and prices shown inside the Client Area. The same Price List
 _Avoid_: catalogue (the catalogue is public; the Price List is gated and includes prices)
 
 **Collection** (Colección):
-A named grouping of fabrics within the Telas tariff (e.g. CHARLINE, NEW GENERATION). Carries shared attributes — stock availability and delivery terms — that apply to all fabrics inside it.
+A named grouping of fabrics within the Telas tariff (e.g. CHARLINE, NEW GENERATION). Carries shared attributes — stock availability and delivery terms — that apply to all fabrics inside it. In A3 this corresponds (roughly) to A3's internal *familia* field, which is fine-grained — one per fabric line (1,600+ of them). Do not confuse with **Familia** below.
 _Avoid_: range, family, group
+
+**Familia** (web category):
+One of the **37 simplified product categories** (TELA, ESPUMA, CREMALLERAS, HILOS, MÁQUINAS Y HERRAMIENTAS, …) that organise the website's Catalogue. Defined by the business in a curated master mapping (`familias_proyecto_maestro_simplificado.xlsx`, SKU → Familia) prepared for this project — **not** exported from A3, whose internal "familia" is a much finer grouping (see Collection). The master mapping also implicitly defines which SKUs are web-visible. (ADR-0018)
+_Avoid_: A3 familia, category (in code, `familia` means this curated web category)
 
 **Metraje / Pieza**:
 The two ways a fabric is priced and sold: **Metraje** = price per linear metre (cut to length); **Pieza** = price per full roll. A single fabric usually has both.
@@ -53,6 +57,10 @@ _Avoid_: price list, products page
 **A3**:
 The on-premise Windows + SQL Server business-management software (Wolters Kluwer a3ERP family) the owner's side uses to manage orders, stock, transport, and tax-agency reporting. The **source of truth** for product, price, stock, and order data. Runs inside the office; never exposed to the internet. Ditex staff are not technical about its internals.
 _Avoid_: the ERP, the system, the database
+
+**A3 tariff** (tarifa de venta):
+A named per-unit price channel inside A3 — each article carries one price row per tariff: `PVP`, `METRAJE`, `PIEZA`, `ESPUMA PVP`, `CORTE`, `CORTE ISLAS`, `PLANCHA`, `PLANCHA ISLAS`, `UNIDAD`, `CAJA`, `EMBALAJE`. The `… ISLAS` variants carry the Menorca/Ibiza surcharge and exist **only for foam** (`CORTE`/`PLANCHA`). Clients see METRAJE/PIEZA (fabrics) and the foam pairs; `PVP`/`ESPUMA PVP` are retail walk-in prices, never shown on the web. Not to be confused with the **Price List (Tarifa)** — the Client-facing document/section built *from* these tariffs. (ADR-0018)
+_Avoid_: price type, price list (reserve for the Client-facing Price List)
 
 **Connector**:
 The small local program (a Windows service / scheduled job running on or beside the A3 machine) that syncs data between A3 and the website's own datastore. The only thing that ever talks to A3. See ADR-0003.
