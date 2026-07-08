@@ -32,9 +32,13 @@ runs A3) what A3 can and cannot export, and provided real samples. Key facts lea
    The business confirmed the Client-facing prices are **METRAJE and PIEZA** (fabrics); the
    island split lives in the `… ISLAS` tariffs.
 3. **A3 has no island tariffs for fabrics or accessories** — no `METRAJE ISLAS` /
-   `PIEZA ISLAS` / `UNIDAD ISLAS` exist. The Mallorca/Men-Ibz columns printed in the Material
-   PDF may therefore be maintained **manually in the Word document**, not in A3. Whether the
-   PDF island prices for non-foam items are authoritative is a verification question (#6).
+   `PIEZA ISLAS` / `UNIDAD ISLAS` exist. **Resolved (business answer, 2026-07-08): correct by
+   design.** Only foam carries per-item island prices, because inter-island freight for foam
+   is charged **by volume**. Every other article has a single price plus an **order-level
+   inter-island shipping rule**: orders ≥ 150 € ship free; below that, a flat **15 € delivery
+   charge**. The rule lives in nobody's system — staff apply it **manually** as a delivery-fee
+   line on the A3 invoice (clients usually wait until they reach 150 €; urgent orders pay).
+   See "Update" below for consequences.
 4. **A3's internal "familia" is not a web category.** Internally it is a fine-grained grouping
    (≈ one familia per fabric collection, e.g. OTELLO, SUITE — 1,600+ of them). For the web, the
    business prepared a **curated master mapping** (`familias_proyecto_maestro_simplificado.xlsx`):
@@ -84,7 +88,26 @@ from the article name / A3 familia; the 37 curated Familias drive site navigatio
   admin edits; acceptable for launch.
 - Stock on the site is snapshot-based until the Connector; the Client Area should present it
   as availability, not a live count.
-- The Material PDF's island columns for **non-foam** items need business verification (#6) —
-  they may not exist in A3 at all.
 - Sample files live locally in `~/ditex-data/a3-samples/` (kept **out of the repo** because
   they contain cost prices).
+
+## Update (2026-07-08): island pricing & SKU count resolved
+
+Business answers to the two open questions:
+
+1. **Non-foam island prices don't exist — by design** (see Context point 3). Consequences:
+   - The Client Area shows Mallorca/Men-Ibz **columns only for foam** (which the price-table
+     component already does — non-island-priced items get no zone columns). No manual price
+     layer is needed.
+   - Instead, the Client Area must **state the inter-island shipping rule** near prices
+     (≥ 150 € free / 15 € below), so Men-Ibz Clients aren't surprised — tracked as its own issue.
+   - The Material PDF's Men-Ibz column for non-foam items is not A3 data; do not try to
+     import or reproduce it.
+   - Process note: the manual 150 €/15 € invoice line is an **automation opportunity** —
+     recorded in `docs/business/automation-opportunities.md`; when structured orders (#21)
+     exist, the rule can be applied automatically.
+2. **The catalogue is ~7,000 items, not >10,000.** The earlier ">10k SKUs" figure was wrong;
+   the familia master (6,971 SKUs) is effectively the complete range. No missing data.
+
+Remaining fine print for #6: whether the 150 €/15 € rule also applies to **Mallorca** van
+deliveries or only inter-island, and whether the 15 € fee is identical for Menorca and Ibiza.

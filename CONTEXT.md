@@ -47,8 +47,12 @@ The two ways a fabric is priced and sold: **Metraje** = price per linear metre (
 _Avoid_: unit price, bulk price
 
 **Mallorca / Men-Ibz pricing**:
-The two-column island pricing on Material items. **Mallorca** = local price (delivered by Ditex's own two vans); **Men-Ibz** (Menorca / Ibiza) = the higher price reflecting the **external carrier** used for inter-island shipping. Some items read CONSULTA (price on request) for the second column.
+The two-column island pricing — which applies **only to foam**. **Mallorca** = local price (delivered by Ditex's own two vans); **Men-Ibz** (Menorca / Ibiza) = the higher price reflecting the **external carrier**, whose foam freight is charged **by volume** (hence per-item island prices; in A3 these are the `… ISLAS` tariffs). Some items read CONSULTA (price on request) for the second column. Every non-foam article has a **single price** regardless of island — inter-island delivery is covered by the **Inter-island shipping rule** instead. (ADR-0018)
 _Avoid_: zone pricing, regional pricing
+
+**Inter-island shipping rule**:
+The order-level delivery policy for everything except foam: orders of **150 € or more ship to Menorca/Ibiza free**; below that, a flat **15 € delivery charge** applies. Not configured in A3 — staff add the fee **manually** as an invoice line, and Clients often wait to reach 150 € before ordering. The Client Area must state this rule near prices; automating it is a recorded automation opportunity (docs/business/automation-opportunities.md). (ADR-0018)
+_Avoid_: shipping cost, freight surcharge (that's the foam `… ISLAS` price difference)
 
 **Catalogue**:
 A public-facing presentation of the product range (fabrics, foam, polipieles, PVC, accessories) without prices. Distinct from the Price List, which is private and priced.
