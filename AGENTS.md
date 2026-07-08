@@ -8,6 +8,24 @@ This is the **Ditex Mallorca** website rebuild. Before writing code, read:
 
 Work is tracked as GitHub issues (vertical slices). Staging is **noindex** until a single big-bang cutover (ADR-0005, ADR-0013) — never relax `app/robots.ts` or the layout `robots` metadata unless that is the explicit task.
 
+<!-- BEGIN:parallel-agent-rules -->
+# You are not alone in this repo — isolate your work
+
+This repo is built by **multiple agent sessions in parallel, one per issue**. Two sessions in the same checkout share one git HEAD/index, so they corrupt each other: transient build failures from another session's mid-edit, near-duplicate files, and one session's commit sweeping in another's uncommitted changes. **Do not work directly in a shared checkout.**
+
+1. **Start every issue in your own git worktree**, branched off `origin/main`:
+   ```bash
+   git fetch origin
+   git worktree add ../ditex-<issue-number> -b feat/issue-<issue-number> origin/main
+   cd ../ditex-<issue-number> && npm ci
+   ```
+   You now have an isolated working directory and index — a parallel session cannot break your build or contaminate your commits. Verify (`lint` / `test` / `build` / `typecheck`) and open your PR from here. When merged, clean up: `git worktree remove ../ditex-<issue-number>`.
+
+2. **If you find uncommitted changes you didn't make, stop — another session is active.** Never `git add -A` or `git add .`; you'll grab their work. Stage only your files by explicit path, and prefer moving to a fresh worktree (step 1) before doing anything else.
+
+3. **Coordinate on shared hot files** (`proxy.ts`, `package.json`, `lib/i18n.ts`, `messages/*.json`, `.github/workflows/ci.yml`). Run `git status` before assuming a clean base; if your change overlaps another in-flight issue, note it in your PR and open a follow-up issue rather than silently reconciling.
+<!-- END:parallel-agent-rules -->
+
 <!-- BEGIN:nextjs-agent-rules -->
 # This is NOT the Next.js you know
 
