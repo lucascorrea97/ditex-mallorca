@@ -35,6 +35,8 @@ Balearics**.
 14. [Content parity + design upgrade; reproduce-then-refine](./docs/adr/0014-content-parity-design-upgrade-reproduce-then-refine.md)
 15. [Centralized design tokens; copy is provisional pending a marketing pass](./docs/adr/0015-centralized-design-tokens-provisional-copy.md)
 16. [Imagery: own-photography first, manifest-driven, no AI](./docs/adr/0016-imagery-own-photography-first-manifest-driven.md)
+17. [i18n: built-in Next.js routing with JSON dictionaries](./docs/adr/0017-i18n-built-in-dictionary-approach.md)
+18. [Catalogue seed: multi-file A3 export join, tariff-row pricing, curated Familias](./docs/adr/0018-catalogue-seed-from-a3-exports-multi-file-join.md)
 
 ## The one-paragraph version
 
