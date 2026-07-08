@@ -25,7 +25,19 @@ const ZONE_ORDER = ["mallorca", "men_ibz", "all"] as const;
 
 // Row order across the mixed unit range so fabrics read Metraje→Pieza and materials
 // group naturally.
-const UNIT_ORDER = ["metro", "pieza", "metro_lineal", "kg", "unidad", "m3"];
+//
+// "pvp" (A3 tariffs PVP / ESPUMA PVP) is deliberately absent — those are retail
+// walk-in prices, stored per ADR-0018 but never shown on the web.
+//
+// "m3"/"plancha" (foam's CORTE/CORTE ISLAS/PLANCHA/PLANCHA ISLAS) are also
+// deliberately absent: foam pricing is negotiated manually per client, not sold
+// off the imported A3 tariff, so those amounts are stored (for reference/admin
+// use) but must never reach a Client. Foam items still show in the Catalogue —
+// only the price is hidden, not the product.
+//
+// Leaving a unit out of this whitelist is what makes buildPriceTable /
+// formatPriceWithUnit skip it automatically.
+const UNIT_ORDER = ["metro", "pieza", "metro_lineal", "kg", "unidad", "caja", "embalaje"];
 
 // Short suffix appended after the amount so every price reads with its unit
 // ("18,50 €/m", "5,80 €/kg") — the acceptance criterion "prices shown with units".
@@ -35,7 +47,8 @@ export const UNIT_SUFFIX: Record<string, string> = {
   pieza: "pieza",
   kg: "kg",
   unidad: "ud",
-  m3: "m³",
+  caja: "caja",
+  embalaje: "embalaje",
 };
 
 // Euro-using locale tag per site language, so Intl formats "18,50 €" (es/ca) vs
@@ -66,8 +79,10 @@ export function formatAmount(amount: string | null, locale: Locale): string | nu
 }
 
 // Amount already suffixed with its unit, e.g. "18,50 €/m". Returns null when the row
-// has no showable amount.
+// has no showable amount, OR when its unit isn't in the display whitelist (UNIT_ORDER)
+// — e.g. foam's m3/plancha, whose prices are stored but must never reach a Client.
 export function formatPriceWithUnit(price: PriceRow, locale: Locale): string | null {
+  if (!UNIT_ORDER.includes(price.unit)) return null;
   const amount = formatAmount(price.amount, locale);
   if (amount === null) return null;
   const suffix = UNIT_SUFFIX[price.unit];
@@ -81,20 +96,28 @@ export type PriceTable = { zones: string[]; rows: PriceTableRow[] };
 // Pivot the flat price rows into a (unit × zone) grid. Fabrics collapse to a single
 // "all" column with Metraje/Pieza rows; island-priced materials get Mallorca + Men-Ibz
 // columns. Any (unit, zone) combination absent from the data renders as an empty cell.
+// Rows whose unit isn't in the display whitelist (UNIT_ORDER) — e.g. foam's m3/plancha
+// — are dropped before computing zones too, so a foam-only price set renders a fully
+// empty table rather than phantom Mallorca/Men-Ibz column headers with no cells.
 export function buildPriceTable(prices: PriceRow[]): PriceTable {
-  const zones = ZONE_ORDER.filter((z) => prices.some((p) => p.zone === z));
-  const units = UNIT_ORDER.filter((u) => prices.some((p) => p.unit === u));
+  const displayable = prices.filter((p) => UNIT_ORDER.includes(p.unit));
+  const zones = ZONE_ORDER.filter((z) => displayable.some((p) => p.zone === z));
+  const units = UNIT_ORDER.filter((u) => displayable.some((p) => p.unit === u));
   const rows: PriceTableRow[] = units.map((unit) => ({
     unit,
     cells: zones.map((zone) => ({
       zone,
-      price: prices.find((p) => p.unit === unit && p.zone === zone),
+      price: displayable.find((p) => p.unit === unit && p.zone === zone),
     })),
   }));
   return { zones, rows };
 }
 
 // True when the item carries the two-column island pricing (Mallorca / Men-Ibz).
+// Only looks at whitelisted (displayable) units — foam's mallorca/men_ibz rows
+// exist in storage but their units are excluded from UNIT_ORDER above, so a
+// foam-only price set correctly reports false here rather than showing empty
+// island columns with no visible prices underneath.
 export function isIslandPriced(prices: PriceRow[]): boolean {
-  return prices.some((p) => p.zone === "mallorca" || p.zone === "men_ibz");
+  return prices.some((p) => UNIT_ORDER.includes(p.unit) && (p.zone === "mallorca" || p.zone === "men_ibz"));
 }

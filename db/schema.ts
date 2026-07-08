@@ -29,7 +29,10 @@ export const categoryEnum = pgEnum("category", [
 export const priceZoneEnum = pgEnum("price_zone", ["all", "mallorca", "men_ibz"]);
 
 // How a product is sold/priced. Fabrics: metro (metraje) + pieza. Materials: kg,
-// metro_lineal, unidad. Foam: m3.
+// metro_lineal, unidad. Foam: m3 (corte, cut to volume) + plancha (foam sheet).
+// caja/embalaje are A3's box/package tariffs. "pvp" is the retail walk-in price
+// (A3 tariffs PVP / ESPUMA PVP) — stored per ADR-0018 ("store, don't display") but
+// deliberately left out of lib/prices.ts's UNIT_ORDER, so it never renders on the web.
 export const saleUnitEnum = pgEnum("sale_unit", [
   "metro",
   "pieza",
@@ -37,6 +40,10 @@ export const saleUnitEnum = pgEnum("sale_unit", [
   "metro_lineal",
   "unidad",
   "m3",
+  "plancha",
+  "caja",
+  "embalaje",
+  "pvp",
 ]);
 
 // Editorial content state. The owner's daughter drafts/reviews AI-assisted articles
@@ -66,8 +73,19 @@ export const products = pgTable(
     name: text("name").notNull(), // TEJIDO / item name, e.g. "CHANEL"
     code: text("code"), // CODIGO (materials); null for most fabrics
     category: categoryEnum("category").notNull(),
+    // The curated web Familia (TELA, ESPUMA, CREMALLERAS...) from the business's
+    // familia master mapping — the categorisation source of truth (ADR-0018,
+    // CONTEXT.md: Familia). Distinct from `category` above (a coarser 6-value nav
+    // grouping derived from it) and from A3's internal familia (see Collection).
+    // Null when the master mapping row itself has no Familia (surfaced in the
+    // import report for #6).
+    familia: text("familia"),
     collectionId: integer("collection_id").references(() => collections.id),
     width: text("width"), // ANCHO, e.g. "140 CM" — units vary, kept as text
+    // Stock Total aggregated per SKU from the A3 stock snapshot export. Null means
+    // the SKU is absent from the stock file, which A3 uses to mean no stock
+    // (ADR-0018) — not the same as a confirmed zero.
+    stockTotal: numeric("stock_total", { precision: 10, scale: 2 }),
     // Heterogeneous specs (gramaje, density, mts/kg...) and the future home for
     // A3 fields the web UI doesn't model explicitly.
     attributes: jsonb("attributes").$type<Record<string, string>>().default({}).notNull(),
@@ -81,6 +99,7 @@ export const products = pgTable(
   },
   (t) => [
     index("products_category_idx").on(t.category),
+    index("products_familia_idx").on(t.familia),
     index("products_collection_idx").on(t.collectionId),
   ],
 );

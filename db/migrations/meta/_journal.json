@@ -15,6 +15,13 @@
       "when": 1781463574250,
       "tag": "0001_bored_gateway",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1783518028761,
+      "tag": "0002_busy_black_crow",
+      "breakpoints": true
     }
   ]
 }
