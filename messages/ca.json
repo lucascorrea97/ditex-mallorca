@@ -162,7 +162,9 @@
     "eyebrow": "Àrea de Clients",
     "h1": "Benvingut a l'Àrea de Clients",
     "lead": "Des d'aquí podràs consultar la tarifa de preus actualitzada.",
-    "comingSoon": "La tarifa de preus estarà disponible en aquesta secció properament.",
+    "pricesLiveTitle": "Preus visibles al catàleg",
+    "pricesLiveBody": "Ara que has accedit, els preus (Mallorca i Menorca / Eivissa) apareixen a les fitxes de producte del catàleg. Navega o cerca com sempre i veuràs la tarifa actualitzada.",
+    "browseCatalogueCta": "Veure el catàleg amb preus",
     "logoutLabel": "Tancar sessió"
   },
   "acceder": {
@@ -206,6 +208,13 @@
     "contactCta": "Sol·licitar pressupost",
     "collectionLabel": "Col·lecció",
     "categoryLabel": "Categoria",
+    "pricesHeading": "Preus",
+    "pricesClientNote": "Preus exclusius per a clients autoritzats.",
+    "priceZones": {
+      "mallorca": "Mallorca",
+      "men_ibz": "Menorca / Eivissa",
+      "all": "Preu"
+    },
     "saleUnits": {
       "metro": "metre lineal",
       "pieza": "peça (rotllo)",

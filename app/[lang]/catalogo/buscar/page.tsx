@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { and, asc, eq, or, ilike, sql } from "drizzle-orm";
+import { and, asc, eq, or, ilike, sql, inArray } from "drizzle-orm";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { getDictionary, hasLocale, localePath } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
 import { db, schema } from "@/db";
+import { auth } from "@/auth";
+import { PriceInline } from "@/components/site/price-table";
+import type { PriceRow } from "@/lib/prices";
 import SearchTracker from "./search-tracker";
 
 export const dynamic = "force-dynamic";
@@ -40,6 +44,11 @@ export default async function SearchPage({
   const dict = await getDictionary(lang);
   const d = dict.catalogo;
   const catNames = d.categoryNames as Record<string, string>;
+  const saleUnits = d.saleUnits as Record<string, string>;
+
+  // ADR-0011: prices are revealed only to authenticated Clients.
+  const session = await auth();
+  const showPrices = !!session;
 
   let products: (typeof schema.products.$inferSelect)[] = [];
 
@@ -60,6 +69,37 @@ export default async function SearchPage({
         ),
       )
       .orderBy(asc(schema.products.name));
+  }
+
+  // Fetch price rows for the matched products (authenticated only).
+  const pricesByProduct = new Map<number, PriceRow[]>();
+  if (showPrices && products.length > 0) {
+    const rows = await db
+      .select({
+        productId: schema.prices.productId,
+        zone: schema.prices.zone,
+        unit: schema.prices.unit,
+        amount: schema.prices.amount,
+        onRequest: schema.prices.onRequest,
+        qualifier: schema.prices.qualifier,
+      })
+      .from(schema.prices)
+      .where(
+        inArray(
+          schema.prices.productId,
+          products.map((p) => p.id),
+        ),
+      );
+    for (const r of rows) {
+      if (!pricesByProduct.has(r.productId)) pricesByProduct.set(r.productId, []);
+      pricesByProduct.get(r.productId)!.push({
+        zone: r.zone,
+        unit: r.unit,
+        amount: r.amount,
+        onRequest: r.onRequest,
+        qualifier: r.qualifier,
+      });
+    }
   }
 
   return (
@@ -146,6 +186,19 @@ export default async function SearchPage({
                             </li>
                           ))}
                         </ul>
+                      )}
+                      {showPrices && (
+                        <div className="mt-2">
+                          <PriceInline
+                            prices={pricesByProduct.get(product.id) ?? []}
+                            locale={lang as Locale}
+                            labels={{
+                              zoneLabels: d.priceZones as Record<string, string>,
+                              unitLabels: saleUnits,
+                              onRequestLabel: d.onRequest,
+                            }}
+                          />
+                        </div>
                       )}
                     </div>
                     <span className="shrink-0 text-sm text-brand-600 group-hover:underline">

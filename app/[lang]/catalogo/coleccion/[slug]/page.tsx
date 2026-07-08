@@ -9,6 +9,10 @@ import { db, schema } from "@/db";
 import { localizedMetadata } from "@/lib/seo";
 import { CATEGORY_SLUGS } from "@/lib/catalogue";
 import type { CategoryValue } from "@/lib/catalogue";
+import { auth } from "@/auth";
+import { PriceInline } from "@/components/site/price-table";
+import type { PriceRow } from "@/lib/prices";
+import type { Locale } from "@/lib/i18n";
 
 export const dynamic = "force-dynamic";
 
@@ -62,29 +66,41 @@ export default async function CollectionPage({
     )
     .orderBy(asc(schema.products.name));
 
-  // Fetch available units per product (no amounts — public view, ADR-0011)
+  // ADR-0011: reveal amounts only to authenticated Clients; the public view lists
+  // just the available units.
+  const session = await auth();
+  const showPrices = !!session;
+
+  // Fetch price rows per product. amount/zone/qualifier are only read into the row
+  // when logged in — logged-out rows carry unit + onRequest only.
   const productIds = products.map((p) => p.id);
   const allPrices =
     productIds.length > 0
       ? await db
           .select({
             productId: schema.prices.productId,
+            zone: schema.prices.zone,
             unit: schema.prices.unit,
+            amount: schema.prices.amount,
             onRequest: schema.prices.onRequest,
+            qualifier: schema.prices.qualifier,
           })
           .from(schema.prices)
           .where(inArray(schema.prices.productId, productIds))
       : [];
 
   // Group by productId
-  const pricesByProduct = new Map<
-    number,
-    { productId: number; unit: string; onRequest: boolean }[]
-  >();
+  const pricesByProduct = new Map<number, PriceRow[]>();
   for (const pr of allPrices) {
     if (!pricesByProduct.has(pr.productId))
       pricesByProduct.set(pr.productId, []);
-    pricesByProduct.get(pr.productId)!.push(pr);
+    pricesByProduct.get(pr.productId)!.push({
+      zone: pr.zone,
+      unit: pr.unit,
+      amount: pr.amount,
+      onRequest: pr.onRequest,
+      qualifier: pr.qualifier,
+    });
   }
 
   const dict = await getDictionary(lang);
@@ -191,14 +207,32 @@ export default async function CollectionPage({
                         {d.widthLabel}: {product.width}
                       </p>
                     )}
-                    {units.length > 0 && !hasOnRequest && (
-                      <p className="mt-1 text-xs text-stone-400">
-                        {d.availableAs}:{" "}
-                        {units.map((u) => saleUnits[u] ?? u).join(", ")}
-                      </p>
-                    )}
-                    {hasOnRequest && (
-                      <p className="mt-1 text-xs text-stone-400">{d.onRequest}</p>
+                    {showPrices ? (
+                      <div className="mt-2">
+                        <PriceInline
+                          prices={prices}
+                          locale={lang as Locale}
+                          labels={{
+                            zoneLabels: d.priceZones as Record<string, string>,
+                            unitLabels: saleUnits,
+                            onRequestLabel: d.onRequest,
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <>
+                        {units.length > 0 && !hasOnRequest && (
+                          <p className="mt-1 text-xs text-stone-400">
+                            {d.availableAs}:{" "}
+                            {units.map((u) => saleUnits[u] ?? u).join(", ")}
+                          </p>
+                        )}
+                        {hasOnRequest && (
+                          <p className="mt-1 text-xs text-stone-400">
+                            {d.onRequest}
+                          </p>
+                        )}
+                      </>
                     )}
                   </div>
                   <span className="shrink-0 text-sm text-brand-600 group-hover:underline">

@@ -11,6 +11,9 @@ import { productJsonLd, breadcrumbJsonLd } from "@/lib/json-ld";
 import { db, schema } from "@/db";
 import { CATEGORY_SLUGS } from "@/lib/catalogue";
 import type { CategoryValue } from "@/lib/catalogue";
+import { auth } from "@/auth";
+import { PriceTable } from "@/components/site/price-table";
+import type { Locale } from "@/lib/i18n";
 
 export const dynamic = "force-dynamic";
 
@@ -54,6 +57,11 @@ export default async function ProductPage({
   const d = dict.catalogo;
   const catNames = d.categoryNames as Record<string, string>;
   const saleUnits = d.saleUnits as Record<string, string>;
+
+  // ADR-0011: one product DB, two views. Prices are revealed only to authenticated
+  // Clients — the logged-out Catalogue stays price-free.
+  const session = await auth();
+  const showPrices = !!session;
 
   const categorySlug = CATEGORY_SLUGS[product.category as CategoryValue];
   const categoryName = catNames[product.category];
@@ -126,11 +134,15 @@ export default async function ProductPage({
               {product.description}
             </p>
           )}
-          <p className="mt-6 text-sm text-stone-500">
-            {d.pricesNote}{" "}
-            <strong className="text-stone-700">{d.clientAreaLabel}</strong>{" "}
-            {d.pricesNote2}
-          </p>
+          {showPrices ? (
+            <p className="mt-6 text-sm text-stone-500">{d.pricesClientNote}</p>
+          ) : (
+            <p className="mt-6 text-sm text-stone-500">
+              {d.pricesNote}{" "}
+              <strong className="text-stone-700">{d.clientAreaLabel}</strong>{" "}
+              {d.pricesNote2}
+            </p>
+          )}
         </Container>
       </section>
 
@@ -267,23 +279,46 @@ export default async function ProductPage({
             </dl>
           </div>
 
-          {/* Right: price CTA */}
-          <div className="rounded-2xl border border-stone-200 bg-stone-50 p-8">
-            <p className="type-eyebrow text-stone-400">{d.clientAreaLabel}</p>
-            <p className="mt-3 type-h2-minor">
-              {d.pricesNote}{" "}
-              <strong className="text-stone-900">{d.clientAreaLabel}</strong>
-            </p>
-            <p className="mt-3 text-sm text-stone-600">{d.pricesNote2}</p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button href={localePath(lang, "/contacto")}>
-                {d.contactCta}
-              </Button>
-              <Button href={localePath(lang, "/contacto")} variant="outline">
-                {d.requestAccess}
-              </Button>
+          {/* Right: prices (authenticated) or Client Area CTA (public) */}
+          {showPrices ? (
+            <div className="rounded-2xl border border-stone-200 bg-stone-50 p-8">
+              <p className="type-eyebrow text-stone-400">{d.pricesHeading}</p>
+              <div className="mt-4">
+                <PriceTable
+                  prices={product.prices}
+                  locale={lang as Locale}
+                  labels={{
+                    zoneLabels: d.priceZones as Record<string, string>,
+                    unitLabels: saleUnits,
+                    onRequestLabel: d.onRequest,
+                  }}
+                />
+              </div>
+              <p className="mt-6 text-xs text-stone-400">{d.pricesClientNote}</p>
+              <div className="mt-6">
+                <Button href={localePath(lang, "/contacto")}>
+                  {d.contactCta}
+                </Button>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="rounded-2xl border border-stone-200 bg-stone-50 p-8">
+              <p className="type-eyebrow text-stone-400">{d.clientAreaLabel}</p>
+              <p className="mt-3 type-h2-minor">
+                {d.pricesNote}{" "}
+                <strong className="text-stone-900">{d.clientAreaLabel}</strong>
+              </p>
+              <p className="mt-3 text-sm text-stone-600">{d.pricesNote2}</p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button href={localePath(lang, "/contacto")}>
+                  {d.contactCta}
+                </Button>
+                <Button href={localePath(lang, "/contacto")} variant="outline">
+                  {d.requestAccess}
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </Container>
     </>
