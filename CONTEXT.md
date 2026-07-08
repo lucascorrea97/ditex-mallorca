@@ -35,8 +35,16 @@ The set of products and prices shown inside the Client Area. The same Price List
 _Avoid_: catalogue (the catalogue is public; the Price List is gated and includes prices)
 
 **Collection** (Colección):
-A named grouping of fabrics within the Telas tariff (e.g. CHARLINE, NEW GENERATION). Carries shared attributes — stock availability and delivery terms — that apply to all fabrics inside it. In A3 this corresponds (roughly) to A3's internal *familia* field, which is fine-grained — one per fabric line (1,600+ of them). Do not confuse with **Familia** below.
+A named grouping of fabrics within the Telas tariff (e.g. CHARLINE, NEW GENERATION). Carries shared attributes — stock availability and delivery terms — that apply to all fabrics inside it. Sits **above** Products: a Collection groups several Products (lines). Do not confuse with **Familia** below.
 _Avoid_: range, family, group
+
+**Product** (line):
+One commercial line — what the Catalogue shows as **one page**: ALLANTE, OTELLO, VIVO ALGODON 3. Keyed by the normalised **A3 familia description** (`Desc. familia`), the colour-less line name the business already curates in A3. A Product contains one or more Variants. (ADR-0019)
+_Avoid_: article (that's a Variant), item
+
+**Variant** (colourway):
+One A3 article inside a Product — usually a colourway (e.g. ALLANTE **C-832 BURGUNDY**). Carries the A3 SKU (`Cód. artículo`) as its external id, a label (article name minus the line name), and its own prices when they differ from the Product's (68 lines have colour-dependent prices). Products with a single article get one default Variant. (ADR-0019)
+_Avoid_: colour option, SKU (as a UI word), sub-product
 
 **Familia** (web category):
 One of the **37 simplified product categories** (TELA, ESPUMA, CREMALLERAS, HILOS, MÁQUINAS Y HERRAMIENTAS, …) that organise the website's Catalogue. Defined by the business in a curated master mapping (`familias_proyecto_maestro_simplificado.xlsx`, SKU → Familia) prepared for this project — **not** exported from A3, whose internal "familia" is a much finer grouping (see Collection). The master mapping also implicitly defines which SKUs are web-visible. (ADR-0018)
