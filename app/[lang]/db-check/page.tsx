@@ -1,13 +1,9 @@
 import { db } from "@/db";
+import { formatEur } from "@/lib/price";
 
 // TEMPORARY verification page for the data layer (#3). Proves a typed query renders
 // server-side. Remove when the real catalogue (#7) and gated prices (#14) land.
 export const dynamic = "force-dynamic";
-
-function eur(amount: string | number | null) {
-  if (amount === null) return "consultar";
-  return `${Number(amount).toFixed(2)}€`;
-}
 
 export default async function DbCheck() {
   let items;
@@ -53,7 +49,7 @@ export default async function DbCheck() {
               {p.prices.map((pr) => (
                 <li key={pr.id}>
                   {pr.zone !== "all" ? `${pr.zone}: ` : ""}
-                  {eur(pr.onRequest ? null : pr.amount)}
+                  {formatEur(pr.onRequest ? null : pr.amount)}
                   <span className="text-stone-400"> /{pr.unit}</span>
                 </li>
               ))}

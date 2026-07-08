@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   build:
-    name: lint • typecheck • build
+    name: lint • test • build • typecheck
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -29,6 +29,11 @@ jobs:
 
       - name: Lint
         run: npm run lint
+
+      # Targeted, logic-first unit tests (issue #53). Pure functions, no DB/UI, so
+      # they run here early — no Postgres and no build output needed.
+      - name: Test
+        run: npm test
 
       # Build runs before Typecheck on purpose: `next build` generates the type
       # declarations `tsc` needs (next-env.d.ts — which types static image

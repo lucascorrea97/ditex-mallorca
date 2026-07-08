@@ -1,27 +1,8 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
-import { locales, defaultLocale, hasLocale } from "@/lib/i18n";
-import type { NextAuthRequest } from "next-auth";
+import { hasLocalePrefix, resolvePreferredLocale } from "@/lib/i18n";
 
 const LOCALE_COOKIE = "NEXT_LOCALE";
-
-function getPreferredLocale(request: NextAuthRequest): string {
-  // 1. Explicit cookie — set when the user manually switches language
-  const cookie = request.cookies.get(LOCALE_COOKIE)?.value;
-  if (cookie && hasLocale(cookie)) return cookie;
-
-  // 2. Accept-Language header
-  const acceptLanguage = request.headers.get("accept-language") ?? "";
-  for (const entry of acceptLanguage.split(",")) {
-    const lang = entry.split(";")[0].trim().toLowerCase();
-    if ((locales as readonly string[]).includes(lang)) return lang;
-    const prefix = lang.split("-")[0];
-    if ((locales as readonly string[]).includes(prefix)) return prefix;
-  }
-
-  // 3. Default locale
-  return defaultLocale;
-}
 
 // auth() wraps our proxy so req.auth holds the JWT session (or null).
 // This is the single place that handles both locale detection and the Client
@@ -46,12 +27,13 @@ export const proxy = auth(function proxy(request) {
   }
 
   // ── Locale detection ──────────────────────────────────────────────────────
-  const pathnameHasLocale = locales.some(
-    (locale) =>
-      pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
-  );
-  if (!pathnameHasLocale) {
-    const locale = getPreferredLocale(request);
+  // Only unprefixed paths are redirected; already-prefixed URLs are left exactly
+  // as requested (SEO guardrail, issue #47). The cookie/Accept-Language precedence
+  // lives in resolvePreferredLocale (see @/lib/i18n) so it can be unit-tested.
+  if (!hasLocalePrefix(pathname)) {
+    const cookie = request.cookies.get(LOCALE_COOKIE)?.value;
+    const acceptLanguage = request.headers.get("accept-language") ?? "";
+    const locale = resolvePreferredLocale(cookie, acceptLanguage);
     request.nextUrl.pathname = `/${locale}${pathname}`;
     return NextResponse.redirect(request.nextUrl);
   }
