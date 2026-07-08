@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { eq, count } from "drizzle-orm";
+import { count, inArray } from "drizzle-orm";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { getDictionary, hasLocale, localePath } from "@/lib/i18n";
@@ -9,6 +9,7 @@ import { localizedMetadata } from "@/lib/seo";
 import { db, schema } from "@/db";
 import { CATEGORY_ORDER, CATEGORY_SLUGS } from "@/lib/catalogue";
 import type { CategoryValue } from "@/lib/catalogue";
+import { activeProductIds } from "@/lib/products";
 
 export const dynamic = "force-dynamic";
 
@@ -39,7 +40,7 @@ export default async function CataloguePage({
   const rows = await db
     .select({ category: schema.products.category, total: count() })
     .from(schema.products)
-    .where(eq(schema.products.active, true))
+    .where(inArray(schema.products.id, activeProductIds()))
     .groupBy(schema.products.category);
 
   const countByCategory = Object.fromEntries(rows.map((r) => [r.category, r.total]));

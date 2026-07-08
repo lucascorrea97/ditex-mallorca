@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { and, asc, eq, or, ilike, sql, inArray } from "drizzle-orm";
+import { and, asc, or, ilike, sql, inArray } from "drizzle-orm";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { getDictionary, hasLocale, localePath } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import { db, schema } from "@/db";
+import { activeProductIds } from "@/lib/products";
 import { auth } from "@/auth";
 import { PriceInline } from "@/components/site/price-table";
 import type { PriceRow } from "@/lib/prices";
@@ -58,7 +59,7 @@ export default async function SearchPage({
       .from(schema.products)
       .where(
         and(
-          eq(schema.products.active, true),
+          inArray(schema.products.id, activeProductIds()),
           or(
             ilike(schema.products.name, `%${query}%`),
             sql`EXISTS (

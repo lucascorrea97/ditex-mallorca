@@ -14,12 +14,15 @@ import {
   type ParsedArticleTariffRow,
   type StockRow,
 } from "@/lib/import/parse";
+import { overrides } from "@/lib/import/overrides";
 
-// Re-runnable catalogue seed importer (issue #5, ADR-0018): joins the A3
-// familia master + tariff export(s) + stock snapshot on SKU, and replaces
-// the products/prices tables. Source files are never committed to the repo
-// (they carry cost prices) — point this at wherever they live locally, e.g.
-// the business-provided samples in ~/ditex-data/a3-samples/.
+// Re-runnable catalogue seed importer (issues #5/#66, ADR-0018 + ADR-0019):
+// joins the A3 familia master + tariff export(s) + stock snapshot on SKU,
+// groups articles into Collection -> Product (line) -> Variant (colourway),
+// and replaces the products/variants/prices tables. Source files are never
+// committed to the repo (they carry cost prices) — point this at wherever
+// they live locally, e.g. the business-provided samples in
+// ~/ditex-data/a3-samples/.
 //
 // Usage:
 //   npm run db:import -- \
@@ -115,34 +118,36 @@ async function main() {
     console.warn("No stock file found/provided — every product will have stockTotal = null.");
   }
 
-  const { products, report } = buildCatalogue({ familiaMaster, tariffRows, stock });
+  const { products, report } = buildCatalogue({ familiaMaster, tariffRows, stock, overrides });
 
-  console.log(`\nJoined ${products.length} products. Writing to the database (clear + insert)...`);
+  const variantCount = products.reduce((n, p) => n + p.variants.length, 0);
+  console.log(
+    `\nJoined ${products.length} products (${variantCount} variants). Writing to the database (clear + insert)...`,
+  );
 
-  const { prices, products: productsTable } = schema;
+  const { prices, products: productsTable, variants: variantsTable } = schema;
   await db.delete(prices);
+  await db.delete(variantsTable);
   await db.delete(productsTable);
 
   for (const product of products) {
-    const [inserted] = await db
+    const [insertedProduct] = await db
       .insert(productsTable)
       .values({
-        externalId: product.externalId,
         slug: product.slug,
-        name: product.name || product.externalId,
+        name: product.name || product.slug,
         category: product.category,
         familia: product.familia,
-        active: product.active,
         width: product.width,
         attributes: product.attributes,
-        stockTotal: product.stockTotal,
       })
       .returning({ id: productsTable.id });
 
     if (product.prices.length > 0) {
       await db.insert(prices).values(
         product.prices.map((p) => ({
-          productId: inserted.id,
+          productId: insertedProduct.id,
+          variantId: null,
           zone: p.zone,
           unit: p.unit,
           amount: p.amount,
@@ -151,10 +156,37 @@ async function main() {
         })),
       );
     }
+
+    for (const variant of product.variants) {
+      const [insertedVariant] = await db
+        .insert(variantsTable)
+        .values({
+          productId: insertedProduct.id,
+          externalId: variant.externalId,
+          label: variant.label,
+          active: variant.active,
+          stockTotal: variant.stockTotal,
+        })
+        .returning({ id: variantsTable.id });
+
+      if (variant.prices.length > 0) {
+        await db.insert(prices).values(
+          variant.prices.map((p) => ({
+            productId: insertedProduct.id,
+            variantId: insertedVariant.id,
+            zone: p.zone,
+            unit: p.unit,
+            amount: p.amount,
+            onRequest: p.onRequest,
+            qualifier: p.qualifier,
+          })),
+        );
+      }
+    }
   }
 
   console.log("\n=== Import report (for #6 human review) ===");
-  console.log("Products imported:", products.length);
+  console.log("Products imported:", products.length, "| Variants:", variantCount);
   console.log("Empty-Familia SKUs:", report.emptyFamiliaSkus.length, report.emptyFamiliaSkus.slice(0, 20));
   console.log(
     "Articles without tariff rows:",
@@ -178,6 +210,26 @@ async function main() {
     report.defaultedCategorySkus.slice(0, 20),
   );
   console.log("Stock conflicts (disagreeing lot rows):", report.stockConflictSkus);
+  console.log(
+    "Suspect groups (member name doesn't start with the line name):",
+    report.suspectGroupSkus.length,
+    report.suspectGroupSkus.slice(0, 20),
+  );
+  console.log(
+    "Empty variant labels (name==line; got the SKU as a placeholder):",
+    report.emptyVariantLabelSkus.length,
+    report.emptyVariantLabelSkus.slice(0, 20),
+  );
+  console.log(
+    "Groups with inconsistent web Familia across members:",
+    report.inconsistentFamiliaGroupKeys.length,
+    report.inconsistentFamiliaGroupKeys.slice(0, 20),
+  );
+  console.log(
+    "No Desc. familia anywhere (grouped via name-prefix fallback):",
+    report.noLineDataSkus.length,
+    report.noLineDataSkus.slice(0, 20),
+  );
 }
 
 main()

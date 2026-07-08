@@ -35,38 +35,47 @@ export default async function ProductsPage() {
                 <th className="px-5 py-3 font-medium">Nombre</th>
                 <th className="px-5 py-3 font-medium">Categoría</th>
                 <th className="px-5 py-3 font-medium">Colección</th>
+                <th className="px-5 py-3 font-medium">Variantes</th>
                 <th className="px-5 py-3 font-medium">Precios</th>
                 <th className="px-5 py-3 font-medium">Estado</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-stone-100">
-              {products.map((p) => (
-                <tr key={p.id} className="hover:bg-stone-50">
-                  <td className="px-5 py-3">
-                    <Link
-                      href={`/admin/productos/${p.id}`}
-                      className="font-medium text-stone-900 hover:text-brand-600"
-                    >
-                      {p.name}
-                    </Link>
-                    {p.code ? (
-                      <span className="ml-2 text-xs text-stone-400">{p.code}</span>
-                    ) : null}
-                  </td>
-                  <td className="px-5 py-3 text-stone-600">
-                    {labelFor(CATEGORY_OPTIONS, p.category)}
-                  </td>
-                  <td className="px-5 py-3 text-stone-600">{p.collection?.name ?? "—"}</td>
-                  <td className="px-5 py-3 text-stone-600">{p.prices.length}</td>
-                  <td className="px-5 py-3">
-                    {p.active ? (
-                      <Badge tone="green">Activo</Badge>
-                    ) : (
-                      <Badge tone="neutral">Inactivo</Badge>
-                    )}
-                  </td>
-                </tr>
-              ))}
+              {products.map((p) => {
+                // A line is active when at least one of its Variants (A3 articles)
+                // is active — Bloqueado now lives per SKU, not on the line (ADR-0019).
+                const isActive = p.variants.some((v) => v.active);
+                const totalPrices =
+                  p.prices.length + p.variants.reduce((n, v) => n + v.prices.length, 0);
+                return (
+                  <tr key={p.id} className="hover:bg-stone-50">
+                    <td className="px-5 py-3">
+                      <Link
+                        href={`/admin/productos/${p.id}`}
+                        className="font-medium text-stone-900 hover:text-brand-600"
+                      >
+                        {p.name}
+                      </Link>
+                      {p.code ? (
+                        <span className="ml-2 text-xs text-stone-400">{p.code}</span>
+                      ) : null}
+                    </td>
+                    <td className="px-5 py-3 text-stone-600">
+                      {labelFor(CATEGORY_OPTIONS, p.category)}
+                    </td>
+                    <td className="px-5 py-3 text-stone-600">{p.collection?.name ?? "—"}</td>
+                    <td className="px-5 py-3 text-stone-600">{p.variants.length}</td>
+                    <td className="px-5 py-3 text-stone-600">{totalPrices}</td>
+                    <td className="px-5 py-3">
+                      {isActive ? (
+                        <Badge tone="green">Activo</Badge>
+                      ) : (
+                        <Badge tone="neutral">Inactivo</Badge>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

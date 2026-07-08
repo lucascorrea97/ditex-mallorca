@@ -64,28 +64,27 @@ export const collections = pgTable("collections", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
+// A Product is the commercial LINE (one Catalogue page), not an A3 article — e.g.
+// ALLANTE is one Product with ~40 colourway Variants inside (ADR-0019). Keyed by
+// normalised A3 `Desc. familia` at import time; no A3 identity lives here anymore
+// (see Variant.externalId) since a line has no native A3 id of its own.
 export const products = pgTable(
   "products",
   {
     id: serial("id").primaryKey(),
-    externalId: text("external_id").unique(), // future A3 article id (ADR-0006)
     slug: text("slug").notNull().unique(),
-    name: text("name").notNull(), // TEJIDO / item name, e.g. "CHANEL"
+    name: text("name").notNull(), // the line name, e.g. "ALLANTE"
     code: text("code"), // CODIGO (materials); null for most fabrics
     category: categoryEnum("category").notNull(),
     // The curated web Familia (TELA, ESPUMA, CREMALLERAS...) from the business's
     // familia master mapping — the categorisation source of truth (ADR-0018,
     // CONTEXT.md: Familia). Distinct from `category` above (a coarser 6-value nav
-    // grouping derived from it) and from A3's internal familia (see Collection).
-    // Null when the master mapping row itself has no Familia (surfaced in the
-    // import report for #6).
+    // grouping derived from it) and from A3's internal familia (ADR-0019's grouping
+    // key — see Variant/`Desc. familia`). Null when the master mapping row itself
+    // has no Familia (surfaced in the import report for #6).
     familia: text("familia"),
     collectionId: integer("collection_id").references(() => collections.id),
     width: text("width"), // ANCHO, e.g. "140 CM" — units vary, kept as text
-    // Stock Total aggregated per SKU from the A3 stock snapshot export. Null means
-    // the SKU is absent from the stock file, which A3 uses to mean no stock
-    // (ADR-0018) — not the same as a confirmed zero.
-    stockTotal: numeric("stock_total", { precision: 10, scale: 2 }),
     // Heterogeneous specs (gramaje, density, mts/kg...) and the future home for
     // A3 fields the web UI doesn't model explicitly.
     attributes: jsonb("attributes").$type<Record<string, string>>().default({}).notNull(),
@@ -93,7 +92,6 @@ export const products = pgTable(
     // e.g. ["hosteleria", "nautica", "sofa"].
     useTags: text("use_tags").array().default([]).notNull(),
     description: text("description"),
-    active: boolean("active").default(true).notNull(),
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
   },
@@ -104,8 +102,40 @@ export const products = pgTable(
   ],
 );
 
-// One row per (product, zone, unit). Lets a fabric carry metro + pieza, and a material
-// carry mallorca + men_ibz, in one uniform shape. amount is null when on request (CONSULTA).
+// A Variant is one A3 article (colourway) inside a Product line (ADR-0019). The A3
+// SKU identity (`externalId`, `active`/Bloqueado, `stockTotal`) lives here, per
+// article, not on the Product it belongs to. Every Product gets at least one
+// Variant, even single-colourway lines ("Products with a single article get one
+// default variant").
+export const variants = pgTable(
+  "variants",
+  {
+    id: serial("id").primaryKey(),
+    productId: integer("product_id")
+      .references(() => products.id, { onDelete: "cascade" })
+      .notNull(),
+    externalId: text("external_id").unique(), // A3 Cód. artículo — the Connector's future join key
+    // Article name minus the line prefix, e.g. "C-832 BURGUNDY". Empty when the
+    // article name equals the line name outright (name==line, ~5 known cases) —
+    // the importer then falls back to the SKU as a placeholder and flags it in the
+    // import report; a real label comes from an override (ADR-0019), not a hand-edit.
+    label: text("label").notNull().default(""),
+    active: boolean("active").default(true).notNull(), // Bloqueado (Sí -> inactive), per SKU
+    // Stock Total aggregated per SKU from the A3 stock snapshot export. Null means
+    // the SKU is absent from the stock file, which A3 uses to mean no stock
+    // (ADR-0018) — not the same as a confirmed zero.
+    stockTotal: numeric("stock_total", { precision: 10, scale: 2 }),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (t) => [index("variants_product_idx").on(t.productId)],
+);
+
+// One row per (product-or-variant, zone, unit). A product-level row (variantId
+// null) is the default shown for every colourway; a variant-level row overrides
+// it for the ~68 lines where colour changes the price (ADR-0019). Lets a fabric
+// carry metro + pieza, and a material carry mallorca + men_ibz, in one uniform
+// shape. amount is null when on request (CONSULTA).
 export const prices = pgTable(
   "prices",
   {
@@ -113,6 +143,7 @@ export const prices = pgTable(
     productId: integer("product_id")
       .references(() => products.id, { onDelete: "cascade" })
       .notNull(),
+    variantId: integer("variant_id").references(() => variants.id, { onDelete: "cascade" }),
     zone: priceZoneEnum("zone").default("all").notNull(),
     unit: saleUnitEnum("unit").notNull(),
     amount: numeric("amount", { precision: 10, scale: 2 }), // null => on request
@@ -121,7 +152,10 @@ export const prices = pgTable(
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
   },
-  (t) => [index("prices_product_idx").on(t.productId)],
+  (t) => [
+    index("prices_product_idx").on(t.productId),
+    index("prices_variant_idx").on(t.variantId),
+  ],
 );
 
 // Editorial content — the foam/application guides and local-intent pages that power the
@@ -160,9 +194,16 @@ export const productsRelations = relations(products, ({ one, many }) => ({
     fields: [products.collectionId],
     references: [collections.id],
   }),
+  variants: many(variants),
+  prices: many(prices),
+}));
+
+export const variantsRelations = relations(variants, ({ one, many }) => ({
+  product: one(products, { fields: [variants.productId], references: [products.id] }),
   prices: many(prices),
 }));
 
 export const pricesRelations = relations(prices, ({ one }) => ({
   product: one(products, { fields: [prices.productId], references: [products.id] }),
+  variant: one(variants, { fields: [prices.variantId], references: [variants.id] }),
 }));
