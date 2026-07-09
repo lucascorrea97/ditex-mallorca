@@ -1,13 +1,16 @@
 "use client";
 
 // The Price List PDF download (#15, ADR-0011): a real file download (the
-// route returns Content-Disposition: attachment), not a client-side page
-// transition — but next/link renders a plain <a> for a route it doesn't
-// recognise as an app page, so it works fine here and keeps the lint rule happy.
+// route returns Content-Disposition: attachment), not a page. A plain <a> is
+// deliberate here, not an oversight — next/link performs a client-side/soft
+// navigation and tries to render the response as page content, which for a
+// binary PDF response just hangs (confirmed manually: the browser sat on
+// "rendering" forever and never downloaded). A real, uninterrupted browser
+// navigation is what makes Content-Disposition: attachment actually trigger
+// a download, so this intentionally opts out of the next/link convention.
 // Tracked via analytics (issue #15 acceptance criterion) so retiring the PDF
 // bridge later is a data-driven call (ADR-0011), not a guess.
 
-import Link from "next/link";
 import { clsx } from "clsx";
 import { trackPdfDownload } from "@/lib/analytics";
 
@@ -22,12 +25,13 @@ export function DownloadPriceListButton({
   className?: string;
 }) {
   return (
-    <Link
+    // eslint-disable-next-line @next/next/no-html-link-for-pages -- see comment above
+    <a
       href="/api/price-list"
       onClick={() => trackPdfDownload("ditex-lista-de-precios.pdf")}
       className={clsx(base, className)}
     >
       {label}
-    </Link>
+    </a>
   );
 }
