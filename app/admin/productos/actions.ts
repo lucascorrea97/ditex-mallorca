@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { requireAdmin } from "@/lib/admin/auth";
 import { checkbox, nullable, slugify, str, tags } from "@/lib/admin/form";
-import { parsePriceInput } from "@/lib/price";
+import { parsePriceInput } from "@/lib/prices";
 
 // ── Products ─────────────────────────────────────────────────────────────────
 

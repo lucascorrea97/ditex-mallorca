@@ -1,12 +1,31 @@
-// Price display helpers for the Client Area (ADR-0011: one product DB, two views —
-// the public Catalogue hides prices, the gated Client Area reveals them on the same
-// pages). These utilities take the `prices` rows exactly as stored (db/schema.ts) and
-// turn them into a legible Mallorca / Men-Ibz table or a compact inline summary.
+// The one pricing-helpers module (#57 reconciled the former lib/price.ts into this
+// file — same domain, no reason for two near-identically-named modules). Two
+// directions:
+//   - input -> storage: parsePriceInput (admin Server Actions, the importer).
+//   - storage -> display: everything else, for the Client Area (ADR-0011: one
+//     product DB, two views — the public Catalogue hides prices, the gated
+//     Client Area reveals them on the same pages). These take the `prices` rows
+//     exactly as stored (db/schema.ts) and turn them into a legible Mallorca /
+//     Men-Ibz table or a compact inline summary.
 //
 // IMPORTANT: only the SALE price (`amount`) ever reaches this layer. Precio coste /
 // Precio compra do not exist in the datastore and must never be exposed (CONTEXT.md).
 
 import type { Locale } from "@/lib/i18n";
+
+/**
+ * Normalise an admin-entered amount into a canonical 2-decimal string for storage,
+ * or `null` when the field is blank or not a number. Accepts a comma or dot decimal
+ * separator, since Spanish keyboards type "1,50". CONSULTA (on request) is handled by
+ * the caller, not here — a `null` amount here just means "nothing entered".
+ */
+export function parsePriceInput(raw: string): string | null {
+  const trimmed = raw.trim();
+  if (trimmed === "") return null;
+  const num = Number(trimmed.replace(",", "."));
+  if (Number.isNaN(num)) return null;
+  return num.toFixed(2);
+}
 
 // A single price row, narrowed to the fields the display needs. `amount` is a numeric
 // string because Postgres `numeric` serialises that way — and it DROPS trailing zeros

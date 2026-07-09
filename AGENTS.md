@@ -49,7 +49,7 @@ Read `docs/adr/0017-i18n-built-in-dictionary-approach.md` before touching anythi
 
 ## Rules
 
-1. **Never hardcode UI text in TSX.** All user-visible strings come from `dict.*`. The only exceptions are dev-only pages (db-check) and aria attributes tied to HTML semantics.
+1. **Never hardcode UI text in TSX.** All user-visible strings come from `dict.*`. The only exceptions are temporary dev-only debug pages and aria attributes tied to HTML semantics.
 
 2. **All pages live under `app/[lang]/`.** There is no `app/layout.tsx` — `app/[lang]/layout.tsx` is the root layout. Every page receives `params: Promise<{ lang: string }>`, calls `hasLocale(lang)` and `getDictionary(lang)`.
 

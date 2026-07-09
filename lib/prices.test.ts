@@ -2,10 +2,62 @@ import { describe, expect, it } from "vitest";
 import {
   buildPriceRangeTable,
   buildPriceTable,
+  formatAmount,
   formatPriceWithUnit,
   isIslandPriced,
+  parsePriceInput,
   type PriceRow,
 } from "@/lib/prices";
+
+// #57: this coverage was ported from the now-deleted lib/price.test.ts when
+// lib/price.ts (parsePriceInput, formatEur) was reconciled into this module.
+// formatEur itself didn't survive — formatAmount (below) is the one display
+// formatter now; its null contract differs deliberately (null, not a
+// "consultar" string — callers already choose their own on-request label).
+
+describe("parsePriceInput", () => {
+  it("normalises to a canonical 2-decimal string for storage", () => {
+    expect(parsePriceInput("1.5")).toBe("1.50");
+    expect(parsePriceInput("10")).toBe("10.00");
+  });
+
+  it("accepts the Spanish comma decimal separator", () => {
+    expect(parsePriceInput("1,50")).toBe("1.50");
+    expect(parsePriceInput("12,9")).toBe("12.90");
+  });
+
+  it("treats blank or non-numeric input as no price (null)", () => {
+    expect(parsePriceInput("")).toBeNull();
+    expect(parsePriceInput("   ")).toBeNull();
+    expect(parsePriceInput("CONSULTA")).toBeNull();
+    expect(parsePriceInput("abc")).toBeNull();
+  });
+});
+
+describe("formatAmount", () => {
+  // Intl.NumberFormat's es-ES currency output joins the amount and symbol with
+  // a non-breaking space (U+00A0), not a regular space — assert against the
+  // real character rather than eyeballing a copy-pasted literal.
+  const NBSP = " ";
+
+  it("always shows exactly 2 decimals", () => {
+    expect(formatAmount("1.50", "es")).toBe(`1,50${NBSP}€`);
+    expect(formatAmount("1.5", "es")).toBe(`1,50${NBSP}€`);
+    expect(formatAmount("2", "es")).toBe(`2,00${NBSP}€`);
+  });
+
+  it("re-pads the trailing zero Postgres numeric loses through Number()", () => {
+    // The exact regression from CONTEXT/ADR notes: numeric "10.00" → Number 10
+    // → still 2 decimals, because Intl.NumberFormat's minimumFractionDigits
+    // re-pads regardless of what Number() already dropped.
+    expect(formatAmount("10.00", "es")).toBe(`10,00${NBSP}€`);
+    expect(Number("10.00")).toBe(10); // the trap this guards against
+  });
+
+  it("returns null for a missing amount — callers choose their own on-request label", () => {
+    expect(formatAmount(null, "es")).toBeNull();
+  });
+});
 
 // Foam pricing is negotiated manually per client, not sold off the imported A3
 // tariff (business rule, 2026-07-08) — CORTE/CORTE ISLAS/PLANCHA/PLANCHA ISLAS

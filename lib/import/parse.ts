@@ -1,7 +1,7 @@
 // Pure parsing/mapping/join logic for the A3 catalogue seed importer (issue #5,
 // ADR-0018). No I/O here — reading files is db/import-catalogue.ts's job.
 
-import { parsePriceInput } from "@/lib/price";
+import { parsePriceInput } from "@/lib/prices";
 import { slugify } from "@/lib/admin/form";
 import type { CategoryValue } from "@/lib/catalogue";
 
