@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { DownloadPriceListButton } from "@/components/site/download-price-list-button";
 import { getDictionary, hasLocale, localePath } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import { auth, signOut } from "@/auth";
@@ -91,6 +92,18 @@ export default async function ClientAreaPage({
             <Button href={localePath(lang, "/catalogo")}>
               {d.browseCatalogueCta}
             </Button>
+          </div>
+        </div>
+
+        {/* Auto-generated Price List PDF (#15, ADR-0011): a transition bridge for
+            Clients who'd rather keep downloading a PDF than browse the site.
+            Always current — rendered from the same data as the catalogue, never
+            a manual upload. Spanish-only content for v1 (see the PR). */}
+        <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 px-8 py-12">
+          <h2 className="type-h2-minor">{d.priceListPdfTitle}</h2>
+          <p className="mt-4 max-w-2xl text-stone-600">{d.priceListPdfBody}</p>
+          <div className="mt-8">
+            <DownloadPriceListButton label={dict.catalogo.downloadPriceListLabel} />
           </div>
         </div>
       </Container>

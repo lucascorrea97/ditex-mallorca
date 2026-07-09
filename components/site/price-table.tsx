@@ -10,10 +10,9 @@ import {
   buildPriceRangeTable,
   buildPriceTable,
   formatAmount,
+  formatPriceRangeCellText,
   formatPriceWithUnit,
   isIslandPriced,
-  UNIT_SUFFIX,
-  type PriceRangeCell,
   type PriceRow,
 } from "@/lib/prices";
 
@@ -96,21 +95,6 @@ export function PriceTable({
   );
 }
 
-function rangeCellText(
-  cell: PriceRangeCell,
-  locale: Locale,
-  labels: Labels & { fromLabel: string },
-): { text: string; qualifier: string | null } | null {
-  if (cell.onRequest) return { text: labels.onRequestLabel, qualifier: cell.qualifier };
-  if (cell.min === null) return null;
-
-  const min = formatAmount(cell.min, locale);
-  if (min === null) return null;
-
-  const text = cell.min === cell.max ? min : `${labels.fromLabel} ${min}`;
-  return { text, qualifier: cell.qualifier };
-}
-
 // Client Area price display for a multi-Variant Product (ADR-0019): one row per
 // unit, one column per zone, same shape as <PriceTable> — but each cell folds
 // every colourway's own price into either a single value (all variants agree)
@@ -152,16 +136,13 @@ export function PriceRangeTable({
                 {labels.unitLabels[unit] ?? unit}
               </th>
               {cells.map((cell) => {
-                const rendered = rangeCellText(cell, locale, labels);
-                const suffix = UNIT_SUFFIX[unit];
+                const rendered = formatPriceRangeCellText(cell, unit, locale, labels);
                 return (
                   <td
                     key={cell.zone}
                     className="py-3 pl-4 text-right text-sm tabular-nums text-stone-900"
                   >
-                    <span className="font-semibold">
-                      {rendered ? `${rendered.text}${suffix && rendered.text !== labels.onRequestLabel ? `/${suffix}` : ""}` : "—"}
-                    </span>
+                    <span className="font-semibold">{rendered ? rendered.text : "—"}</span>
                     {rendered?.qualifier && (
                       <span className="ml-1 text-xs font-normal text-stone-400">
                         ({rendered.qualifier})
