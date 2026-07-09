@@ -8,6 +8,7 @@
     "nosotros": "About",
     "servicios": "Services",
     "productos": "Products",
+    "guias": "Guides",
     "contacto": "Contact",
     "areaClientes": "Client Area"
   },
@@ -256,6 +257,18 @@
     "searchNoResults": "No results for",
     "searchNoResultsBody": "Try a different term or browse the categories.",
     "viewProduct": "View →"
+  },
+  "guias": {
+    "title": "Guides — D.TEX Mallorca",
+    "description": "D.TEX Mallorca's foam and upholstery guides: practical advice by trade segment — marine, contract and furniture-making.",
+    "eyebrow": "Guides",
+    "h1": "Foam and upholstery guides",
+    "lead": "Practical advice grounded in D.TEX's real experience, organised by trade segment: marine, contract and furniture-making.",
+    "noGuides": "No guides published yet. Check back soon.",
+    "readMore": "Read guide →",
+    "publishedOn": "Published on",
+    "backToGuides": "Guides",
+    "applicationsLabel": "Applications"
   },
   "contacto": {
     "title": "Contact — D.TEX Mallorca",

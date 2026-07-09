@@ -10,6 +10,7 @@ export const navRoutes = [
   { key: "nosotros", href: "/nosotros" },
   { key: "servicios", href: "/servicios" },
   { key: "productos", href: "/productos" },
+  { key: "guias", href: "/guias" },
   { key: "contacto", href: "/contacto" },
 ] as const satisfies ReadonlyArray<{ key: string; href: string }>;
 
