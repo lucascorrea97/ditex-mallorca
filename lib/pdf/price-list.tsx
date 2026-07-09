@@ -51,6 +51,16 @@ function effectivePrices(product: PdfProduct, variant: PdfVariant): PriceRow[] {
   return variant.prices.length > 0 ? variant.prices : product.prices;
 }
 
+// A Client reading over the phone can say a code far more reliably than a
+// colour name ("M450455", not "the burgundy one, I think") — so every
+// Variant's own A3 SKU (externalId) rides along next to its label. Falls
+// back gracefully if either piece is missing (shouldn't happen for
+// A3-imported data, but admin-created products may lack a code).
+function variantEntry(v: PdfVariant): string | null {
+  if (v.label && v.externalId) return `${v.label} (${v.externalId})`;
+  return v.label || v.externalId || null;
+}
+
 // One product's price, as a single printable line — "18,50 €/m · 13,20
 // €/pieza" for a shared price, "desde 12,00 €/ud" when colourways differ,
 // the foam contact-us label when it's foam. Mirrors PriceInline's web
@@ -162,15 +172,22 @@ export function PriceListDocument({ products, generatedAt }: { products: PdfProd
             <Text style={styles.familiaHeading}>{familia}</Text>
             {familiaProducts.map((product) => {
               const activeVariants = activeVariantsByProductId.get(product.id) ?? [];
-              const colourwayLabels = activeVariants
-                .map((v) => v.label || v.externalId)
-                .filter((label): label is string => !!label);
+              const isMultiVariant = activeVariants.length > 1;
+              // Multi-colourway: every Variant's own label + code, so a Client
+              // can order "M450455" instead of guessing at "the burgundy one".
+              // Single-variant: just the one code under the name (its label is
+              // normally empty for a standalone Product — nothing to pair it with).
+              const variantEntries = isMultiVariant
+                ? activeVariants.map(variantEntry).filter((entry): entry is string => entry !== null)
+                : [];
+              const soleCode = !isMultiVariant ? activeVariants[0]?.externalId : null;
               return (
                 <View key={product.id} style={styles.row} wrap={false}>
                   <View style={{ flexGrow: 1 }}>
                     <Text style={styles.name}>{product.name}</Text>
-                    {colourwayLabels.length > 1 && (
-                      <Text style={styles.colourways}>{colourwayLabels.join(", ")}</Text>
+                    {soleCode && <Text style={styles.colourways}>Cód. {soleCode}</Text>}
+                    {variantEntries.length > 0 && (
+                      <Text style={styles.colourways}>{variantEntries.join(", ")}</Text>
                     )}
                   </View>
                   <Text style={styles.price}>{priceLine(product, activeVariants)}</Text>
