@@ -211,24 +211,19 @@ async function main() {
   );
   console.log("Stock conflicts (disagreeing lot rows):", report.stockConflictSkus);
   console.log(
-    "Suspect groups (member name doesn't start with the line name):",
-    report.suspectGroupSkus.length,
-    report.suspectGroupSkus.slice(0, 20),
-  );
-  console.log(
-    "Empty variant labels (name==line; got the SKU as a placeholder):",
-    report.emptyVariantLabelSkus.length,
-    report.emptyVariantLabelSkus.slice(0, 20),
-  );
-  console.log(
     "Groups with inconsistent web Familia across members:",
     report.inconsistentFamiliaGroupKeys.length,
     report.inconsistentFamiliaGroupKeys.slice(0, 20),
   );
   console.log(
-    "No Desc. familia anywhere (grouped via name-prefix fallback):",
-    report.noLineDataSkus.length,
-    report.noLineDataSkus.slice(0, 20),
+    "Single-member groups that used the ' C-' marker (review for a merge):",
+    report.singleMemberMarkerGroupSkus.length,
+    report.singleMemberMarkerGroupSkus.slice(0, 20),
+  );
+  console.log(
+    "Near-duplicate standalone product names (possible under-grouping):",
+    report.nearDuplicateStandaloneSkus.length,
+    report.nearDuplicateStandaloneSkus.slice(0, 20),
   );
 }
 

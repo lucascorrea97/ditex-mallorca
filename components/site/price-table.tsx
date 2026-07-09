@@ -7,10 +7,13 @@
 
 import type { Locale } from "@/lib/i18n";
 import {
+  buildPriceRangeTable,
   buildPriceTable,
   formatAmount,
   formatPriceWithUnit,
   isIslandPriced,
+  UNIT_SUFFIX,
+  type PriceRangeCell,
   type PriceRow,
 } from "@/lib/prices";
 
@@ -85,6 +88,88 @@ export function PriceTable({
                   )}
                 </td>
               ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function rangeCellText(
+  cell: PriceRangeCell,
+  locale: Locale,
+  labels: Labels & { fromLabel: string },
+): { text: string; qualifier: string | null } | null {
+  if (cell.onRequest) return { text: labels.onRequestLabel, qualifier: cell.qualifier };
+  if (cell.min === null) return null;
+
+  const min = formatAmount(cell.min, locale);
+  if (min === null) return null;
+
+  const text = cell.min === cell.max ? min : `${labels.fromLabel} ${min}`;
+  return { text, qualifier: cell.qualifier };
+}
+
+// Client Area price display for a multi-Variant Product (ADR-0019): one row per
+// unit, one column per zone, same shape as <PriceTable> — but each cell folds
+// every colourway's own price into either a single value (all variants agree)
+// or a "desde <min>" ("from") treatment (they differ), never naming which
+// colourway costs what. Renders null when there is nothing displayable (e.g.
+// every variant is foam-priced) so the caller can show its own fallback.
+export function PriceRangeTable({
+  variantPrices,
+  locale,
+  labels,
+}: {
+  variantPrices: PriceRow[][];
+  locale: Locale;
+  labels: Labels & { fromLabel: string };
+}) {
+  const { zones, rows } = buildPriceRangeTable(variantPrices);
+  if (rows.length === 0) return null;
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full border-collapse text-left">
+        <thead>
+          <tr className="border-b border-stone-200">
+            <th className="py-2 pr-4 text-xs font-semibold uppercase tracking-widest text-stone-400" />
+            {zones.map((zone) => (
+              <th
+                key={zone}
+                className="py-2 pl-4 text-right text-xs font-semibold uppercase tracking-widest text-stone-500"
+              >
+                {labels.zoneLabels[zone] ?? zone}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(({ unit, cells }) => (
+            <tr key={unit} className="border-b border-stone-100 last:border-0">
+              <th scope="row" className="py-3 pr-4 text-sm font-medium text-stone-600">
+                {labels.unitLabels[unit] ?? unit}
+              </th>
+              {cells.map((cell) => {
+                const rendered = rangeCellText(cell, locale, labels);
+                const suffix = UNIT_SUFFIX[unit];
+                return (
+                  <td
+                    key={cell.zone}
+                    className="py-3 pl-4 text-right text-sm tabular-nums text-stone-900"
+                  >
+                    <span className="font-semibold">
+                      {rendered ? `${rendered.text}${suffix && rendered.text !== labels.onRequestLabel ? `/${suffix}` : ""}` : "—"}
+                    </span>
+                    {rendered?.qualifier && (
+                      <span className="ml-1 text-xs font-normal text-stone-400">
+                        ({rendered.qualifier})
+                      </span>
+                    )}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>

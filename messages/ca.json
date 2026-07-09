@@ -210,6 +210,10 @@
     "categoryLabel": "Categoria",
     "pricesHeading": "Preus",
     "pricesClientNote": "Preus exclusius per a clients autoritzats.",
+    "colourwaysHeading": "Colors disponibles",
+    "priceFromLabel": "des de",
+    "foamPriceHeading": "Preu a consultar",
+    "foamPriceBody": "L'escuma es talla i factura a mida — el preu s'acorda amb cada client segons el tall. Sol·licita pressupost sense compromís.",
     "priceZones": {
       "mallorca": "Mallorca",
       "men_ibz": "Menorca / Eivissa",

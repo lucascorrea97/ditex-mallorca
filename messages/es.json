@@ -210,6 +210,10 @@
     "categoryLabel": "Categoría",
     "pricesHeading": "Precios",
     "pricesClientNote": "Precios exclusivos para clientes autorizados.",
+    "colourwaysHeading": "Colores disponibles",
+    "priceFromLabel": "desde",
+    "foamPriceHeading": "Precio bajo consulta",
+    "foamPriceBody": "La espuma se corta y factura a medida — el precio se acuerda con cada cliente según el corte. Solicita presupuesto sin compromiso.",
     "priceZones": {
       "mallorca": "Mallorca",
       "men_ibz": "Menorca / Ibiza",

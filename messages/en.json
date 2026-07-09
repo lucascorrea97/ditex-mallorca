@@ -210,6 +210,10 @@
     "categoryLabel": "Category",
     "pricesHeading": "Prices",
     "pricesClientNote": "Prices for authorised clients only.",
+    "colourwaysHeading": "Available colours",
+    "priceFromLabel": "from",
+    "foamPriceHeading": "Price on request",
+    "foamPriceBody": "Foam is cut and priced to your exact measurements — we agree the price with each client based on the cut. Request a no-obligation quote.",
     "priceZones": {
       "mallorca": "Mallorca",
       "men_ibz": "Menorca / Ibiza",

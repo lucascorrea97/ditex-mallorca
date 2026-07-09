@@ -136,10 +136,6 @@ export type ParsedArticleTariffRow = {
   active: boolean;
   ancho: string | null;
   metrosPorPieza: string | null;
-  // A3's internal fine-grained familia description (e.g. "OTELLO", "ALLANTE") —
-  // the ADR-0019 Product-grouping key. Only the old-format export carries it; the
-  // go-forward filtro doesn't (grouping falls back to name-prefix matching).
-  familiaDescripcion: string | null;
   tariffCode: number;
   tariffName: string;
   amount: string | null;
@@ -161,18 +157,20 @@ export function parseNewFormatRow(row: SourceRow): ParsedArticleTariffRow | null
     active: normaliseCode(row["Bloqueado"]).toLowerCase() !== "sí",
     ancho: null, // not exported by the new-format filtro (ADR-0018)
     metrosPorPieza: null, // not exported by the new-format filtro (ADR-0018)
-    familiaDescripcion: null, // not exported by the new-format filtro (ADR-0019)
     tariffCode,
     tariffName: normaliseCode(row["Nombre de la tarifa"]),
     amount: normaliseAmount(row["Precio de la tarifa"]),
   };
 }
 
-// Old-format export (tarifa intento.xlsx, Feb 2026) — the one-off source of
-// Ancho/Metros por pieza, and (ADR-0019) `Desc. familia`, the Product-grouping
-// key. No Bloqueado column, so active always defaults true. ` Cód familia` (A3's
-// internal familia code — reused across unrelated lines, ADR-0019) and the
-// top-level `PVP` column are out of scope for this issue and intentionally unread.
+// Old-format export (tarifa intento.xlsx, Feb 2026) — a one-off, unverified-
+// provenance source for Ancho/Metros por pieza only (ADR-0018 update: the file
+// isn't an A3 export; kept "better than nothing pre-launch"). No Bloqueado
+// column, so active always defaults true. ` Cód familia`/`Desc. familia` (A3's
+// internal familia code and its AI-derived description) are NOT read — ADR-0019's
+// update demoted `Desc. familia` as a grouping source; the article-name colour
+// convention (see deriveNameBasedGroup) replaces it entirely. The top-level `PVP`
+// column is also out of scope and intentionally unread.
 export function parseOldFormatRow(row: SourceRow): ParsedArticleTariffRow | null {
   const sku = normaliseCode(row["CODART"]);
   const tariffCode = Number(normaliseCode(row["TARIFA"]));
@@ -184,7 +182,6 @@ export function parseOldFormatRow(row: SourceRow): ParsedArticleTariffRow | null
     active: true, // this format has no Bloqueado column
     ancho: normaliseOptionalText(row["Ancho"]),
     metrosPorPieza: normaliseOptionalText(row["Metros por pieza"]),
-    familiaDescripcion: normaliseOptionalText(row["Desc. familia"]),
     tariffCode,
     tariffName: normaliseCode(row["DESCTARIFA"]),
     amount: normaliseAmount(row["Precio tarifa"]),
@@ -263,57 +260,75 @@ export function buildPriceRecords(rows: ParsedArticleTariffRow[]): PriceRecord[]
 }
 
 // ---------------------------------------------------------------------------
-// Product/Variant grouping (ADR-0019): A3 articles group into one Product (line)
-// per normalised `Desc. familia`, with each article becoming a Variant inside it.
+// Product/Variant grouping (ADR-0019, corrected by its 2026-07-08 update): A3
+// articles group by the article-name colour convention (`LINE C-<code>`), NOT
+// `Desc. familia` — that file turned out not to be A3 data (ADR-0018 update).
 // ---------------------------------------------------------------------------
 
-// Uppercase + collapsed whitespace — the join key for grouping, and for comparing
-// an article name against its line name regardless of A3's spacing/casing quirks.
+// Uppercase + collapsed whitespace — the join key for grouping.
 export function normaliseLineKey(raw: string): string {
   return raw.trim().replace(/\s+/g, " ").toUpperCase();
 }
 
-// Strips the (already-normalised) line name off an article name to get the
-// variant label, e.g. "ALLANTE C-832 BURGUNDY" under line "ALLANTE" -> "C-832
-// BURGUNDY" (ADR-0019's own worked example). Three outcomes:
-// - name == line: label "" (the ~5 known "name==line" cases — caller supplies a
-//   placeholder and flags it, since a real label needs an override).
-// - name starts with "<line> ": label = the remainder.
-// - name doesn't start with the line at all: "suspect" (ADR-0019: ~95% of
-//   articles are consistent with their familia; the rest are typos, not wrong
-//   groupings) — still grouped under this line, just flagged for review.
-export function deriveVariantLabel(
-  articleName: string,
-  lineKey: string,
-): { label: string; suspect: boolean } {
+// The real, business-maintained colourway convention: articles are named
+// `LINE C-<code/colour>` (e.g. "ALLANTE C-832 BURGUNDY"). Splits at the first
+// " C-" marker: the line is everything before it, the variant label is
+// everything from "C-" onward (ADR-0019 update, measured on the full 6,971-
+// article catalogue: 5,573 articles carry the marker -> ~612 multi-colour
+// Products; the other 1,398 have no marker -> standalone Products, each with
+// one default (empty-label) Variant — this is what keeps `VIVO ALGODON 3/4/5/
+// 8/9` correctly separate, since none of those names contain " C-").
+export function deriveNameBasedGroup(articleName: string): {
+  lineKey: string;
+  lineDisplay: string;
+  label: string;
+  hasMarker: boolean;
+} {
   const name = articleName.trim().replace(/\s+/g, " ");
-  const nameKey = name.toUpperCase();
-  if (nameKey === lineKey) return { label: "", suspect: false };
-  if (nameKey.startsWith(`${lineKey} `)) return { label: name.slice(lineKey.length).trim(), suspect: false };
-  return { label: name, suspect: true };
+  const markerIndex = name.indexOf(" C-");
+
+  if (markerIndex <= 0) {
+    return { lineKey: normaliseLineKey(name), lineDisplay: name, label: "", hasMarker: false };
+  }
+
+  const lineDisplay = name.slice(0, markerIndex);
+  const label = name.slice(markerIndex + 1); // skip the space; keep the "C-" prefix
+  return { lineKey: normaliseLineKey(lineDisplay), lineDisplay, label, hasMarker: true };
 }
 
-// A token that looks like part of a colour/size code rather than the line name
-// itself — e.g. "C-832", "9128", a bare digit. Mirrors the real A3 naming
-// convention ("ALLANTE C-832 BURGUNDY") closely enough to recover it when
-// `Desc. familia` isn't available at all (go-forward export, or a SKU missing
-// from the Feb file) — ADR-0019's "fall back to name-prefix matching".
-const CODE_LIKE_TOKEN = /\d/;
+function tokenize(name: string): string[] {
+  return normaliseLineKey(name).split(" ");
+}
 
-// Fallback grouping for articles with no `Desc. familia` anywhere: splits the
-// name at the first code-like token. No such token -> the whole name is its own
-// singleton line (nothing to safely group it with).
-export function deriveFallbackGroup(articleName: string): { lineKey: string; label: string } {
-  const name = articleName.trim().replace(/\s+/g, " ");
-  const tokens = name.split(" ");
-  const splitIndex = tokens.findIndex((t) => CODE_LIKE_TOKEN.test(t));
+// ADR-0019 update: "under-grouping is accepted" for no-marker articles that
+// nonetheless look like colour-word variants of each other (e.g. "CABO 4 MM
+// NEGRO" / "CABO 4 MM BLANCO") — they stay standalone Products rather than
+// being merged automatically (wrong merges are worse than a few extra thin
+// pages), but the import report should surface the near-miss for a manual
+// `groupOverrides` merge. Flags any pair of standalone names with the same
+// token count differing in at most one position (0 = an exact duplicate name
+// under two different SKUs, also worth a human look).
+export function findNearDuplicateStandaloneSkus(standalone: { sku: string; name: string }[]): string[] {
+  const flagged = new Set<string>();
 
-  if (splitIndex <= 0) return { lineKey: name.toUpperCase(), label: "" };
+  for (let i = 0; i < standalone.length; i++) {
+    const a = tokenize(standalone[i].name);
+    for (let j = i + 1; j < standalone.length; j++) {
+      const b = tokenize(standalone[j].name);
+      if (a.length !== b.length) continue;
 
-  return {
-    lineKey: tokens.slice(0, splitIndex).join(" ").toUpperCase(),
-    label: tokens.slice(splitIndex).join(" "),
-  };
+      let diff = 0;
+      for (let k = 0; k < a.length && diff <= 1; k++) {
+        if (a[k] !== b[k]) diff++;
+      }
+      if (diff <= 1) {
+        flagged.add(standalone[i].sku);
+        flagged.add(standalone[j].sku);
+      }
+    }
+  }
+
+  return [...flagged];
 }
 
 // ---------------------------------------------------------------------------
@@ -375,14 +390,12 @@ export function aggregateStock(rows: StockRow[]): {
 // ---------------------------------------------------------------------------
 
 export type ImportOverrides = {
-  // Raw `Desc. familia` value -> the corrected line text it should have been
-  // (fixes a typo/whitespace variant splitting a group into two).
-  familiaLineCorrections?: Record<string, string>;
-  // SKU -> a line name to force it into, bypassing whatever `Desc. familia` (or
-  // the name-prefix fallback) would have produced (fixes a misfiled/suspect SKU).
+  // SKU -> a line name to force it into, bypassing whatever the article-name
+  // split would have produced (fixes a near-duplicate/under-grouped SKU, or a
+  // genuinely misfiled one).
   groupOverrides?: Record<string, string>;
-  // SKU -> a real variant label, replacing the SKU placeholder used when the
-  // derived label came out empty.
+  // SKU -> a real variant label, replacing the "" a no-marker standalone
+  // product's single variant gets by default.
   variantLabelOverrides?: Record<string, string>;
 };
 
@@ -420,10 +433,9 @@ export type ImportReport = {
   defaultedCategorySkus: string[];
   stockConflictSkus: string[];
   // ADR-0019 additions:
-  suspectGroupSkus: string[]; // grouped under a line, but the article name doesn't start with it
-  emptyVariantLabelSkus: string[]; // name==line; got the SKU as a placeholder label
   inconsistentFamiliaGroupKeys: string[]; // a group's members disagree on web Familia
-  noLineDataSkus: string[]; // no Desc. familia anywhere; grouped via name-prefix fallback instead
+  singleMemberMarkerGroupSkus: string[]; // used the " C-" marker but ended up alone — review for a merge
+  nearDuplicateStandaloneSkus: string[]; // standalone names differing by <=1 token — possible under-grouping
 };
 
 // Canonical, order-independent key for a set of price records — used to find the
@@ -441,7 +453,6 @@ export function buildCatalogue(input: {
   overrides?: ImportOverrides;
 }): { products: BuiltProduct[]; report: ImportReport } {
   const { familiaMaster, tariffRows, stock, overrides = {} } = input;
-  const familiaLineCorrections = overrides.familiaLineCorrections ?? {};
   const groupOverrides = overrides.groupOverrides ?? {};
   const variantLabelOverrides = overrides.variantLabelOverrides ?? {};
 
@@ -466,29 +477,17 @@ export function buildCatalogue(input: {
     .filter((sku, i, all) => all.indexOf(sku) === i) // unique
     .filter((sku) => !skuUniverse.has(sku));
 
-  // First non-null Desc. familia found for a SKU, with the typo-correction
-  // override applied before normalising (so "ALANTE" and "ALLANTE" join the
-  // same group once corrected).
-  const familiaDescriptionBySku = new Map<string, string>();
-  for (const row of dedupedTariffRows) {
-    if (!row.familiaDescripcion || familiaDescriptionBySku.has(row.sku)) continue;
-    const corrected = familiaLineCorrections[row.familiaDescripcion] ?? row.familiaDescripcion;
-    familiaDescriptionBySku.set(row.sku, corrected);
-  }
-
   const emptyFamiliaSkus: string[] = [];
   const articlesWithoutTariffRows: string[] = [];
-  const suspectGroupSkus: string[] = [];
-  const emptyVariantLabelSkus: string[] = [];
   const inconsistentFamiliaGroupKeys: string[] = [];
-  const noLineDataSkus: string[] = [];
 
-  // Pass 1: resolve each SKU's group (lineKey/displayName) and variant label.
+  // Pass 1: resolve each SKU's group (lineKey/displayName) and variant label,
+  // purely from the article name's colour-code marker (ADR-0019 update).
   type ResolvedMember = {
     master: FamiliaMasterRow;
     lineKey: string;
-    lineDisplay: string;
     label: string;
+    hasMarker: boolean;
   };
   const groups = new Map<string, { displayName: string; members: ResolvedMember[] }>();
 
@@ -498,42 +497,33 @@ export function buildCatalogue(input: {
     const rowsForSku = tariffRowsBySku.get(master.sku) ?? [];
     if (rowsForSku.length === 0) articlesWithoutTariffRows.push(master.sku);
 
-    let lineKey: string;
-    let lineDisplay: string;
-    let label: string;
-
-    if (groupOverrides[master.sku]) {
-      lineDisplay = groupOverrides[master.sku];
-      lineKey = normaliseLineKey(lineDisplay);
-      label = deriveVariantLabel(master.name, lineKey).label;
-    } else {
-      const familiaDescripcion = familiaDescriptionBySku.get(master.sku);
-      if (familiaDescripcion) {
-        lineDisplay = familiaDescripcion.trim().replace(/\s+/g, " ");
-        lineKey = normaliseLineKey(lineDisplay);
-        const derived = deriveVariantLabel(master.name, lineKey);
-        label = derived.label;
-        if (derived.suspect) suspectGroupSkus.push(master.sku);
-      } else {
-        noLineDataSkus.push(master.sku);
-        const fallback = deriveFallbackGroup(master.name);
-        lineKey = fallback.lineKey;
-        lineDisplay = fallback.lineKey;
-        label = fallback.label;
-      }
-    }
-
-    if (variantLabelOverrides[master.sku]) {
-      label = variantLabelOverrides[master.sku];
-    } else if (label === "") {
-      label = master.sku;
-      emptyVariantLabelSkus.push(master.sku);
-    }
+    const derived = deriveNameBasedGroup(master.name);
+    const lineDisplay = groupOverrides[master.sku] ?? derived.lineDisplay;
+    const lineKey = normaliseLineKey(lineDisplay);
+    const label = variantLabelOverrides[master.sku] ?? derived.label;
 
     const group = groups.get(lineKey) ?? { displayName: lineDisplay, members: [] };
-    group.members.push({ master, lineKey, lineDisplay, label });
+    group.members.push({ master, lineKey, label, hasMarker: derived.hasMarker });
     groups.set(lineKey, group);
   }
+
+  // Groups that ended up with exactly one member are either a genuine
+  // standalone Product (no marker, e.g. VIVO ALGODON 3 — expected, not
+  // flagged) or a marker-based group that never found its siblings (flagged
+  // for a possible merge), plus the standalone pool feeds the near-duplicate
+  // check below (ADR-0019 update).
+  const singleMemberMarkerGroupSkus: string[] = [];
+  const standaloneForDuplicateCheck: { sku: string; name: string }[] = [];
+  for (const group of groups.values()) {
+    if (group.members.length !== 1) continue;
+    const [only] = group.members;
+    if (only.hasMarker) {
+      singleMemberMarkerGroupSkus.push(only.master.sku);
+    } else {
+      standaloneForDuplicateCheck.push({ sku: only.master.sku, name: only.master.name });
+    }
+  }
+  const nearDuplicateStandaloneSkus = findNearDuplicateStandaloneSkus(standaloneForDuplicateCheck);
 
   // Pass 2: build a Product per group, with its Variants and product/variant prices.
   const defaultedCategorySkus: string[] = [];
@@ -638,10 +628,9 @@ export function buildCatalogue(input: {
       duplicateTariffRowCount: duplicates.length,
       defaultedCategorySkus,
       stockConflictSkus,
-      suspectGroupSkus,
-      emptyVariantLabelSkus,
       inconsistentFamiliaGroupKeys,
-      noLineDataSkus,
+      singleMemberMarkerGroupSkus,
+      nearDuplicateStandaloneSkus,
     },
   };
 }

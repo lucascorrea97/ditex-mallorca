@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { buildPriceTable, formatPriceWithUnit, isIslandPriced, type PriceRow } from "@/lib/prices";
+import {
+  buildPriceRangeTable,
+  buildPriceTable,
+  formatPriceWithUnit,
+  isIslandPriced,
+  type PriceRow,
+} from "@/lib/prices";
 
 // Foam pricing is negotiated manually per client, not sold off the imported A3
 // tariff (business rule, 2026-07-08) — CORTE/CORTE ISLAS/PLANCHA/PLANCHA ISLAS
@@ -51,5 +57,50 @@ describe("isIslandPriced", () => {
       { zone: "men_ibz", unit: "kg", amount: "10.75", onRequest: false, qualifier: "15KG" },
     ];
     expect(isIslandPriced(materialPrices)).toBe(true);
+  });
+});
+
+describe("buildPriceRangeTable", () => {
+  it("collapses min===max into a single value when every variant shares the same price (ADR-0019)", () => {
+    const variants: PriceRow[][] = [
+      [{ zone: "all", unit: "unidad", amount: "12.00", onRequest: false, qualifier: null }],
+      [{ zone: "all", unit: "unidad", amount: "12.00", onRequest: false, qualifier: null }],
+    ];
+
+    const table = buildPriceRangeTable(variants);
+
+    expect(table.rows).toEqual([
+      { unit: "unidad", cells: [{ zone: "all", min: "12.00", max: "12.00", onRequest: false, qualifier: null }] },
+    ]);
+  });
+
+  it("reports a min/max spread when variants differ — the ~68 colour-dependent lines", () => {
+    const variants: PriceRow[][] = [
+      [{ zone: "all", unit: "unidad", amount: "12.00", onRequest: false, qualifier: null }],
+      [{ zone: "all", unit: "unidad", amount: "12.00", onRequest: false, qualifier: null }],
+      [{ zone: "all", unit: "unidad", amount: "15.00", onRequest: false, qualifier: null }],
+    ];
+
+    const table = buildPriceRangeTable(variants);
+
+    expect(table.rows[0].cells[0]).toEqual({
+      zone: "all",
+      min: "12.00",
+      max: "15.00",
+      onRequest: false,
+      qualifier: null,
+    });
+  });
+
+  it("never surfaces a foam m3/plancha price, even when variants differ", () => {
+    const variants: PriceRow[][] = [
+      [{ zone: "mallorca", unit: "m3", amount: "5.00", onRequest: false, qualifier: null }],
+      [{ zone: "mallorca", unit: "m3", amount: "9.00", onRequest: false, qualifier: null }],
+    ];
+
+    const table = buildPriceRangeTable(variants);
+
+    expect(table.rows).toEqual([]);
+    expect(table.zones).toEqual([]);
   });
 });

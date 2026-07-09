@@ -5,8 +5,8 @@ import {
   buildPriceRecords,
   categoryForFamilia,
   dedupeTariffRows,
-  deriveFallbackGroup,
-  deriveVariantLabel,
+  deriveNameBasedGroup,
+  findNearDuplicateStandaloneSkus,
   mapTariffCode,
   normaliseLineKey,
   parseFamiliaMasterRow,
@@ -25,7 +25,6 @@ function tariffRow(overrides: Partial<import("@/lib/import/parse").ParsedArticle
     active: true,
     ancho: null,
     metrosPorPieza: null,
-    familiaDescripcion: null,
     tariffCode: 2,
     tariffName: "METRAJE",
     amount: "10.00",
@@ -51,9 +50,6 @@ describe("parseNewFormatRow", () => {
     expect(parsed?.tariffCode).toBe(2);
     expect(parsed?.tariffName).toBe("METRAJE");
     expect(parsed?.amount).toBe("22.30");
-    // The go-forward filtro doesn't export Desc. familia (ADR-0019) — grouping
-    // for these rows falls back to name-prefix matching, not this field.
-    expect(parsed?.familiaDescripcion).toBeNull();
   });
 
   it("marks Bloqueado: Sí as inactive, and No/absent as active", () => {
@@ -102,7 +98,7 @@ describe("parseNewFormatRow", () => {
 });
 
 describe("parseOldFormatRow", () => {
-  it("extracts sku, name, ancho, metros por pieza, tariff code/name, and normalises the float amount", () => {
+  it("extracts sku, name, ancho, metros por pieza, and tariff code/name, and normalises the float amount", () => {
     const row = {
       "CODART": "T0001801",
       " Cód familia": "T0001",
@@ -126,7 +122,6 @@ describe("parseOldFormatRow", () => {
     expect(parsed?.tariffCode).toBe(2);
     expect(parsed?.tariffName).toBe("METRAJE");
     expect(parsed?.amount).toBe("18.50");
-    expect(parsed?.familiaDescripcion).toBe("OTELLO");
   });
 
   it("treats blank Ancho and null Metros por pieza as absent, not zero", () => {
@@ -144,6 +139,21 @@ describe("parseOldFormatRow", () => {
 
     expect(parsed?.ancho).toBeNull();
     expect(parsed?.metrosPorPieza).toBeNull();
+  });
+
+  it("never reads Desc. familia — demoted as a grouping source (ADR-0019 update)", () => {
+    const row = {
+      "CODART": "T0001801",
+      "Desc. familia": "OTELLO",
+      "Descripción": "OTELLO C-1 CRUDO",
+      "TARIFA": "2",
+      "DESCTARIFA": "METRAJE",
+      "Precio tarifa": 18.5,
+    };
+
+    const parsed = parseOldFormatRow(row);
+
+    expect(Object.keys(parsed ?? {})).not.toContain("familiaDescripcion");
   });
 });
 
@@ -341,45 +351,81 @@ describe("normaliseLineKey", () => {
   });
 });
 
-describe("deriveVariantLabel", () => {
-  it("strips the line prefix off the article name — ADR-0019's own ALLANTE example", () => {
-    const result = deriveVariantLabel("ALLANTE C-832 BURGUNDY", normaliseLineKey("ALLANTE"));
-    expect(result).toEqual({ label: "C-832 BURGUNDY", suspect: false });
-  });
-
-  it("returns an empty label, not suspect, when the article name equals the line name (name==line)", () => {
-    const result = deriveVariantLabel("VIVO ALGODON 3", normaliseLineKey("VIVO ALGODON 3"));
-    expect(result).toEqual({ label: "", suspect: false });
-  });
-
-  it("flags as suspect when the article name doesn't start with the line name at all", () => {
-    const result = deriveVariantLabel("SOMETHING ELSE ENTIRELY", normaliseLineKey("ALLANTE"));
-    expect(result).toEqual({ label: "SOMETHING ELSE ENTIRELY", suspect: true });
-  });
-});
-
-describe("deriveFallbackGroup", () => {
-  it("splits at the first digit-bearing token, matching the real ALLANTE colour-code convention", () => {
-    expect(deriveFallbackGroup("ALLANTE C-832 BURGUNDY")).toEqual({
+describe("deriveNameBasedGroup", () => {
+  it("splits at the ' C-' colour-code marker — ADR-0019's own ALLANTE example", () => {
+    expect(deriveNameBasedGroup("ALLANTE C-832 BURGUNDY")).toEqual({
       lineKey: "ALLANTE",
+      lineDisplay: "ALLANTE",
       label: "C-832 BURGUNDY",
+      hasMarker: true,
     });
   });
 
-  it("treats the whole name as a singleton line when no digit-bearing token exists", () => {
-    expect(deriveFallbackGroup("JUNTA EP")).toEqual({ lineKey: "JUNTA EP", label: "" });
+  it("treats a name with no marker as its own standalone line, with an empty (default-variant) label", () => {
+    expect(deriveNameBasedGroup("VIVO ALGODON 3")).toEqual({
+      lineKey: "VIVO ALGODON 3",
+      lineDisplay: "VIVO ALGODON 3",
+      label: "",
+      hasMarker: false,
+    });
+  });
+
+  it("collapses whitespace before splitting", () => {
+    expect(deriveNameBasedGroup("OTELLO   C-1   CRUDO")).toEqual({
+      lineKey: "OTELLO",
+      lineDisplay: "OTELLO",
+      label: "C-1 CRUDO",
+      hasMarker: true,
+    });
+  });
+});
+
+describe("findNearDuplicateStandaloneSkus", () => {
+  it("flags a pair of standalone names differing by exactly one token", () => {
+    const flagged = findNearDuplicateStandaloneSkus([
+      { sku: "M1", name: "CABO 4 MM NEGRO" },
+      { sku: "M2", name: "CABO 4 MM BLANCO" },
+      { sku: "M3", name: "SOMETHING TOTALLY DIFFERENT" },
+    ]);
+
+    expect(flagged.sort()).toEqual(["M1", "M2"]);
+  });
+
+  it("flags an exact duplicate name under two different SKUs", () => {
+    const flagged = findNearDuplicateStandaloneSkus([
+      { sku: "M1", name: "JUNTA EP" },
+      { sku: "M2", name: "JUNTA EP" },
+    ]);
+
+    expect(flagged.sort()).toEqual(["M1", "M2"]);
+  });
+
+  it("does not flag names with a different token count, even if similar", () => {
+    const flagged = findNearDuplicateStandaloneSkus([
+      { sku: "M1", name: "CABO 4 MM NEGRO" },
+      { sku: "M2", name: "CABO 4 MM NEGRO EXTRA LARGO" },
+    ]);
+
+    expect(flagged).toEqual([]);
+  });
+
+  it("does not flag names differing by two or more tokens", () => {
+    const flagged = findNearDuplicateStandaloneSkus([
+      { sku: "M1", name: "CABO 4 MM NEGRO" },
+      { sku: "M2", name: "CINTA 6 MM BLANCO" },
+    ]);
+
+    expect(flagged).toEqual([]);
   });
 });
 
 describe("buildCatalogue", () => {
-  const oteloMaster: FamiliaMasterRow[] = [
-    { sku: "T0001801", name: "OTELLO C-1 CRUDO", familia: "TELA" },
-  ];
+  const oteloMaster: FamiliaMasterRow[] = [{ sku: "T0001801", name: "OTELLO", familia: "TELA" }];
 
-  it("groups a lone SKU into one product with a single default variant", () => {
+  it("groups a lone, no-marker SKU into one standalone product with a single default (empty-label) variant", () => {
     const tariffRows = [
-      tariffRow({ sku: "T0001801", tariffCode: 2, amount: "18.50", familiaDescripcion: "OTELLO" }),
-      tariffRow({ sku: "T0001801", tariffCode: 3, amount: "13.20", familiaDescripcion: "OTELLO" }),
+      tariffRow({ sku: "T0001801", tariffCode: 2, amount: "18.50" }),
+      tariffRow({ sku: "T0001801", tariffCode: 3, amount: "13.20" }),
     ];
     const stock: StockRow[] = [{ sku: "T0001801", stockTotal: "59.80" }];
 
@@ -400,7 +446,7 @@ describe("buildCatalogue", () => {
         variants: [
           {
             externalId: "T0001801",
-            label: "C-1 CRUDO",
+            label: "",
             active: true,
             stockTotal: "59.80",
             prices: [],
@@ -412,14 +458,12 @@ describe("buildCatalogue", () => {
     expect(report.emptyFamiliaSkus).toEqual([]);
     expect(report.unmatchedTariffSkus).toEqual([]);
     expect(report.unmatchedStockSkus).toEqual([]);
-    expect(report.suspectGroupSkus).toEqual([]);
-    expect(report.emptyVariantLabelSkus).toEqual([]);
+    expect(report.singleMemberMarkerGroupSkus).toEqual([]);
+    expect(report.nearDuplicateStandaloneSkus).toEqual([]);
   });
 
   it("gives a variant absent from the stock file a null stockTotal (no stock, not zero)", () => {
-    const tariffRows = [
-      tariffRow({ sku: "T0001801", tariffCode: 2, amount: "18.50", familiaDescripcion: "OTELLO" }),
-    ];
+    const tariffRows = [tariffRow({ sku: "T0001801", tariffCode: 2, amount: "18.50" })];
 
     const { products } = buildCatalogue({ familiaMaster: oteloMaster, tariffRows, stock: [] });
 
@@ -443,9 +487,7 @@ describe("buildCatalogue", () => {
     const blankFamiliaMaster: FamiliaMasterRow[] = [
       { sku: "M561400", name: "MALLA TRICOTTUBE", familia: null },
     ];
-    const tariffRows = [
-      tariffRow({ sku: "M561400", tariffCode: 9, amount: "5.00", familiaDescripcion: "MALLA TRICOTTUBE" }),
-    ];
+    const tariffRows = [tariffRow({ sku: "M561400", tariffCode: 9, amount: "5.00" })];
 
     const { products, report } = buildCatalogue({
       familiaMaster: blankFamiliaMaster,
@@ -461,8 +503,8 @@ describe("buildCatalogue", () => {
 
   it("excludes a tariff row whose SKU isn't in the familia master, and reports it as unmatched", () => {
     const tariffRows = [
-      tariffRow({ sku: "T0001801", tariffCode: 2, amount: "18.50", familiaDescripcion: "OTELLO" }),
-      tariffRow({ sku: "T9999999", tariffCode: 2, amount: "1.00", familiaDescripcion: "SOMETHING" }),
+      tariffRow({ sku: "T0001801", tariffCode: 2, amount: "18.50" }),
+      tariffRow({ sku: "T9999999", tariffCode: 2, amount: "1.00" }),
     ];
 
     const { products, report } = buildCatalogue({ familiaMaster: oteloMaster, tariffRows, stock: [] });
@@ -472,9 +514,7 @@ describe("buildCatalogue", () => {
   });
 
   it("reports a stock row whose SKU isn't in the familia master as unmatched", () => {
-    const tariffRows = [
-      tariffRow({ sku: "T0001801", tariffCode: 2, amount: "18.50", familiaDescripcion: "OTELLO" }),
-    ];
+    const tariffRows = [tariffRow({ sku: "T0001801", tariffCode: 2, amount: "18.50" })];
     const stock: StockRow[] = [{ sku: "T9999999", stockTotal: "5.00" }];
 
     const { report } = buildCatalogue({ familiaMaster: oteloMaster, tariffRows, stock });
@@ -490,9 +530,8 @@ describe("buildCatalogue", () => {
         amount: "18.50",
         ancho: "320 CM",
         metrosPorPieza: "30",
-        familiaDescripcion: "OTELLO",
       }),
-      tariffRow({ sku: "T0001801", tariffCode: 2, amount: "18.50", familiaDescripcion: "OTELLO" }), // exact duplicate
+      tariffRow({ sku: "T0001801", tariffCode: 2, amount: "18.50" }), // exact duplicate
     ];
 
     const { products, report } = buildCatalogue({ familiaMaster: oteloMaster, tariffRows, stock: [] });
@@ -511,9 +550,9 @@ describe("buildCatalogue", () => {
       { sku: "M450460", name: "ALLANTE C-900 GOLD", familia: "PIEL" },
     ];
     const tariffRows = [
-      tariffRow({ sku: "M450455", tariffCode: 9, amount: "12.00", familiaDescripcion: "ALLANTE" }),
-      tariffRow({ sku: "M450457", tariffCode: 9, amount: "12.00", familiaDescripcion: "ALLANTE" }),
-      tariffRow({ sku: "M450460", tariffCode: 9, amount: "15.00", familiaDescripcion: "ALLANTE" }),
+      tariffRow({ sku: "M450455", tariffCode: 9, amount: "12.00" }),
+      tariffRow({ sku: "M450457", tariffCode: 9, amount: "12.00" }),
+      tariffRow({ sku: "M450460", tariffCode: 9, amount: "15.00" }),
     ];
 
     const { products } = buildCatalogue({ familiaMaster, tariffRows, stock: [] });
@@ -538,21 +577,14 @@ describe("buildCatalogue", () => {
     ]); // GOLD overrides
   });
 
-  it("keeps VIVO ALGODON 3/4/5/8/9 as five separate products, not one merged group, and flags their empty labels", () => {
+  it("keeps VIVO ALGODON 3/4/5/8/9 as five separate standalone products — none of their names carry the ' C-' marker", () => {
     const numbers = [3, 4, 5, 8, 9];
     const familiaMaster: FamiliaMasterRow[] = numbers.map((n) => ({
       sku: `M20000${n}`,
       name: `VIVO ALGODON ${n}`,
       familia: "FIBRAS Y RELLENOS",
     }));
-    const tariffRows = numbers.map((n) =>
-      tariffRow({
-        sku: `M20000${n}`,
-        tariffCode: 9,
-        amount: "3.00",
-        familiaDescripcion: `VIVO ALGODON ${n}`,
-      }),
-    );
+    const tariffRows = numbers.map((n) => tariffRow({ sku: `M20000${n}`, tariffCode: 9, amount: "3.00" }));
 
     const { products, report } = buildCatalogue({ familiaMaster, tariffRows, stock: [] });
 
@@ -564,11 +596,14 @@ describe("buildCatalogue", () => {
       "VIVO ALGODON 8",
       "VIVO ALGODON 9",
     ]);
-    // name==line for every one of these -> empty label -> SKU placeholder, flagged for an override
     for (const p of products) {
-      expect(p.variants[0].label).toBe(p.variants[0].externalId);
+      expect(p.variants).toHaveLength(1);
+      expect(p.variants[0].label).toBe(""); // standalone product — no colourway to name
     }
-    expect(report.emptyVariantLabelSkus.sort()).toEqual([
+    // These 5 names differ pairwise by one token ("3"/"4"/"5"/"8"/"9"), so the
+    // near-duplicate check correctly flags them for a human under-grouping
+    // review — the importer itself still keeps them separate either way.
+    expect(report.nearDuplicateStandaloneSkus.sort()).toEqual([
       "M200003",
       "M200004",
       "M200005",
@@ -577,47 +612,13 @@ describe("buildCatalogue", () => {
     ]);
   });
 
-  it("flags a member whose name doesn't start with the line name as suspect, but still groups it", () => {
-    const familiaMaster: FamiliaMasterRow[] = [
-      { sku: "T1", name: "ALLANTE C-1 RED", familia: "PIEL" },
-      { sku: "T2", name: "TYPO NAME HERE", familia: "PIEL" },
-    ];
-    const tariffRows = [
-      tariffRow({ sku: "T1", tariffCode: 9, amount: "10.00", familiaDescripcion: "ALLANTE" }),
-      tariffRow({ sku: "T2", tariffCode: 9, amount: "10.00", familiaDescripcion: "ALLANTE" }),
-    ];
-
-    const { products, report } = buildCatalogue({ familiaMaster, tariffRows, stock: [] });
-
-    expect(products).toHaveLength(1);
-    expect(products[0].variants).toHaveLength(2);
-    expect(report.suspectGroupSkus).toEqual(["T2"]);
-  });
-
-  it("falls back to name-prefix matching and flags it, when a SKU has no Desc. familia anywhere", () => {
-    const familiaMaster: FamiliaMasterRow[] = [
-      { sku: "T9", name: "TERCEIRA C-9128 CRUDO", familia: "TELA" },
-    ];
-    const tariffRows = [
-      tariffRow({ sku: "T9", tariffCode: 2, amount: "20.00", familiaDescripcion: null }),
-    ];
-
-    const { products, report } = buildCatalogue({ familiaMaster, tariffRows, stock: [] });
-
-    expect(products[0].name).toBe("TERCEIRA");
-    expect(products[0].variants[0].label).toBe("C-9128 CRUDO");
-    expect(report.noLineDataSkus).toEqual(["T9"]);
-  });
-
   it("flags a group whose members disagree on web Familia, and stores the most common one", () => {
     const familiaMaster: FamiliaMasterRow[] = [
       { sku: "T1", name: "ALLANTE C-1 RED", familia: "PIEL" },
       { sku: "T2", name: "ALLANTE C-2 BLUE", familia: "PIEL" },
       { sku: "T3", name: "ALLANTE C-3 GREEN", familia: "TELA" },
     ];
-    const tariffRows = ["T1", "T2", "T3"].map((sku) =>
-      tariffRow({ sku, tariffCode: 9, amount: "10.00", familiaDescripcion: "ALLANTE" }),
-    );
+    const tariffRows = ["T1", "T2", "T3"].map((sku) => tariffRow({ sku, tariffCode: 9, amount: "10.00" }));
 
     const { products, report } = buildCatalogue({ familiaMaster, tariffRows, stock: [] });
 
@@ -625,36 +626,26 @@ describe("buildCatalogue", () => {
     expect(report.inconsistentFamiliaGroupKeys).toEqual(["ALLANTE"]);
   });
 
-  it("applies a familia-line correction override so a typo'd Desc. familia still merges into the right group", () => {
+  it("flags a single-member group that used the ' C-' marker, for possible merge review", () => {
     const familiaMaster: FamiliaMasterRow[] = [
-      { sku: "T1", name: "ALLANTE C-1 RED", familia: "PIEL" },
-      { sku: "T2", name: "ALLANTE C-2 BLUE", familia: "PIEL" },
+      { sku: "T5", name: "OTELLO C-1 CRUDO", familia: "TELA" },
     ];
-    const tariffRows = [
-      tariffRow({ sku: "T1", tariffCode: 9, amount: "10.00", familiaDescripcion: "ALLANTE" }),
-      tariffRow({ sku: "T2", tariffCode: 9, amount: "10.00", familiaDescripcion: "ALANTE" }), // typo
-    ];
+    const tariffRows = [tariffRow({ sku: "T5", tariffCode: 2, amount: "18.50" })];
 
-    const { products } = buildCatalogue({
-      familiaMaster,
-      tariffRows,
-      stock: [],
-      overrides: { familiaLineCorrections: { ALANTE: "ALLANTE" } },
-    });
+    const { products, report } = buildCatalogue({ familiaMaster, tariffRows, stock: [] });
 
     expect(products).toHaveLength(1);
-    expect(products[0].variants).toHaveLength(2);
+    expect(products[0].variants[0].label).toBe("C-1 CRUDO");
+    expect(report.singleMemberMarkerGroupSkus).toEqual(["T5"]);
   });
 
-  it("applies a variant-label override instead of the SKU placeholder, and clears the empty-label flag", () => {
+  it("applies a variant-label override to give a standalone product's variant a real label", () => {
     const familiaMaster: FamiliaMasterRow[] = [
       { sku: "M1", name: "VIVO ALGODON 3", familia: "FIBRAS Y RELLENOS" },
     ];
-    const tariffRows = [
-      tariffRow({ sku: "M1", tariffCode: 9, amount: "3.00", familiaDescripcion: "VIVO ALGODON 3" }),
-    ];
+    const tariffRows = [tariffRow({ sku: "M1", tariffCode: 9, amount: "3.00" })];
 
-    const { products, report } = buildCatalogue({
+    const { products } = buildCatalogue({
       familiaMaster,
       tariffRows,
       stock: [],
@@ -662,17 +653,16 @@ describe("buildCatalogue", () => {
     });
 
     expect(products[0].variants[0].label).toBe("ÚNICO");
-    expect(report.emptyVariantLabelSkus).toEqual([]);
   });
 
-  it("applies a group override to force a SKU into a specific line regardless of its own Desc. familia", () => {
+  it("applies a group override to force a SKU into a specific line regardless of its own derived grouping", () => {
     const familiaMaster: FamiliaMasterRow[] = [
       { sku: "T1", name: "ALLANTE C-1 RED", familia: "PIEL" },
-      { sku: "T9", name: "MISFILED ARTICLE", familia: "PIEL" },
+      { sku: "T9", name: "MISFILED ARTICLE", familia: "PIEL" }, // no marker — would default to standalone
     ];
     const tariffRows = [
-      tariffRow({ sku: "T1", tariffCode: 9, amount: "10.00", familiaDescripcion: "ALLANTE" }),
-      tariffRow({ sku: "T9", tariffCode: 9, amount: "10.00", familiaDescripcion: "WRONG LINE" }),
+      tariffRow({ sku: "T1", tariffCode: 9, amount: "10.00" }),
+      tariffRow({ sku: "T9", tariffCode: 9, amount: "10.00" }),
     ];
 
     const { products } = buildCatalogue({
