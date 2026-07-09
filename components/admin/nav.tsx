@@ -10,6 +10,7 @@ const NAV: { href: string; label: string; exact?: boolean }[] = [
   { href: "/admin", label: "Inicio", exact: true },
   { href: "/admin/productos", label: "Productos y precios" },
   { href: "/admin/contenido", label: "Contenido" },
+  { href: "/admin/solicitudes", label: "Solicitudes" },
 ];
 
 export function AdminNav() {

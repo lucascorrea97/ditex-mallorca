@@ -13,6 +13,7 @@ import { CATEGORY_SLUGS } from "@/lib/catalogue";
 import type { CategoryValue } from "@/lib/catalogue";
 import { auth } from "@/auth";
 import { PriceRangeTable, PriceTable } from "@/components/site/price-table";
+import { AddToRequestWidget } from "@/components/site/add-to-request-widget";
 import type { Locale } from "@/lib/i18n";
 import type { PriceRow } from "@/lib/prices";
 
@@ -60,6 +61,7 @@ export default async function ProductPage({
   const d = dict.catalogo;
   const catNames = d.categoryNames as Record<string, string>;
   const saleUnits = d.saleUnits as Record<string, string>;
+  const ds = dict.solicitud;
 
   // ADR-0011: one product DB, two views. Prices are revealed only to authenticated
   // Clients — the logged-out Catalogue stays price-free.
@@ -95,6 +97,16 @@ export default async function ProductPage({
   const allDisplayPrices = activeVariants.flatMap(effectivePrices);
   const units = [...new Set(allDisplayPrices.map((p) => p.unit))];
   const onRequest = allDisplayPrices.some((p) => p.onRequest);
+
+  // Add-to-request widget data (#21, ADR-0020): the same active-Variant colourways shown
+  // above, reduced to the id/label/sku shape the client-side Request cart snapshots.
+  const variantOptions = activeVariants.map((v) => ({
+    id: v.id,
+    label: v.label || v.externalId || String(v.id),
+    sku: v.externalId,
+  }));
+  const defaultVariantOption = !isMultiVariant ? variantOptions[0] : null;
+  const requestUnits = units.filter((u) => u in saleUnits);
 
   // Attributes: key-value pairs from the JSONB field
   const attrs = Object.entries(product.attributes ?? {});
@@ -365,7 +377,39 @@ export default async function ProductPage({
                 </Button>
               </div>
             </div>
-          ) : (
+          ) : null}
+
+          {/* Add-to-request (#21, ADR-0020): Client Area only, alongside the price box
+              above rather than replacing the existing "Solicitar presupuesto" contact CTA. */}
+          {showPrices && (
+            <div className="lg:col-start-2">
+              <AddToRequestWidget
+                productId={product.id}
+                productName={product.name}
+                category={product.category}
+                isFoam={isFoam}
+                units={requestUnits}
+                unitLabels={saleUnits}
+                variants={isMultiVariant ? variantOptions : []}
+                defaultVariant={defaultVariantOption}
+                requestHref={localePath(lang, "/area-clientes/solicitud")}
+                labels={{
+                  heading: ds.addToRequestHeading,
+                  quantityLabel: ds.quantityLabel,
+                  unitLabel: ds.unitLabel,
+                  colourLabel: ds.colourLabel,
+                  noteLabel: ds.noteLabel,
+                  foamNoteLabel: ds.foamNoteLabel,
+                  foamNotePlaceholder: ds.foamNotePlaceholder,
+                  addButton: ds.addButton,
+                  addedConfirmation: ds.addedConfirmation,
+                  viewRequestLink: ds.viewRequestLink,
+                }}
+              />
+            </div>
+          )}
+
+          {!showPrices && (
             <div className="rounded-2xl border border-stone-200 bg-stone-50 p-8">
               <p className="type-eyebrow text-stone-400">{d.clientAreaLabel}</p>
               <p className="mt-3 type-h2-minor">
