@@ -77,3 +77,7 @@ _Avoid_: price type, price list (reserve for the Client-facing Price List)
 **Connector**:
 The small local program (a Windows service / scheduled job running on or beside the A3 machine) that syncs data between A3 and the website's own datastore. The only thing that ever talks to A3. See ADR-0003.
 _Avoid_: the bridge, the integration, the API (the website's API is a separate thing)
+
+**Guide** (Guía):
+A published piece of the content engine (`articles` table) — foam/application know-how by trade segment (marine, contract, furniture-makers), not a generic blog post. AI-drafted from real business expertise, reviewed and published by the non-technical editor; only `published` rows reach `/guias`, `draft` rows are admin-only. One DB row per locale (same `slug` across locales = translations of the same Guide) — a Guide need not be translated into all three locales at once. The SEO/GEO surface that earns search rankings and LLM citations (ADR-0002, ADR-0008, ADR-0010).
+_Avoid_: article (reserve for a Variant's A3 article, or generically "blog post"), post

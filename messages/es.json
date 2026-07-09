@@ -8,6 +8,7 @@
     "nosotros": "Nosotros",
     "servicios": "Servicios",
     "productos": "Productos",
+    "guias": "Guías",
     "contacto": "Contacto",
     "areaClientes": "Área de Clientes"
   },
@@ -256,6 +257,18 @@
     "searchNoResults": "Sin resultados para",
     "searchNoResultsBody": "Prueba con otro término o explora las categorías.",
     "viewProduct": "Ver →"
+  },
+  "guias": {
+    "title": "Guías — D.TEX Mallorca",
+    "description": "Guías de espuma y tapicería de D.TEX Mallorca: consejos prácticos por sector — náutica, contract y mueble.",
+    "eyebrow": "Guías",
+    "h1": "Guías de espuma y tapicería",
+    "lead": "Consejos prácticos basados en la experiencia real de D.TEX, organizados por sector: náutica, contract y mueble.",
+    "noGuides": "Aún no hay guías publicadas. Vuelve pronto.",
+    "readMore": "Leer guía →",
+    "publishedOn": "Publicado el",
+    "backToGuides": "Guías",
+    "applicationsLabel": "Aplicaciones"
   },
   "contacto": {
     "title": "Contacto — D.TEX Mallorca",

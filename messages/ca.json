@@ -8,6 +8,7 @@
     "nosotros": "Nosaltres",
     "servicios": "Serveis",
     "productos": "Productes",
+    "guias": "Guies",
     "contacto": "Contacte",
     "areaClientes": "Àrea de Clients"
   },
@@ -256,6 +257,18 @@
     "searchNoResults": "Sense resultats per a",
     "searchNoResultsBody": "Prova amb un altre terme o explora les categories.",
     "viewProduct": "Veure →"
+  },
+  "guias": {
+    "title": "Guies — D.TEX Mallorca",
+    "description": "Guies d'escuma i tapisseria de D.TEX Mallorca: consells pràctics per sector — nàutica, contract i moble.",
+    "eyebrow": "Guies",
+    "h1": "Guies d'escuma i tapisseria",
+    "lead": "Consells pràctics basats en l'experiència real de D.TEX, organitzats per sector: nàutica, contract i moble.",
+    "noGuides": "Encara no hi ha guies publicades. Torna aviat.",
+    "readMore": "Llegir guia →",
+    "publishedOn": "Publicat el",
+    "backToGuides": "Guies",
+    "applicationsLabel": "Aplicacions"
   },
   "contacto": {
     "title": "Contacte — D.TEX Mallorca",

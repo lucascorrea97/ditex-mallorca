@@ -94,18 +94,58 @@ async function seed() {
     .insert(prices)
     .values({ productId: foam.id, zone: "all", unit: "m3", onRequest: true });
 
-  // One flagship foam guide — the kind of expertise-fed content the admin manages (ADR-0010).
+  // Content engine plumbing (#11, ADR-0010). Two fixtures, deliberately NOT real
+  // foam expertise — that's #12/#49; inventing product claims here would be
+  // exactly what ADR-0010's "human verifies technical claims" step exists to
+  // prevent. Both exercise the admin CRUD; only the second exercises the
+  // public /guias pipeline (a draft is never publicly visible by design).
+
+  // A draft — proves listing/rendering/editing in the admin without ever
+  // reaching the public site (ADR-0010: "only published rows reach the public
+  // site"). Clearly marked as a placeholder, no specific technical claims.
   await db.insert(articles).values({
     locale: "es",
     slug: "guia-densidad-espuma-tapiceria",
-    title: "Cómo elegir la densidad de espuma para tapicería",
-    excerpt:
-      "Guía práctica de densidades de gomaespuma según el uso: sofás, colchones, náutica y hostelería.",
-    body: "# Cómo elegir la densidad de espuma\n\nLa densidad (kg/m³) determina la durabilidad y el confort de la espuma. En D.TEX cortamos a medida, incluso a volumen (m³)...",
-    status: "published",
-    useTags: ["espuma", "sofa", "nautica", "hosteleria"],
-    publishedAt: new Date(),
+    title: "[Borrador] Cómo elegir la densidad de espuma para tapicería",
+    excerpt: "Borrador de ejemplo para probar el editor de contenidos — pendiente de contenido real (#12/#49).",
+    body: "> **Borrador de ejemplo.** Este artículo es un marcador de posición para probar el sistema de publicación (issue #11); el contenido real, basado en la experiencia de D.TEX, llega con los issues #12 y #49.\n\n## Estructura prevista\n\nUna guía real explicará cómo elegir la densidad de espuma según el uso — sofás, colchones, náutica, hostelería — con la experiencia real del equipo de D.TEX.",
+    status: "draft",
+    useTags: ["espuma", "placeholder"],
   });
+
+  // Published, in all three locales (same slug = translations, db/schema.ts
+  // comment) — the fixture that proves the public pipeline end to end:
+  // listing, detail page, hreflang across real translations, JSON-LD,
+  // sitemap. Honest "coming soon" copy, not a fabricated expertise claim.
+  const welcomeGuide = {
+    slug: "guias-ditex",
+    useTags: ["espuma", "nautica", "contract", "mueble"],
+    status: "published" as const,
+    publishedAt: new Date(),
+  };
+  await db.insert(articles).values([
+    {
+      ...welcomeGuide,
+      locale: "es",
+      title: "Bienvenido a las guías de D.TEX Mallorca",
+      excerpt: "Estamos preparando guías de espuma y tapicería con la experiencia real de D.TEX. Vuelve pronto.",
+      body: "Estamos preparando una serie de guías prácticas sobre espuma y tapicería, basadas en la experiencia real del equipo de D.TEX Mallorca, organizadas por sector: náutica, contract y mueble.\n\nEste artículo es un marcador de posición de la fase de cimentación del sistema de contenidos — las guías reales llegan próximamente.",
+    },
+    {
+      ...welcomeGuide,
+      locale: "ca",
+      title: "Benvingut a les guies de D.TEX Mallorca",
+      excerpt: "Estem preparant guies d'escuma i tapisseria amb l'experiència real de D.TEX. Torna aviat.",
+      body: "Estem preparant una sèrie de guies pràctiques sobre escuma i tapisseria, basades en l'experiència real de l'equip de D.TEX Mallorca, organitzades per sector: nàutica, contract i moble.\n\nAquest article és un marcador de posició de la fase de fonamentació del sistema de continguts — les guies reals arriben properament.",
+    },
+    {
+      ...welcomeGuide,
+      locale: "en",
+      title: "Welcome to D.TEX Mallorca's guides",
+      excerpt: "We're preparing foam and upholstery guides drawing on D.TEX's real expertise. Check back soon.",
+      body: "We're preparing a series of practical guides on foam and upholstery, grounded in the real experience of the D.TEX Mallorca team, organised by trade segment: marine, contract, and furniture-making.\n\nThis article is a placeholder from the content system's foundation phase — the real guides are coming soon.",
+    },
+  ]);
 
   const counts = {
     collections: (await db.select().from(collections)).length,

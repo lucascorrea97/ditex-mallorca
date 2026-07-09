@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
-import { asc, inArray } from "drizzle-orm";
-import { locales } from "@/lib/i18n";
+import { asc, eq, inArray } from "drizzle-orm";
+import { locales, type Locale } from "@/lib/i18n";
 import { alternatesFor } from "@/lib/seo";
 import { CATEGORY_ORDER, CATEGORY_SLUGS } from "@/lib/catalogue";
 import { db, schema } from "@/db";
@@ -40,6 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/productos", priority: 0.7 },
     { path: "/servicios", priority: 0.7 },
     { path: "/nosotros", priority: 0.6 },
+    { path: "/guias", priority: 0.7 },
     { path: "/contacto", priority: 0.6 },
   ];
 
@@ -50,7 +51,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // Dynamic: collections + active products from the DB.
-  const [collections, products] = await Promise.all([
+  const [collections, products, publishedArticles] = await Promise.all([
     db
       .select({ slug: schema.collections.slug, updatedAt: schema.collections.updatedAt })
       .from(schema.collections)
@@ -60,7 +61,40 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .from(schema.products)
       .where(inArray(schema.products.id, activeProductIds()))
       .orderBy(asc(schema.products.slug)),
+    db
+      .select({
+        slug: schema.articles.slug,
+        locale: schema.articles.locale,
+        updatedAt: schema.articles.updatedAt,
+      })
+      .from(schema.articles)
+      .where(eq(schema.articles.status, "published"))
+      .orderBy(asc(schema.articles.slug)),
   ]);
+
+  // One sitemap row per published Guide *row* (not per slug) — a Guide may
+  // not be translated into every locale yet (ADR-0009), so hreflang for each
+  // entry is limited to its real sibling translations, never a 404'ing link.
+  const translationsBySlug = new Map<string, Locale[]>();
+  for (const a of publishedArticles) {
+    const list = translationsBySlug.get(a.slug) ?? [];
+    list.push(a.locale as Locale);
+    translationsBySlug.set(a.slug, list);
+  }
+  const articleEntries: MetadataRoute.Sitemap = publishedArticles.map((a) => {
+    const { canonical, languages } = alternatesFor(
+      a.locale as Locale,
+      `/guias/${a.slug}`,
+      translationsBySlug.get(a.slug) ?? [a.locale as Locale],
+    );
+    return {
+      url: canonical,
+      lastModified: a.updatedAt,
+      changeFrequency: "monthly",
+      priority: 0.6,
+      alternates: { languages },
+    };
+  });
 
   return [
     ...staticPaths.flatMap((p) =>
@@ -83,5 +117,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.6,
       }),
     ),
+    ...articleEntries,
   ];
 }

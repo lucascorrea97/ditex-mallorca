@@ -83,6 +83,35 @@ export function productJsonLd(input: {
   return ld;
 }
 
+// Guide structured data (#11, ADR-0002/0008/0010): what earns search rankings
+// and LLM citations for the flagship foam/application content. No named human
+// author (ADR-0010: AI-drafted from business expertise, published by the
+// business) — attributed to the Organization itself, linked to the same
+// LocalBusiness node every page shares via publisher.
+export function articleJsonLd(input: {
+  headline: string;
+  description: string;
+  url: string; // canonical, absolute
+  datePublished: string; // ISO 8601
+  dateModified: string; // ISO 8601
+  useTags?: string[];
+}): JsonLdObject {
+  const ld: JsonLdObject = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: input.headline,
+    description: input.description,
+    url: input.url,
+    mainEntityOfPage: { "@type": "WebPage", "@id": input.url },
+    datePublished: input.datePublished,
+    dateModified: input.dateModified,
+    author: { "@type": "Organization", name: business.name, "@id": BUSINESS_ID },
+    publisher: { "@id": BUSINESS_ID },
+  };
+  if (input.useTags && input.useTags.length > 0) ld.keywords = input.useTags.join(", ");
+  return ld;
+}
+
 export function breadcrumbJsonLd(
   items: { name: string; url: string }[],
 ): JsonLdObject {
