@@ -50,6 +50,11 @@ export const saleUnitEnum = pgEnum("sale_unit", [
 // (ADR-0010) and only "published" ones ever reach the public site.
 export const articleStatusEnum = pgEnum("article_status", ["draft", "published"]);
 
+// A Request starts "new" and the office flips it to "handled" once they've
+// called/emailed the Client back with a confirmed price (ADR-0020). No richer
+// workflow than this for v1 — the office still fulfils through A3 as today.
+export const requestStatusEnum = pgEnum("request_status", ["new", "handled"]);
+
 // A Collection groups fabrics (CHARLINE, NEW GENERATION...) and carries shared stock
 // and delivery terms (CONTEXT.md). Nullable category so material groupings can reuse it.
 export const collections = pgTable("collections", {
@@ -185,6 +190,57 @@ export const articles = pgTable(
   ],
 );
 
+// A Request (ADR-0020, issue #21): a structured, non-binding ask a Client
+// assembles from the Catalogue and sends to the office — the office confirms
+// price and fulfils through A3 as today; never paid online. The Client Area's
+// shared password (CONTEXT.md) doesn't identify who's asking, so business
+// name + contact are captured on the request itself, not inferred from a
+// session. `reference` is the paper workflow's missing unique ID
+// (docs/business/procesos-as-is.md) — human-readable, shown in the
+// confirmation, e.g. "P-2026-0001".
+export const requests = pgTable(
+  "requests",
+  {
+    id: serial("id").primaryKey(),
+    reference: text("reference").notNull().unique(),
+    businessName: text("business_name").notNull(),
+    contactPhone: text("contact_phone"),
+    contactEmail: text("contact_email"),
+    note: text("note"), // free-text note for the whole request
+    status: requestStatusEnum("status").default("new").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (t) => [index("requests_status_idx").on(t.status)],
+);
+
+// One line per requested Product/Variant. productId/variantId are `set null`
+// on delete (not cascade) because a full catalogue re-import (`db:import`)
+// deletes and recreates every product/variant with fresh ids — a Request must
+// outlive that. productName/variantLabel/sku are a denormalised snapshot
+// taken at request time so the office (and any future A3 Connector hand-off,
+// #18) can always read what was actually asked for, even after the FK goes
+// null or the catalogue changes shape entirely.
+export const requestLines = pgTable(
+  "request_lines",
+  {
+    id: serial("id").primaryKey(),
+    requestId: integer("request_id")
+      .references(() => requests.id, { onDelete: "cascade" })
+      .notNull(),
+    productId: integer("product_id").references(() => products.id, { onDelete: "set null" }),
+    variantId: integer("variant_id").references(() => variants.id, { onDelete: "set null" }),
+    productName: text("product_name").notNull(),
+    variantLabel: text("variant_label"), // null for a single-variant/product-level line
+    sku: text("sku"), // the Variant's A3 code at request time, if known
+    quantity: numeric("quantity", { precision: 10, scale: 2 }).notNull(),
+    unit: saleUnitEnum("unit").notNull(),
+    note: text("note"), // e.g. a colour clarification, or "70x40cm" for a foam line
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (t) => [index("request_lines_request_idx").on(t.requestId)],
+);
+
 export const collectionsRelations = relations(collections, ({ many }) => ({
   products: many(products),
 }));
@@ -206,4 +262,14 @@ export const variantsRelations = relations(variants, ({ one, many }) => ({
 export const pricesRelations = relations(prices, ({ one }) => ({
   product: one(products, { fields: [prices.productId], references: [products.id] }),
   variant: one(variants, { fields: [prices.variantId], references: [variants.id] }),
+}));
+
+export const requestsRelations = relations(requests, ({ many }) => ({
+  lines: many(requestLines),
+}));
+
+export const requestLinesRelations = relations(requestLines, ({ one }) => ({
+  request: one(requests, { fields: [requestLines.requestId], references: [requests.id] }),
+  product: one(products, { fields: [requestLines.productId], references: [products.id] }),
+  variant: one(variants, { fields: [requestLines.variantId], references: [variants.id] }),
 }));

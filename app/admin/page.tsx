@@ -1,11 +1,16 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/admin/auth";
-import { listArticles, listProducts } from "@/lib/admin/data";
+import { listArticles, listProducts, listRequests } from "@/lib/admin/data";
 
 export default async function AdminHome() {
   await requireAdmin();
-  const [products, articles] = await Promise.all([listProducts(), listArticles()]);
+  const [products, articles, requests] = await Promise.all([
+    listProducts(),
+    listArticles(),
+    listRequests(),
+  ]);
   const published = articles.filter((a) => a.status === "published").length;
+  const newRequests = requests.filter((r) => r.status === "new").length;
 
   return (
     <div className="space-y-8">
@@ -16,7 +21,7 @@ export default async function AdminHome() {
         </p>
       </header>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-3">
         <Link
           href="/admin/productos"
           className="rounded-2xl border border-stone-200 bg-white p-6 transition-colors hover:border-stone-300"
@@ -38,6 +43,18 @@ export default async function AdminHome() {
           </p>
           <p className="mt-1 text-stone-600">Artículos publicados</p>
           <p className="mt-4 text-sm font-medium text-brand-600">Gestionar contenido →</p>
+        </Link>
+
+        <Link
+          href="/admin/solicitudes"
+          className="rounded-2xl border border-stone-200 bg-white p-6 transition-colors hover:border-stone-300"
+        >
+          <p className="text-3xl font-semibold">
+            {newRequests}
+            <span className="text-lg font-normal text-stone-400"> / {requests.length}</span>
+          </p>
+          <p className="mt-1 text-stone-600">Solicitudes nuevas</p>
+          <p className="mt-4 text-sm font-medium text-brand-600">Ver solicitudes →</p>
         </Link>
       </div>
 

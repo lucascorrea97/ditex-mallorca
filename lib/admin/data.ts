@@ -36,3 +36,17 @@ export async function listArticles() {
 export async function getArticle(id: number) {
   return db.query.articles.findFirst({ where: eq(schema.articles.id, id) });
 }
+
+// Requests (#21, ADR-0020) — newest first, so new asks surface at the top.
+export async function listRequests() {
+  return db.query.requests.findMany({
+    orderBy: (r) => [desc(r.createdAt)],
+  });
+}
+
+export async function getRequest(id: number) {
+  return db.query.requests.findFirst({
+    where: eq(schema.requests.id, id),
+    with: { lines: { orderBy: (l) => [asc(l.id)] } },
+  });
+}

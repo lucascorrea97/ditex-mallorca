@@ -29,6 +29,13 @@
       "when": 1783538866363,
       "tag": "0003_blue_devos",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1783621275354,
+      "tag": "0004_strong_turbo",
+      "breakpoints": true
     }
   ]
 }

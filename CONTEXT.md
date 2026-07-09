@@ -30,6 +30,19 @@ _Avoid_: customers, market (reserve "market" for geography)
 The password-protected section of the site where authorised Clients view the Price List and related documents. Today it is gated by a single shared password handed out selectively; per-Client logins are a future evolution, not a current requirement.
 _Avoid_: portal, dashboard, login area, member area
 
+**Request** (Solicitud):
+A structured, non-binding ask a Client assembles from the Catalogue inside the Client Area and
+sends to the office — quantities/units/notes per line, a business name and contact (phone or
+email) since the shared password doesn't identify who's asking, and an optional general note.
+Stored in the DB with a unique, human-readable **reference** (e.g. `P-1024`) shown in the
+confirmation — the thing the paper workflow lacks (docs/business/). The office confirms price
+and fulfils through A3 exactly as today; **no price is ever promised and nothing is paid
+online**. Distinct from an **Order** (a priced, confirmed sale in A3) and from a **Cut order**
+(the cutting team's paper instruction) — a Request is the *upstream ask*, before either exists.
+Foam cut-to-measure requests are out of scope here (see the foam cut configurator, a separate
+feature); a foam product can still appear as a plain Request line with a note. (ADR-0020)
+_Avoid_: order, quote, cart, enquiry (as a code/table name — "Request" is the noun everywhere)
+
 **Price List** (Tarifa):
 The set of products and prices shown inside the Client Area. The same Price List is shown to every Client who has access — prices do not vary *per Client*. They do, however, vary *by destination island*: the Material tariff lists separate **Mallorca** and **Menorca/Ibiza** prices for the same item (the latter carries inter-island freight). Maintained today as PDFs (Telas, Material) generated from a Word document an employee keeps — these cover only the **subset** of products worth a printed catalogue, not the full range. A3 holds the complete catalogue and exports it as Excel. The PDFs already tell Clients that the website is the canonical place for up-to-date prices.
 _Avoid_: catalogue (the catalogue is public; the Price List is gated and includes prices)

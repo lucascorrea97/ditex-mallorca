@@ -106,6 +106,18 @@ export default async function ClientAreaPage({
             <DownloadPriceListButton label={dict.catalogo.downloadPriceListLabel} />
           </div>
         </div>
+
+        {/* Reorder/enquiry Request flow (#21, ADR-0020): builds on the add-to-request
+            widget on each Catalogue product page. */}
+        <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 px-8 py-12">
+          <h2 className="type-h2-minor">{d.requestSectionTitle}</h2>
+          <p className="mt-4 max-w-2xl text-stone-600">{d.requestSectionBody}</p>
+          <div className="mt-8">
+            <Button href={localePath(lang, "/area-clientes/solicitud")}>
+              {d.requestSectionCta}
+            </Button>
+          </div>
+        </div>
       </Container>
     </>
   );
