@@ -121,3 +121,61 @@ export function buildPriceTable(prices: PriceRow[]): PriceTable {
 export function isIslandPriced(prices: PriceRow[]): boolean {
   return prices.some((p) => UNIT_ORDER.includes(p.unit) && (p.zone === "mallorca" || p.zone === "men_ibz"));
 }
+
+// One (unit, zone) cell across every Variant of a Product line. `min`/`max` are
+// equal when every variant shows the same amount (ADR-0019: "product-level
+// price shown once when shared") — the caller renders a single value in that
+// case and a "desde <min>" ("from") treatment when they differ, without ever
+// exposing which specific colourway costs what (ADR-0001: a plain range beats
+// a per-colour configurator).
+export type PriceRangeCell = {
+  zone: string;
+  min: string | null; // 2-decimal string, or null when nothing displayable
+  max: string | null;
+  onRequest: boolean;
+  qualifier: string | null;
+};
+export type PriceRangeRow = { unit: string; cells: PriceRangeCell[] };
+export type PriceRangeTable = { zones: string[]; rows: PriceRangeRow[] };
+
+// Same whitelist/pivot as buildPriceTable, but folded across every Variant's
+// own effective price set (its override, or the Product's default when it has
+// none) instead of a single price list.
+export function buildPriceRangeTable(variantPriceSets: PriceRow[][]): PriceRangeTable {
+  const displayableSets = variantPriceSets.map((set) => set.filter((p) => UNIT_ORDER.includes(p.unit)));
+  const zones = ZONE_ORDER.filter((z) => displayableSets.some((set) => set.some((p) => p.zone === z)));
+  const units = UNIT_ORDER.filter((u) => displayableSets.some((set) => set.some((p) => p.unit === u)));
+
+  const rows: PriceRangeRow[] = units.map((unit) => ({
+    unit,
+    cells: zones.map((zone) => {
+      const matches = displayableSets
+        .map((set) => set.find((p) => p.unit === unit && p.zone === zone))
+        .filter((p): p is PriceRow => p !== undefined);
+
+      const amounts = matches
+        .filter((p) => !p.onRequest && p.amount !== null)
+        .map((p) => Number(p.amount));
+      const qualifier = matches.find((p) => p.qualifier)?.qualifier ?? null;
+
+      if (amounts.length === 0) {
+        return {
+          zone,
+          min: null,
+          max: null,
+          onRequest: matches.some((p) => p.onRequest),
+          qualifier,
+        };
+      }
+      return {
+        zone,
+        min: Math.min(...amounts).toFixed(2),
+        max: Math.max(...amounts).toFixed(2),
+        onRequest: false,
+        qualifier,
+      };
+    }),
+  }));
+
+  return { zones, rows };
+}

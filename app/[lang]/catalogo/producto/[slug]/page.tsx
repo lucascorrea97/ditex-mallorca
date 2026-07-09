@@ -12,8 +12,9 @@ import { db, schema } from "@/db";
 import { CATEGORY_SLUGS } from "@/lib/catalogue";
 import type { CategoryValue } from "@/lib/catalogue";
 import { auth } from "@/auth";
-import { PriceTable } from "@/components/site/price-table";
+import { PriceRangeTable, PriceTable } from "@/components/site/price-table";
 import type { Locale } from "@/lib/i18n";
+import type { PriceRow } from "@/lib/prices";
 
 export const dynamic = "force-dynamic";
 
@@ -49,7 +50,7 @@ export default async function ProductPage({
 
   const product = await db.query.products.findFirst({
     where: eq(schema.products.slug, slug),
-    with: { collection: true, prices: true, variants: true },
+    with: { collection: true, prices: true, variants: { with: { prices: true } } },
   });
   // A Product line is visible when at least one of its Variants (A3 articles) is
   // active — Bloqueado now lives per-SKU on the Variant, not the line (ADR-0019).
@@ -64,6 +65,7 @@ export default async function ProductPage({
   // Clients — the logged-out Catalogue stays price-free.
   const session = await auth();
   const showPrices = !!session;
+  const isFoam = product.category === "foam";
 
   const categorySlug = CATEGORY_SLUGS[product.category as CategoryValue];
   const categoryName = catNames[product.category];
@@ -73,9 +75,26 @@ export default async function ProductPage({
     ? localePath(lang, `/catalogo/coleccion/${product.collection.slug}`)
     : null;
 
-  // Available units — no price amounts (ADR-0011 one-data-model/two-views)
-  const units = [...new Set(product.prices.map((p) => p.unit))];
-  const onRequest = product.prices.some((p) => p.onRequest);
+  // Colourways (ADR-0019): discontinued (Bloqueado) Variants are never listed.
+  // A single Variant is the common, single-colour case — no colourway section
+  // at all then, so a single-variant product's page looks exactly as before.
+  const activeVariants = product.variants.filter((v) => v.active);
+  const isMultiVariant = activeVariants.length > 1;
+
+  // Effective price for one Variant: its own override, or the line's default
+  // when it has none (ADR-0019: "product-level row is the default for all
+  // colourways; variant-level rows override it").
+  const defaultPrices = product.prices;
+  function effectivePrices(v: (typeof activeVariants)[number]): PriceRow[] {
+    return v.prices.length > 0 ? v.prices : defaultPrices;
+  }
+
+  // Available units — no price amounts (ADR-0011 one-data-model/two-views).
+  // Folded across every active Variant's effective prices, not just the
+  // line default, in case one colourway alone carries an extra tariff row.
+  const allDisplayPrices = activeVariants.flatMap(effectivePrices);
+  const units = [...new Set(allDisplayPrices.map((p) => p.unit))];
+  const onRequest = allDisplayPrices.some((p) => p.onRequest);
 
   // Attributes: key-value pairs from the JSONB field
   const attrs = Object.entries(product.attributes ?? {});
@@ -175,6 +194,27 @@ export default async function ProductPage({
                     >
                       {product.collection.name}
                     </Link>
+                  </dd>
+                </div>
+              )}
+
+              {/* Colourways (ADR-0019) — only when there's more than one to
+                  distinguish; a single-colour product shows nothing here, so
+                  its page looks exactly as it did before Variants existed. */}
+              {isMultiVariant && (
+                <div>
+                  <dt className="text-xs font-semibold uppercase tracking-widest text-stone-400">
+                    {d.colourwaysHeading}
+                  </dt>
+                  <dd className="mt-2 flex flex-wrap gap-2">
+                    {activeVariants.map((v) => (
+                      <span
+                        key={v.id}
+                        className="rounded-full border border-stone-200 bg-stone-50 px-3 py-1 text-xs text-stone-600"
+                      >
+                        {v.label || v.externalId}
+                      </span>
+                    ))}
                   </dd>
                 </div>
               )}
@@ -286,15 +326,37 @@ export default async function ProductPage({
             <div className="rounded-2xl border border-stone-200 bg-stone-50 p-8">
               <p className="type-eyebrow text-stone-400">{d.pricesHeading}</p>
               <div className="mt-4">
-                <PriceTable
-                  prices={product.prices}
-                  locale={lang as Locale}
-                  labels={{
-                    zoneLabels: d.priceZones as Record<string, string>,
-                    unitLabels: saleUnits,
-                    onRequestLabel: d.onRequest,
-                  }}
-                />
+                {isFoam ? (
+                  // ADR-0018 update: foam is negotiated per Client, not sold off
+                  // the imported A3 tariff — lib/prices.ts already withholds
+                  // the amount everywhere, so this is the only place a price
+                  // would have rendered; show the contact treatment instead.
+                  <div>
+                    <p className="type-h2-minor text-stone-900">{d.foamPriceHeading}</p>
+                    <p className="mt-2 text-sm text-stone-600">{d.foamPriceBody}</p>
+                  </div>
+                ) : isMultiVariant ? (
+                  <PriceRangeTable
+                    variantPrices={activeVariants.map(effectivePrices)}
+                    locale={lang as Locale}
+                    labels={{
+                      zoneLabels: d.priceZones as Record<string, string>,
+                      unitLabels: saleUnits,
+                      onRequestLabel: d.onRequest,
+                      fromLabel: d.priceFromLabel,
+                    }}
+                  />
+                ) : (
+                  <PriceTable
+                    prices={effectivePrices(activeVariants[0])}
+                    locale={lang as Locale}
+                    labels={{
+                      zoneLabels: d.priceZones as Record<string, string>,
+                      unitLabels: saleUnits,
+                      onRequestLabel: d.onRequest,
+                    }}
+                  />
+                )}
               </div>
               <p className="mt-6 text-xs text-stone-400">{d.pricesClientNote}</p>
               <div className="mt-6">
