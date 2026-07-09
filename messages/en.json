@@ -165,6 +165,8 @@
     "pricesLiveTitle": "Prices are visible in the catalogue",
     "pricesLiveBody": "Now that you are signed in, prices (Mallorca and Menorca / Ibiza) appear on the product pages in the catalogue. Browse or search as usual and you will see the up-to-date price list.",
     "browseCatalogueCta": "View the catalogue with prices",
+    "priceListPdfTitle": "Prefer a downloadable PDF?",
+    "priceListPdfBody": "Download the full price list as a PDF, generated on the spot from the same data as the catalogue — always up to date.",
     "logoutLabel": "Sign out"
   },
   "acceder": {
@@ -214,6 +216,8 @@
     "priceFromLabel": "from",
     "foamPriceHeading": "Price on request",
     "foamPriceBody": "Foam is cut and priced to your exact measurements — we agree the price with each client based on the cut. Request a no-obligation quote.",
+    "shippingRuleNote": "Shipping to Menorca/Ibiza: free on orders of 150 € or more; below that, a 15 € delivery charge applies.",
+    "downloadPriceListLabel": "Download price list (PDF)",
     "priceZones": {
       "mallorca": "Mallorca",
       "men_ibz": "Menorca / Ibiza",

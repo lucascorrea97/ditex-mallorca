@@ -56,7 +56,11 @@ export const proxy = auth(function proxy(request) {
 
 export const config = {
   matcher: [
-    // Match all paths except Next.js internals, static files, and Auth.js API routes
-    "/((?!api/auth|_next/static|_next/image|_next/data|.*\\.\\w+$).*)",
+    // Match all paths except Next.js internals, static files, and API routes.
+    // API routes (Auth.js, the #15 price-list PDF, ...) are locale-agnostic
+    // REST endpoints outside [lang] routing — sweeping them into locale
+    // detection would 307-redirect them to /es/api/... before their own
+    // handler (and its own auth check) ever runs.
+    "/((?!api/|_next/static|_next/image|_next/data|.*\\.\\w+$).*)",
   ],
 };

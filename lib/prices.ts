@@ -198,3 +198,27 @@ export function buildPriceRangeTable(variantPriceSets: PriceRow[][]): PriceRange
 
   return { zones, rows };
 }
+
+// Final display text for one PriceRangeCell — shared by <PriceRangeTable> (the
+// web component) and the price-list PDF (#15), so the "desde <min>" ("from")
+// treatment is defined exactly once. A single value when every variant agrees
+// (`min === max`); "desde <min>" when they differ (ADR-0019); the caller's
+// on-request label when the cell is CONSULTA; `null` when there is nothing to
+// show at all (e.g. the whole unit is foam-hidden).
+export function formatPriceRangeCellText(
+  cell: PriceRangeCell,
+  unit: string,
+  locale: Locale,
+  labels: { onRequestLabel: string; fromLabel: string },
+): { text: string; qualifier: string | null } | null {
+  if (cell.onRequest) return { text: labels.onRequestLabel, qualifier: cell.qualifier };
+  if (cell.min === null) return null;
+
+  const min = formatAmount(cell.min, locale);
+  if (min === null) return null;
+
+  const suffix = UNIT_SUFFIX[unit];
+  const amountText = suffix ? `${min}/${suffix}` : min;
+  const text = cell.min === cell.max ? amountText : `${labels.fromLabel} ${amountText}`;
+  return { text, qualifier: cell.qualifier };
+}

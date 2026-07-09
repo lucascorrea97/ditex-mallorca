@@ -165,6 +165,8 @@
     "pricesLiveTitle": "Preus visibles al catàleg",
     "pricesLiveBody": "Ara que has accedit, els preus (Mallorca i Menorca / Eivissa) apareixen a les fitxes de producte del catàleg. Navega o cerca com sempre i veuràs la tarifa actualitzada.",
     "browseCatalogueCta": "Veure el catàleg amb preus",
+    "priceListPdfTitle": "Prefereixes un PDF descarregable?",
+    "priceListPdfBody": "Descarrega la llista de preus completa en PDF, generada a l'instant a partir de les mateixes dades que el catàleg — sempre actualitzada.",
     "logoutLabel": "Tancar sessió"
   },
   "acceder": {
@@ -214,6 +216,8 @@
     "priceFromLabel": "des de",
     "foamPriceHeading": "Preu a consultar",
     "foamPriceBody": "L'escuma es talla i factura a mida — el preu s'acorda amb cada client segons el tall. Sol·licita pressupost sense compromís.",
+    "shippingRuleNote": "Enviament a Menorca/Eivissa: gratuït en comandes a partir de 150 €; comandes inferiors, 15 € d'enviament.",
+    "downloadPriceListLabel": "Descarregar llista de preus (PDF)",
     "priceZones": {
       "mallorca": "Mallorca",
       "men_ibz": "Menorca / Eivissa",

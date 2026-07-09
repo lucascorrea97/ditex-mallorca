@@ -165,6 +165,8 @@
     "pricesLiveTitle": "Precios visibles en el catálogo",
     "pricesLiveBody": "Ahora que has accedido, los precios (Mallorca y Menorca / Ibiza) aparecen en las fichas de producto del catálogo. Navega o busca como siempre y verás la tarifa actualizada.",
     "browseCatalogueCta": "Ver el catálogo con precios",
+    "priceListPdfTitle": "¿Prefieres un PDF descargable?",
+    "priceListPdfBody": "Descarga la lista de precios completa en PDF, generada al momento a partir de los mismos datos que el catálogo — siempre actualizada.",
     "logoutLabel": "Cerrar sesión"
   },
   "acceder": {
@@ -214,6 +216,8 @@
     "priceFromLabel": "desde",
     "foamPriceHeading": "Precio bajo consulta",
     "foamPriceBody": "La espuma se corta y factura a medida — el precio se acuerda con cada cliente según el corte. Solicita presupuesto sin compromiso.",
+    "shippingRuleNote": "Envío a Menorca/Ibiza: gratuito en pedidos a partir de 150 €; pedidos inferiores, 15 € de envío.",
+    "downloadPriceListLabel": "Descargar lista de precios (PDF)",
     "priceZones": {
       "mallorca": "Mallorca",
       "men_ibz": "Menorca / Ibiza",

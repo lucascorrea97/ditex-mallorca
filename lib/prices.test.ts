@@ -3,6 +3,7 @@ import {
   buildPriceRangeTable,
   buildPriceTable,
   formatAmount,
+  formatPriceRangeCellText,
   formatPriceWithUnit,
   isIslandPriced,
   parsePriceInput,
@@ -154,5 +155,34 @@ describe("buildPriceRangeTable", () => {
 
     expect(table.rows).toEqual([]);
     expect(table.zones).toEqual([]);
+  });
+});
+
+describe("formatPriceRangeCellText", () => {
+  const labels = { onRequestLabel: "Precio a consultar", fromLabel: "desde" };
+
+  it("shows a single value with its unit suffix when every variant agrees", () => {
+    const cell = { zone: "all", min: "12.00", max: "12.00", onRequest: false, qualifier: null };
+    expect(formatPriceRangeCellText(cell, "unidad", "es", labels)?.text).toBe("12,00 €/ud");
+  });
+
+  it("prefixes with the 'from' label when variants differ (ADR-0019)", () => {
+    const cell = { zone: "all", min: "12.00", max: "15.00", onRequest: false, qualifier: null };
+    expect(formatPriceRangeCellText(cell, "unidad", "es", labels)?.text).toBe("desde 12,00 €/ud");
+  });
+
+  it("uses the on-request label for a CONSULTA cell", () => {
+    const cell = { zone: "men_ibz", min: null, max: null, onRequest: true, qualifier: null };
+    expect(formatPriceRangeCellText(cell, "m3", "es", labels)?.text).toBe("Precio a consultar");
+  });
+
+  it("returns null when the cell has nothing displayable", () => {
+    const cell = { zone: "all", min: null, max: null, onRequest: false, qualifier: null };
+    expect(formatPriceRangeCellText(cell, "unidad", "es", labels)).toBeNull();
+  });
+
+  it("carries the qualifier through unchanged", () => {
+    const cell = { zone: "men_ibz", min: "10.75", max: "10.75", onRequest: false, qualifier: "15KG" };
+    expect(formatPriceRangeCellText(cell, "kg", "es", labels)?.qualifier).toBe("15KG");
   });
 });
