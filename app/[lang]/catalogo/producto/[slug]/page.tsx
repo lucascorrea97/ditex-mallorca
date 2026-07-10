@@ -370,6 +370,12 @@ export default async function ProductPage({
                   />
                 )}
               </div>
+              {/* Inter-island shipping rule (#62, CONTEXT.md): non-foam articles have no
+                  Men-Ibz price — this is display-only, never a computed fee. Foam already
+                  carries real Mallorca/Men-Ibz columns above, so it never gets this note. */}
+              {!isFoam && (
+                <p className="mt-4 text-sm text-stone-600">{d.shippingRuleNote}</p>
+              )}
               <p className="mt-6 text-xs text-stone-400">{d.pricesClientNote}</p>
               <div className="mt-6">
                 <Button href={localePath(lang, "/contacto")}>
