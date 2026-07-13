@@ -27,6 +27,8 @@ type Labels = {
   phoneLabel: string;
   emailLabel: string;
   contactHint: string;
+  rgpdNoticeBefore: string;
+  rgpdNoticeLinkLabel: string;
   generalNoteLabel: string;
   submitButton: string;
   submitting: string;
@@ -47,12 +49,14 @@ export function RequestReviewForm({
   shippingRuleNote,
   catalogueHref,
   areaClientesHref,
+  privacyHref,
 }: {
   labels: Labels;
   unitLabels: Record<string, string>;
   shippingRuleNote: string;
   catalogueHref: string;
   areaClientesHref: string;
+  privacyHref: string;
 }) {
   // Read once on mount — the cart lives in localStorage, unreadable during SSR, and the
   // add-widget and this page are never open at the same time so no live-sync is needed.
@@ -251,6 +255,16 @@ export function RequestReviewForm({
           </label>
         </div>
         <p className="text-xs text-stone-400">{labels.contactHint}</p>
+
+        {/* RGPD first-layer notice (#79, art. 13): shown right where personal data is
+            collected, not buried in a separate policy nobody reads before submitting. */}
+        <p className="text-xs text-stone-500">
+          {labels.rgpdNoticeBefore}{" "}
+          <Link href={privacyHref} className="underline hover:text-stone-700">
+            {labels.rgpdNoticeLinkLabel}
+          </Link>
+          .
+        </p>
 
         <label className="block text-xs font-semibold uppercase tracking-widest text-stone-400">
           {labels.generalNoteLabel}

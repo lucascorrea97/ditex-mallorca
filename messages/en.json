@@ -17,8 +17,11 @@
     "description": "Specialists in custom foam cutting and materials for professional upholstery in Mallorca and the Balearic Islands since 2010.",
     "navHeading": "Navigation",
     "contactHeading": "Contact",
-    "legal": "Legal notice · Privacy policy · Cookies",
-    "hours": "Mon – Fri: 7:00 am – 2:00 pm"
+    "legalHeading": "Legal",
+    "hours": "Mon – Fri: 7:00 am – 2:00 pm",
+    "avisoLegal": "Legal notice",
+    "privacidad": "Privacy policy",
+    "cookies": "Cookie policy"
   },
   "pagePlaceholder": {
     "eyebrow": "Under construction",
@@ -38,12 +41,31 @@
     "trustAccent": "buy from us",
     "trustAfter": ".",
     "rangeHeading": "Complete range",
-    "range": ["Custom foam", "Fabrics", "Faux leather", "PVC", "Fibres & fillings", "Accessories"],
+    "range": [
+      "Custom foam",
+      "Fabrics",
+      "Faux leather",
+      "PVC",
+      "Fibres & fillings",
+      "Accessories"
+    ],
     "sectorsHeading": "For every sector",
     "segments": [
-      { "imageId": "home-segment-tapiceria", "title": "Furniture & upholstery", "text": "Fabrics, foam and accessories for workshops and furniture manufacturers." },
-      { "imageId": "home-segment-nautica", "title": "Marine", "text": "Custom materials and foam for boat upholstery." },
-      { "imageId": "home-segment-hosteleria", "title": "Hospitality & contract", "text": "Supply for hotel, restaurant and rental property projects." }
+      {
+        "imageId": "home-segment-tapiceria",
+        "title": "Furniture & upholstery",
+        "text": "Fabrics, foam and accessories for workshops and furniture manufacturers."
+      },
+      {
+        "imageId": "home-segment-nautica",
+        "title": "Marine",
+        "text": "Custom materials and foam for boat upholstery."
+      },
+      {
+        "imageId": "home-segment-hosteleria",
+        "title": "Hospitality & contract",
+        "text": "Supply for hotel, restaurant and rental property projects."
+      }
     ]
   },
   "nosotros": {
@@ -66,10 +88,22 @@
     "teamHeading": "The team",
     "valuesHeading": "Our values",
     "values": [
-      { "name": "Professionalism", "text": "A highly trained team with decades of experience in the textile and upholstery sector." },
-      { "name": "Trust", "text": "Transparency and commitment as the foundation of every client relationship." },
-      { "name": "Progress", "text": "Continuous improvement through learning and innovation in materials and service." },
-      { "name": "Commitment", "text": "Exceeding our clients' expectations and building long-term relationships." }
+      {
+        "name": "Professionalism",
+        "text": "A highly trained team with decades of experience in the textile and upholstery sector."
+      },
+      {
+        "name": "Trust",
+        "text": "Transparency and commitment as the foundation of every client relationship."
+      },
+      {
+        "name": "Progress",
+        "text": "Continuous improvement through learning and innovation in materials and service."
+      },
+      {
+        "name": "Commitment",
+        "text": "Exceeding our clients' expectations and building long-term relationships."
+      }
     ],
     "whyHeading": "Why work with us",
     "reasons": [
@@ -100,10 +134,23 @@
     "ctaContact": "Contact us",
     "ctaQuestion": "Have a project? Tell us what you need and we'll advise you with no obligation.",
     "services": [
-      { "name": "Upholstery fabrics", "text": "Wide variety of textures, colours and styles — from durable options for high-turnover furniture to elegant fabrics for interior design projects. Available by the linear metre or full roll." },
-      { "name": "Faux leather & PVC", "text": "Excellent alternative to natural leather with varied finishes, easy cleaning and high durability. PVC is ideal for outdoor use: resistant to water, mould and UV rays. Available in multiple colours for furniture, vehicle and boat upholstery." },
-      { "name": "Accessories & supplies", "text": "Everything the workshop needs: tacks, adhesives, webbing, velcro, threads, staples, rings, curtain rails and fixing systems. Specialist marine materials for boat projects." },
-      { "imageId": "servicios-reparto", "name": "Island-wide delivery", "text": "Daily distribution service to Mallorca, Menorca, Ibiza and Formentera. Efficient delivery in optimal condition so the workshop never stops." }
+      {
+        "name": "Upholstery fabrics",
+        "text": "Wide variety of textures, colours and styles — from durable options for high-turnover furniture to elegant fabrics for interior design projects. Available by the linear metre or full roll."
+      },
+      {
+        "name": "Faux leather & PVC",
+        "text": "Excellent alternative to natural leather with varied finishes, easy cleaning and high durability. PVC is ideal for outdoor use: resistant to water, mould and UV rays. Available in multiple colours for furniture, vehicle and boat upholstery."
+      },
+      {
+        "name": "Accessories & supplies",
+        "text": "Everything the workshop needs: tacks, adhesives, webbing, velcro, threads, staples, rings, curtain rails and fixing systems. Specialist marine materials for boat projects."
+      },
+      {
+        "imageId": "servicios-reparto",
+        "name": "Island-wide delivery",
+        "text": "Daily distribution service to Mallorca, Menorca, Ibiza and Formentera. Efficient delivery in optimal condition so the workshop never stops."
+      }
     ]
   },
   "productos": {
@@ -126,34 +173,65 @@
         "imageId": "productos-espuma",
         "name": "Custom foam",
         "description": "High-quality foam in various densities and thicknesses, cut to order. Available by volume (m³) for large-scale projects.",
-        "highlights": ["Multiple densities (soft, medium, high)", "Custom cutting in any format", "Volume cutting (m³)", "For upholstery, mattresses, marine and contract"]
+        "highlights": [
+          "Multiple densities (soft, medium, high)",
+          "Custom cutting in any format",
+          "Volume cutting (m³)",
+          "For upholstery, mattresses, marine and contract"
+        ]
       },
       {
         "imageId": "productos-telas",
         "name": "Fabrics",
         "description": "Wide variety of styles, colours and textures for any project. From durable fabrics for high-turnover furniture to elegant finishes for interior design.",
-        "highlights": ["Sold by the linear metre or full roll", "Multiple collections and finishes", "Indoor and outdoor options", "Suitable for furniture, hospitality and marine"]
+        "highlights": [
+          "Sold by the linear metre or full roll",
+          "Multiple collections and finishes",
+          "Indoor and outdoor options",
+          "Suitable for furniture, hospitality and marine"
+        ]
       },
       {
         "imageId": "productos-polipieles",
         "name": "Faux leather",
         "description": "Excellent alternative to natural leather, with varied finishes, easy cleaning and high durability. Ideal for living room furniture, vehicle and boat upholstery.",
-        "highlights": ["Wide variety of colours and finishes", "Easy maintenance and cleaning", "High durability", "Suitable for intensive use"]
+        "highlights": [
+          "Wide variety of colours and finishes",
+          "Easy maintenance and cleaning",
+          "High durability",
+          "Suitable for intensive use"
+        ]
       },
       {
         "name": "PVC",
         "description": "High-quality material particularly suited to outdoor and humid environments. Resistant to water, moisture and UV rays.",
-        "highlights": ["Resistant to water and weathering", "UV protection", "Multiple colours and designs", "Ideal for outdoor furniture and marine"]
+        "highlights": [
+          "Resistant to water and weathering",
+          "UV protection",
+          "Multiple colours and designs",
+          "Ideal for outdoor furniture and marine"
+        ]
       },
       {
         "name": "Fibres & fillings",
         "description": "Fillings and complementary materials for upholstery projects: polyester fibre, wadding, batting and other reinforcement and comfort materials.",
-        "highlights": ["Polyester fibre", "Wadding and batting", "Reinforcement materials", "Foam complements"]
+        "highlights": [
+          "Polyester fibre",
+          "Wadding and batting",
+          "Reinforcement materials",
+          "Foam complements"
+        ]
       },
       {
         "name": "Accessories",
         "description": "Everything the workshop needs: fastening systems, hardware, finishing materials and specialist marine components.",
-        "highlights": ["Tacks, staples and adhesives", "Webbing and velcro", "Upholstery threads", "Rings, rails and curtain systems", "Specialist marine materials"]
+        "highlights": [
+          "Tacks, staples and adhesives",
+          "Webbing and velcro",
+          "Upholstery threads",
+          "Rings, rails and curtain systems",
+          "Specialist marine materials"
+        ]
       }
     ]
   },
@@ -286,6 +364,8 @@
     "phoneLabel": "Phone",
     "emailLabel": "Email",
     "contactHint": "Provide at least a phone number or an email address.",
+    "rgpdNoticeBefore": "By submitting this form, your data will be processed to handle your request in accordance with our",
+    "rgpdNoticeLinkLabel": "privacy policy",
     "generalNoteLabel": "General note (optional)",
     "submitButton": "Send request",
     "submitting": "Sending…",
@@ -327,7 +407,188 @@
     "formNameLabel": "Name",
     "formEmailLabel": "Email",
     "formMessageLabel": "Message",
-    "formPrivacy": "Data controller: RIBOT FUSTER, S.L. (D.TEX MALLORCA). Your data will be processed to handle your enquiry in accordance with our privacy policy.",
+    "formPrivacyBefore": "Data controller: RIBOT FUSTER, S.L. (D.TEX MALLORCA). Your data will be processed to handle your enquiry in accordance with our",
+    "formPrivacyLinkLabel": "privacy policy",
     "hours": "Mon – Fri: 7:00 am – 2:00 pm"
+  },
+  "avisoLegal": {
+    "title": "Legal notice — D.TEX Mallorca",
+    "description": "Identification data and terms of use for the D.TEX Mallorca website (RIBOT FUSTER, S.L.), under Spain's LSSI-CE.",
+    "eyebrow": "Legal information",
+    "h1": "Legal notice",
+    "draftNotice": "DRAFT — text pending final review by the business/its gestor before launch.",
+    "spanishPrevailsNote": "The Spanish version of this document is the legally binding text; this is a translation provided for convenience.",
+    "lastUpdated": "Last updated: July 2026",
+    "sections": [
+      {
+        "heading": "1. Identification data",
+        "paragraphs": [
+          "In compliance with Article 10 of Spanish Law 34/2002 on Information Society Services and Electronic Commerce (LSSI-CE), the following details are provided:"
+        ],
+        "list": [
+          "Owner: RIBOT FUSTER, S.L. (D.TEX Mallorca)",
+          "Tax ID (CIF): B57668352",
+          "Registered address: C/ 4 de Noviembre, 4, Polígono Industrial Can Valero, 07011 Palma de Mallorca, Balearic Islands (Spain)",
+          "Email: administracion@ditexmallorca.com",
+          "Phone: +34 971 25 44 63"
+        ]
+      },
+      {
+        "heading": "2. Purpose",
+        "paragraphs": [
+          "This legal notice governs the use of the ditexmallorca.es website (the \"Site\"), owned by RIBOT FUSTER, S.L. Accessing and using the Site makes you a user and implies acceptance of the terms set out here."
+        ]
+      },
+      {
+        "heading": "3. Terms of use",
+        "paragraphs": [
+          "Users agree to use the Site in accordance with the law, good faith, and this legal notice, and to refrain from using it in a way that is contrary to public order, for unlawful or harmful purposes, or in a way that could damage, disable or overload the Site, or prevent its normal use by other users."
+        ]
+      },
+      {
+        "heading": "4. Intellectual and industrial property",
+        "paragraphs": [
+          "All content on the Site (text, images, trademarks, logos, design, source code and navigation structure) is the property of RIBOT FUSTER, S.L. or third parties who have authorised its use, and is protected under intellectual and industrial property law. Reproduction, distribution or modification without express authorisation is prohibited, except for personal, private use."
+        ]
+      },
+      {
+        "heading": "5. Data protection",
+        "paragraphs": [
+          "The processing of personal data provided through the Site is governed by our Privacy Policy."
+        ]
+      },
+      {
+        "heading": "6. Limitation of liability",
+        "paragraphs": [
+          "RIBOT FUSTER, S.L. is not liable for any damages of any kind arising from the unavailability or discontinuity of the Site, interruptions, computer viruses, faults or disconnections, or third-party intrusions beyond its control."
+        ]
+      },
+      {
+        "heading": "7. Links",
+        "paragraphs": [
+          "The Site may include links to third-party websites. RIBOT FUSTER, S.L. assumes no responsibility for the content, information or services that may appear on those sites."
+        ]
+      },
+      {
+        "heading": "8. Applicable law and jurisdiction",
+        "paragraphs": [
+          "These terms are governed by Spanish law. Any dispute will be submitted to the Courts and Tribunals of RIBOT FUSTER, S.L.'s registered address, unless applicable consumer-protection rules provide otherwise."
+        ]
+      }
+    ]
+  },
+  "privacidad": {
+    "title": "Privacy policy — D.TEX Mallorca",
+    "description": "How D.TEX Mallorca (RIBOT FUSTER, S.L.) processes the personal data of people who use the Client Area and submit order requests.",
+    "eyebrow": "Legal information",
+    "h1": "Privacy policy",
+    "draftNotice": "DRAFT — text pending final review by the business/its gestor before launch.",
+    "spanishPrevailsNote": "The Spanish version of this document is the legally binding text; this is a translation provided for convenience.",
+    "lastUpdated": "Last updated: July 2026",
+    "sections": [
+      {
+        "heading": "1. Data controller",
+        "paragraphs": [],
+        "list": [
+          "Controller: RIBOT FUSTER, S.L. (D.TEX Mallorca)",
+          "Tax ID (CIF): B57668352",
+          "Registered address: C/ 4 de Noviembre, 4, Polígono Industrial Can Valero, 07011 Palma de Mallorca, Balearic Islands (Spain)",
+          "Contact: administracion@ditexmallorca.com"
+        ]
+      },
+      {
+        "heading": "2. What data we process",
+        "paragraphs": [
+          "Order requests (Client Area): business name, phone and/or email contact details, and the content of the request (products, quantities, notes) you send us from the Client Area.",
+          "Login session: the Client Area and admin back-office use a shared, non-personal password — the session created when you sign in does not identify a specific individual, it only keeps authorised access active.",
+          "We do not process navigation data for analytics or advertising purposes: our web analytics is aggregate and does not use tracking cookies (see the Cookie Policy)."
+        ]
+      },
+      {
+        "heading": "3. Purpose of processing",
+        "paragraphs": [
+          "Managing and responding to order requests submitted from the Client Area.",
+          "Maintaining authorised access to the Client Area and the Site's admin back-office."
+        ]
+      },
+      {
+        "heading": "4. Legal basis",
+        "paragraphs": [
+          "Processing of the request data is based on taking pre-contractual steps at your request (Art. 6.1.b GDPR). Maintaining the login session is based on our legitimate interest in providing the Client Area securely (Art. 6.1.f GDPR)."
+        ]
+      },
+      {
+        "heading": "5. Retention period",
+        "paragraphs": [
+          "[Pending confirmation from the business/its gestor] Provisionally, we retain each request's data for as long as the resulting business relationship lasts and, in any case, for the periods legally required for tax and accounting purposes."
+        ]
+      },
+      {
+        "heading": "6. Recipients and international transfers",
+        "paragraphs": [
+          "We do not share your data with third parties for purposes other than managing your request. [Pending confirmation] the hosting and database providers behind the Site may involve processing data outside the European Economic Area; this policy will be updated with exact detail once the final infrastructure is confirmed."
+        ]
+      },
+      {
+        "heading": "7. Your rights",
+        "paragraphs": [
+          "You have the right to access, rectify and erase your data, as well as to request restriction of processing, object to it, and exercise the right to data portability. You can exercise these rights by writing to administracion@ditexmallorca.com. You also have the right to lodge a complaint with the Spanish Data Protection Agency (AEPD) if you believe the processing does not comply with applicable regulations."
+        ]
+      },
+      {
+        "heading": "8. Security",
+        "paragraphs": [
+          "We apply reasonable technical and organisational measures to protect your data against unauthorised access, loss or alteration."
+        ]
+      },
+      {
+        "heading": "9. Changes to this policy",
+        "paragraphs": [
+          "We may update this policy to reflect legal changes or changes to how the Site works. The last-updated date appears at the top of this document."
+        ]
+      }
+    ]
+  },
+  "cookies": {
+    "title": "Cookie policy — D.TEX Mallorca",
+    "description": "Which cookies the D.TEX Mallorca website uses, and why we don't show a consent banner.",
+    "eyebrow": "Legal information",
+    "h1": "Cookie policy",
+    "draftNotice": "DRAFT — text pending final review by the business/its gestor before launch.",
+    "spanishPrevailsNote": "The Spanish version of this document is the legally binding text; this is a translation provided for convenience.",
+    "lastUpdated": "Last updated: July 2026",
+    "intro": "A cookie is a small file a website stores in your browser. This Site only uses the technical cookies necessary for it to function — we do not use analytics, advertising or social-media cookies.",
+    "tableHeadName": "Cookie",
+    "tableHeadPurpose": "Purpose",
+    "tableHeadDuration": "Duration",
+    "cookieList": [
+      {
+        "name": "authjs.session-token",
+        "purpose": "Keeps you signed in to the Client Area or the admin back-office.",
+        "duration": "30 days, or until you sign out"
+      },
+      {
+        "name": "authjs.csrf-token",
+        "purpose": "Protects the sign-in form against cross-site request forgery.",
+        "duration": "Browser session"
+      },
+      {
+        "name": "authjs.callback-url",
+        "purpose": "Remembers which page to return you to right after signing in.",
+        "duration": "Browser session"
+      },
+      {
+        "name": "NEXT_LOCALE",
+        "purpose": "Remembers your chosen language (Spanish, Catalan or English).",
+        "duration": "1 year"
+      }
+    ],
+    "whyNoBannerHeading": "Why you won't see a cookie banner",
+    "whyNoBannerParagraphs": [
+      "Under the applicable rules (Art. 22.2 of Spain's LSSI and the criteria of the European Data Protection Board, as applied by the Spanish AEPD), cookies that are strictly necessary to provide a service expressly requested by the user — such as keeping a session signed in or remembering a language — are exempt from the consent requirement. Every cookie on this Site falls into that category, so we don't show any consent banner.",
+      "This is a deliberate change from the previous site, which used Google Analytics and social-media cookies (Instagram, LinkedIn) and therefore did require a banner. This Site's analytics are aggregate and don't use tracking cookies — a direct benefit of that change (see ADR-0012)."
+    ],
+    "manageHeading": "Managing cookies",
+    "manageParagraph": "You can delete or block these cookies from your browser settings, though doing so may affect your Client Area session or our ability to remember your preferred language."
   }
 }

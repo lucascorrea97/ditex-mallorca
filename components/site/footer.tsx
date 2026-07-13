@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
-import { navRoutes, business, type NavKey } from "@/lib/site";
+import { navRoutes, legalRoutes, business, type NavKey, type LegalKey } from "@/lib/site";
 import { localePath, type Locale, type Dictionary } from "@/lib/i18n";
 
 interface FooterProps {
@@ -83,7 +83,15 @@ export function Footer({ locale, dict }: FooterProps) {
           <p>
             © {year} {business.name} · {business.legalName}
           </p>
-          <p>{dict.footer.legal}</p>
+          <ul className="flex flex-wrap gap-x-4 gap-y-1">
+            {legalRoutes.map((item) => (
+              <li key={item.key}>
+                <Link href={localePath(locale, item.href)} className="hover:text-ink">
+                  {dict.footer[item.key as LegalKey]}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </Container>
       </div>
     </footer>

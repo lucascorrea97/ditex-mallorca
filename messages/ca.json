@@ -17,8 +17,11 @@
     "description": "Especialistes en escuma a mida i materials per a tapisseria professional a Mallorca i Balears des del 2010.",
     "navHeading": "Navegació",
     "contactHeading": "Contacte",
-    "legal": "Avís legal · Política de privacitat · Galetes",
-    "hours": "Dl – Dv: 7:00 a 14:00h"
+    "legalHeading": "Legal",
+    "hours": "Dl – Dv: 7:00 a 14:00h",
+    "avisoLegal": "Avís legal",
+    "privacidad": "Política de privacitat",
+    "cookies": "Política de galetes"
   },
   "pagePlaceholder": {
     "eyebrow": "En construcció",
@@ -38,12 +41,31 @@
     "trustAccent": "ens compren a nosaltres",
     "trustAfter": ".",
     "rangeHeading": "Una gamma completa",
-    "range": ["Escuma a mida", "Teixits", "Similcuirs", "PVC", "Fibres i farcits", "Accessoris"],
+    "range": [
+      "Escuma a mida",
+      "Teixits",
+      "Similcuirs",
+      "PVC",
+      "Fibres i farcits",
+      "Accessoris"
+    ],
     "sectorsHeading": "Per a cada sector",
     "segments": [
-      { "imageId": "home-segment-tapiceria", "title": "Tapisseria i mobles", "text": "Teixits, escumes i accessoris per a tallers i fabricants de mobles." },
-      { "imageId": "home-segment-nautica", "title": "Nàutica", "text": "Materials i escumes a mida per a tapisseria d'embarcacions." },
-      { "imageId": "home-segment-hosteleria", "title": "Hostaleria i contract", "text": "Subministrament per a projectes d'hotels, restaurants i lloguer vacacional." }
+      {
+        "imageId": "home-segment-tapiceria",
+        "title": "Tapisseria i mobles",
+        "text": "Teixits, escumes i accessoris per a tallers i fabricants de mobles."
+      },
+      {
+        "imageId": "home-segment-nautica",
+        "title": "Nàutica",
+        "text": "Materials i escumes a mida per a tapisseria d'embarcacions."
+      },
+      {
+        "imageId": "home-segment-hosteleria",
+        "title": "Hostaleria i contract",
+        "text": "Subministrament per a projectes d'hotels, restaurants i lloguer vacacional."
+      }
     ]
   },
   "nosotros": {
@@ -66,10 +88,22 @@
     "teamHeading": "L'equip",
     "valuesHeading": "Els nostres valors",
     "values": [
-      { "name": "Professionalitat", "text": "Equip altament format amb dècades d'experiència en el sector tèxtil i de la tapisseria." },
-      { "name": "Confiança", "text": "Transparència i compliment de compromisos com a base de cada relació amb els nostres clients." },
-      { "name": "Progrés", "text": "Millora contínua a través de l'aprenentatge i la innovació en materials i servei." },
-      { "name": "Compromís", "text": "Superar les expectatives dels nostres clients i construir relacions a llarg termini." }
+      {
+        "name": "Professionalitat",
+        "text": "Equip altament format amb dècades d'experiència en el sector tèxtil i de la tapisseria."
+      },
+      {
+        "name": "Confiança",
+        "text": "Transparència i compliment de compromisos com a base de cada relació amb els nostres clients."
+      },
+      {
+        "name": "Progrés",
+        "text": "Millora contínua a través de l'aprenentatge i la innovació en materials i servei."
+      },
+      {
+        "name": "Compromís",
+        "text": "Superar les expectatives dels nostres clients i construir relacions a llarg termini."
+      }
     ],
     "whyHeading": "Per què treballar amb nosaltres",
     "reasons": [
@@ -100,10 +134,23 @@
     "ctaContact": "Contactar",
     "ctaQuestion": "Tens un projecte? Explica'ns què necessites i t'assessorem sense compromís.",
     "services": [
-      { "name": "Teixits per a tapisseria", "text": "Gran varietat de textures, colors i estils — des d'opcions duradores per a mobles d'alta rotació fins a teixits elegants per a projectes d'interiorisme. Disponibles per metre lineal (metratge) o rotllo complet (peça)." },
-      { "name": "Similcuirs i PVC", "text": "Excel·lent alternativa al cuir natural amb acabats variats, fàcil neteja i alta durabilitat. El PVC és ideal per a exteriors: resistent a l'aigua, la humitat i els raigs UV. Disponibles en múltiples colors per a tapisseria de mobles, vehicles i embarcacions." },
-      { "name": "Accessoris i subministraments", "text": "Tot el que el taller necessita: tatxes, adhesius, cinches, velcros, fils, grapes, argolles, rails i sistemes de subjecció per a cortines. Materials nàutics especialitzats per a projectes d'embarcacions." },
-      { "imageId": "servicios-reparto", "name": "Repartiment a totes les illes", "text": "Servei de distribució diari a Mallorca, Menorca, Eivissa i Formentera. Entrega eficient i en condicions òptimes perquè el taller no pari mai de treballar." }
+      {
+        "name": "Teixits per a tapisseria",
+        "text": "Gran varietat de textures, colors i estils — des d'opcions duradores per a mobles d'alta rotació fins a teixits elegants per a projectes d'interiorisme. Disponibles per metre lineal (metratge) o rotllo complet (peça)."
+      },
+      {
+        "name": "Similcuirs i PVC",
+        "text": "Excel·lent alternativa al cuir natural amb acabats variats, fàcil neteja i alta durabilitat. El PVC és ideal per a exteriors: resistent a l'aigua, la humitat i els raigs UV. Disponibles en múltiples colors per a tapisseria de mobles, vehicles i embarcacions."
+      },
+      {
+        "name": "Accessoris i subministraments",
+        "text": "Tot el que el taller necessita: tatxes, adhesius, cinches, velcros, fils, grapes, argolles, rails i sistemes de subjecció per a cortines. Materials nàutics especialitzats per a projectes d'embarcacions."
+      },
+      {
+        "imageId": "servicios-reparto",
+        "name": "Repartiment a totes les illes",
+        "text": "Servei de distribució diari a Mallorca, Menorca, Eivissa i Formentera. Entrega eficient i en condicions òptimes perquè el taller no pari mai de treballar."
+      }
     ]
   },
   "productos": {
@@ -126,34 +173,65 @@
         "imageId": "productos-espuma",
         "name": "Escuma a mida",
         "description": "Gomaespuma d'alta qualitat en diferents densitats i gruixos, tallada a mida per a cada comanda. Disponible a volum (m³) per a projectes a gran escala.",
-        "highlights": ["Múltiples densitats (tova, mitjana, alta)", "Tall a mida en qualsevol format", "Tall a volum (m³)", "Per a tapisseria, matalasseria, nàutica i contract"]
+        "highlights": [
+          "Múltiples densitats (tova, mitjana, alta)",
+          "Tall a mida en qualsevol format",
+          "Tall a volum (m³)",
+          "Per a tapisseria, matalasseria, nàutica i contract"
+        ]
       },
       {
         "imageId": "productos-telas",
         "name": "Teixits",
         "description": "Gran varietat d'estils, colors i textures per adaptar-se a qualsevol projecte. Des de teles duradores per a mobles d'alta rotació fins a elegants acabats per a interiorisme.",
-        "highlights": ["Venda per metre lineal (metratge) o rotllo complet (peça)", "Múltiples col·leccions i acabats", "Opcions per a interior i exterior", "Adequats per a mobles, hostaleria i nàutica"]
+        "highlights": [
+          "Venda per metre lineal (metratge) o rotllo complet (peça)",
+          "Múltiples col·leccions i acabats",
+          "Opcions per a interior i exterior",
+          "Adequats per a mobles, hostaleria i nàutica"
+        ]
       },
       {
         "imageId": "productos-polipieles",
         "name": "Similcuirs",
         "description": "Excel·lent alternativa al cuir natural, amb acabats variats, fàcil neteja i alta durabilitat. Ideals per a mobles de saló, tapisseria de vehicles i embarcacions.",
-        "highlights": ["Gran varietat de colors i acabats", "Fàcil manteniment i neteja", "Alta durabilitat", "Adequats per a ús intensiu"]
+        "highlights": [
+          "Gran varietat de colors i acabats",
+          "Fàcil manteniment i neteja",
+          "Alta durabilitat",
+          "Adequats per a ús intensiu"
+        ]
       },
       {
         "name": "PVC",
         "description": "Material d'alta qualitat especialment indicat per a exteriors i entorns humits. Resistent a l'aigua, la humitat i els raigs UV.",
-        "highlights": ["Resistent a l'aigua i a la intempèrie", "Protecció UV", "Múltiples colors i dissenys", "Ideal per a mobles d'exterior i nàutica"]
+        "highlights": [
+          "Resistent a l'aigua i a la intempèrie",
+          "Protecció UV",
+          "Múltiples colors i dissenys",
+          "Ideal per a mobles d'exterior i nàutica"
+        ]
       },
       {
         "name": "Fibres i farcits",
         "description": "Farcits i materials complementaris per a projectes de tapisseria: fibra de polièster, guata, vatelina i altres materials de reforç i confort.",
-        "highlights": ["Fibra de polièster", "Guata i vatelina", "Materials de reforç", "Complements per a escumes"]
+        "highlights": [
+          "Fibra de polièster",
+          "Guata i vatelina",
+          "Materials de reforç",
+          "Complements per a escumes"
+        ]
       },
       {
         "name": "Accessoris",
         "description": "Tot el necessari per al taller: sistemes de subjecció, ferramenta, materials d'acabat i components especialitzats per a nàutica.",
-        "highlights": ["Tatxes, grapes i adhesius", "Cinches i velcros", "Fils per a tapisseria", "Argolles, rails i sistemes per a cortines", "Materials nàutics especialitzats"]
+        "highlights": [
+          "Tatxes, grapes i adhesius",
+          "Cinches i velcros",
+          "Fils per a tapisseria",
+          "Argolles, rails i sistemes per a cortines",
+          "Materials nàutics especialitzats"
+        ]
       }
     ]
   },
@@ -286,6 +364,8 @@
     "phoneLabel": "Telèfon",
     "emailLabel": "Correu electrònic",
     "contactHint": "Indica com a mínim un telèfon o correu electrònic.",
+    "rgpdNoticeBefore": "En enviar aquest formulari, les teves dades es tractaran per gestionar la teva sol·licitud conforme a la nostra",
+    "rgpdNoticeLinkLabel": "política de privacitat",
     "generalNoteLabel": "Nota general (opcional)",
     "submitButton": "Enviar sol·licitud",
     "submitting": "Enviant…",
@@ -327,7 +407,188 @@
     "formNameLabel": "Nom",
     "formEmailLabel": "Correu electrònic",
     "formMessageLabel": "Missatge",
-    "formPrivacy": "Responsable del tractament: RIBOT FUSTER, S.L. (D.TEX MALLORCA). Les dades es tractaran per gestionar la seva consulta conforme a la nostra política de privacitat.",
+    "formPrivacyBefore": "Responsable del tractament: RIBOT FUSTER, S.L. (D.TEX MALLORCA). Les dades es tractaran per gestionar la teva consulta conforme a la nostra",
+    "formPrivacyLinkLabel": "política de privacitat",
     "hours": "Dl – Dv: 7:00 a 14:00h"
+  },
+  "avisoLegal": {
+    "title": "Avís legal — D.TEX Mallorca",
+    "description": "Dades identificatives i condicions d'ús del lloc web de D.TEX Mallorca (RIBOT FUSTER, S.L.), conforme a la LSSI-CE.",
+    "eyebrow": "Informació legal",
+    "h1": "Avís legal",
+    "draftNotice": "ESBORRANY — text pendent de revisió final per part del negoci/gestoria abans del llançament.",
+    "spanishPrevailsNote": "La versió en castellà d'aquest document és la legalment vinculant; aquesta és una traducció a títol informatiu.",
+    "lastUpdated": "Darrera actualització: juliol de 2026",
+    "sections": [
+      {
+        "heading": "1. Dades identificatives",
+        "paragraphs": [
+          "En compliment de l'article 10 de la Llei 34/2002, de Serveis de la Societat de la Informació i de Comerç Electrònic (LSSI-CE), s'informa de les dades següents:"
+        ],
+        "list": [
+          "Titular: RIBOT FUSTER, S.L. (D.TEX Mallorca)",
+          "CIF: B57668352",
+          "Domicili: C/ 4 de Noviembre, 4, Polígon Industrial Can Valero, 07011 Palma de Mallorca, Illes Balears (Espanya)",
+          "Correu electrònic: administracion@ditexmallorca.com",
+          "Telèfon: +34 971 25 44 63"
+        ]
+      },
+      {
+        "heading": "2. Objecte",
+        "paragraphs": [
+          "Aquest avís legal regula l'ús del lloc web ditexmallorca.es (el «Lloc»), propietat de RIBOT FUSTER, S.L. L'accés i ús del Lloc atribueix la condició de persona usuària i implica l'acceptació de les condicions aquí recollides."
+        ]
+      },
+      {
+        "heading": "3. Condicions d'ús",
+        "paragraphs": [
+          "La persona usuària es compromet a utilitzar el Lloc de conformitat amb la llei, la bona fe i aquest avís legal, i a abstenir-se d'utilitzar-lo de forma contrària a l'ordre públic, amb fins il·lícits o lesius, o d'una manera que pugui danyar, inutilitzar o sobrecarregar el Lloc, o que impedeixi la seva normal utilització per altres persones usuàries."
+        ]
+      },
+      {
+        "heading": "4. Propietat intel·lectual i industrial",
+        "paragraphs": [
+          "Tots els continguts del Lloc (textos, imatges, marques, logotips, disseny, codi font i estructura de navegació) són propietat de RIBOT FUSTER, S.L. o de tercers que n'han autoritzat l'ús, i estan protegits per la normativa de propietat intel·lectual i industrial. Queda prohibida la seva reproducció, distribució o transformació sense autorització expressa, llevat d'ús personal i privat."
+        ]
+      },
+      {
+        "heading": "5. Protecció de dades",
+        "paragraphs": [
+          "El tractament de les dades personals facilitades a través del Lloc es regeix per la nostra Política de Privacitat."
+        ]
+      },
+      {
+        "heading": "6. Exclusió de responsabilitat",
+        "paragraphs": [
+          "RIBOT FUSTER, S.L. no es fa responsable dels danys i perjudicis de qualsevol naturalesa que puguin derivar-se de la manca de disponibilitat o continuïtat del funcionament del Lloc, d'interrupcions, virus informàtics, avaries o desconnexions, ni d'intrusions de tercers alienes al seu control."
+        ]
+      },
+      {
+        "heading": "7. Enllaços",
+        "paragraphs": [
+          "El Lloc pot incloure enllaços a llocs web de tercers. RIBOT FUSTER, S.L. no assumeix cap responsabilitat pels continguts, informacions o serveis que puguin aparèixer en aquests llocs."
+        ]
+      },
+      {
+        "heading": "8. Legislació aplicable i jurisdicció",
+        "paragraphs": [
+          "Aquestes condicions es regeixen per la legislació espanyola. Per a la resolució de qualsevol controvèrsia, les parts se sotmeten als Jutjats i Tribunals del domicili de RIBOT FUSTER, S.L., llevat que la normativa aplicable en matèria de consumidors i usuaris disposi una altra cosa."
+        ]
+      }
+    ]
+  },
+  "privacidad": {
+    "title": "Política de privacitat — D.TEX Mallorca",
+    "description": "Com D.TEX Mallorca (RIBOT FUSTER, S.L.) tracta les dades personals de qui utilitza l'Àrea de Clients i envia sol·licituds de comanda.",
+    "eyebrow": "Informació legal",
+    "h1": "Política de privacitat",
+    "draftNotice": "ESBORRANY — text pendent de revisió final per part del negoci/gestoria abans del llançament.",
+    "spanishPrevailsNote": "La versió en castellà d'aquest document és la legalment vinculant; aquesta és una traducció a títol informatiu.",
+    "lastUpdated": "Darrera actualització: juliol de 2026",
+    "sections": [
+      {
+        "heading": "1. Responsable del tractament",
+        "paragraphs": [],
+        "list": [
+          "Responsable: RIBOT FUSTER, S.L. (D.TEX Mallorca)",
+          "CIF: B57668352",
+          "Domicili: C/ 4 de Noviembre, 4, Polígon Industrial Can Valero, 07011 Palma de Mallorca, Illes Balears (Espanya)",
+          "Contacte: administracion@ditexmallorca.com"
+        ]
+      },
+      {
+        "heading": "2. Quines dades tractem",
+        "paragraphs": [
+          "Sol·licituds de comanda (Àrea de Clients): nom del negoci, telèfon i/o correu electrònic de contacte, i el contingut de la sol·licitud (productes, quantitats, notes) que ens envies des de l'Àrea de Clients.",
+          "Sessió d'accés: l'Àrea de Clients i l'administració utilitzen una contrasenya compartida, no personal — la sessió creada en iniciar sessió no identifica una persona concreta, només manté actiu l'accés autoritzat.",
+          "No tractem dades de navegació amb finalitats analítiques o publicitàries: la nostra analítica web és agregada i no utilitza galetes de seguiment (vegeu la Política de Galetes)."
+        ]
+      },
+      {
+        "heading": "3. Finalitat del tractament",
+        "paragraphs": [
+          "Gestionar i respondre les sol·licituds de comanda enviades des de l'Àrea de Clients.",
+          "Mantenir l'accés autoritzat a l'Àrea de Clients i a l'administració del Lloc."
+        ]
+      },
+      {
+        "heading": "4. Base jurídica",
+        "paragraphs": [
+          "El tractament de les dades de la sol·licitud es basa en l'execució de mesures precontractuals a petició teva (art. 6.1.b RGPD). El manteniment de la sessió d'accés es basa en el nostre interès legítim a prestar el servei de l'Àrea de Clients de forma segura (art. 6.1.f RGPD)."
+        ]
+      },
+      {
+        "heading": "5. Termini de conservació",
+        "paragraphs": [
+          "[Pendent de confirmar amb el negoci/gestoria] Provisionalment, conservem les dades de cada sol·licitud mentre duri la relació comercial derivada d'aquesta i, en tot cas, durant els terminis legalment exigibles en matèria fiscal i comptable."
+        ]
+      },
+      {
+        "heading": "6. Destinataris i transferències internacionals",
+        "paragraphs": [
+          "No cedim les teves dades a tercers per a finalitats diferents de la gestió de la teva sol·licitud. [Pendent de confirmar] els proveïdors d'allotjament i base de dades que donen servei al Lloc podrien implicar el tractament de dades fora de l'Espai Econòmic Europeu; aquesta política s'actualitzarà amb el detall exacte un cop confirmada la infraestructura definitiva."
+        ]
+      },
+      {
+        "heading": "7. Els teus drets",
+        "paragraphs": [
+          "Tens dret a accedir, rectificar i suprimir les teves dades, així com a sol·licitar la limitació del seu tractament, oposar-t'hi i exercir el dret a la portabilitat. Pots exercir aquests drets escrivint a administracion@ditexmallorca.com. També tens dret a presentar una reclamació davant l'Agència Espanyola de Protecció de Dades (AEPD) si consideres que el tractament no s'ajusta a la normativa vigent."
+        ]
+      },
+      {
+        "heading": "8. Seguretat",
+        "paragraphs": [
+          "Apliquem mesures tècniques i organitzatives raonables per protegir les teves dades davant d'accessos no autoritzats, pèrdua o alteració."
+        ]
+      },
+      {
+        "heading": "9. Canvis en aquesta política",
+        "paragraphs": [
+          "Podem actualitzar aquesta política per reflectir canvis legals o en el funcionament del Lloc. La data de la darrera actualització figura a l'inici d'aquest document."
+        ]
+      }
+    ]
+  },
+  "cookies": {
+    "title": "Política de galetes — D.TEX Mallorca",
+    "description": "Quines galetes utilitza el lloc de D.TEX Mallorca i per què no mostrem un bàner de consentiment.",
+    "eyebrow": "Informació legal",
+    "h1": "Política de galetes",
+    "draftNotice": "ESBORRANY — text pendent de revisió final per part del negoci/gestoria abans del llançament.",
+    "spanishPrevailsNote": "La versió en castellà d'aquest document és la legalment vinculant; aquesta és una traducció a títol informatiu.",
+    "lastUpdated": "Darrera actualització: juliol de 2026",
+    "intro": "Una galeta és un petit arxiu que un lloc web desa al teu navegador. Aquest Lloc utilitza únicament les galetes tècniques necessàries per al seu funcionament — no utilitzem galetes d'analítica, publicitat ni xarxes socials.",
+    "tableHeadName": "Galeta",
+    "tableHeadPurpose": "Finalitat",
+    "tableHeadDuration": "Durada",
+    "cookieList": [
+      {
+        "name": "authjs.session-token",
+        "purpose": "Manté la teva sessió iniciada a l'Àrea de Clients o a l'administració.",
+        "duration": "30 dies, o fins tancar sessió"
+      },
+      {
+        "name": "authjs.csrf-token",
+        "purpose": "Protegeix el formulari d'accés davant la falsificació de peticions entre llocs.",
+        "duration": "Sessió del navegador"
+      },
+      {
+        "name": "authjs.callback-url",
+        "purpose": "Recorda a quina pàgina tornar just després d'iniciar sessió.",
+        "duration": "Sessió del navegador"
+      },
+      {
+        "name": "NEXT_LOCALE",
+        "purpose": "Recorda l'idioma triat (castellà, català o anglès).",
+        "duration": "1 any"
+      }
+    ],
+    "whyNoBannerHeading": "Per què no veuràs un bàner de galetes",
+    "whyNoBannerParagraphs": [
+      "La normativa (art. 22.2 LSSI i el criteri del Comitè Europeu de Protecció de Dades, recollit per l'AEPD) eximeix del deure de sol·licitar consentiment a les galetes estrictament necessàries per prestar un servei expressament sol·licitat per la persona usuària, com mantenir una sessió iniciada o recordar un idioma. Totes les galetes d'aquest Lloc són d'aquest tipus, per la qual cosa no mostrem cap bàner de consentiment.",
+      "Això és un canvi deliberat respecte al lloc anterior, que utilitzava Google Analytics i galetes de xarxes socials (Instagram, LinkedIn) i per això sí que requeria un bàner. L'analítica d'aquest Lloc és agregada i no utilitza galetes de seguiment — un avantatge directe d'aquest canvi (vegeu l'ADR-0012)."
+    ],
+    "manageHeading": "Com gestionar les galetes",
+    "manageParagraph": "Pots eliminar o bloquejar aquestes galetes des de la configuració del teu navegador, encara que fer-ho pot afectar la teva sessió a l'Àrea de Clients o que recordem el teu idioma preferit."
   }
 }

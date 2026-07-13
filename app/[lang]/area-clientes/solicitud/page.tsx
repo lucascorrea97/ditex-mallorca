@@ -58,6 +58,8 @@ export default async function RequestPage({
               phoneLabel: d.phoneLabel,
               emailLabel: d.emailLabel,
               contactHint: d.contactHint,
+              rgpdNoticeBefore: d.rgpdNoticeBefore,
+              rgpdNoticeLinkLabel: d.rgpdNoticeLinkLabel,
               generalNoteLabel: d.generalNoteLabel,
               submitButton: d.submitButton,
               submitting: d.submitting,
@@ -72,6 +74,7 @@ export default async function RequestPage({
             shippingRuleNote={dict.catalogo.shippingRuleNote}
             catalogueHref={localePath(lang, "/catalogo")}
             areaClientesHref={localePath(lang, "/area-clientes")}
+            privacyHref={localePath(lang, "/privacidad")}
           />
         </div>
       </Container>
