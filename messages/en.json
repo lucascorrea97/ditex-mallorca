@@ -520,19 +520,22 @@
       {
         "heading": "5. Retention period",
         "paragraphs": [
-          "[Pending confirmation from the business/its gestor] Provisionally, we retain each request's data for as long as the resulting business relationship lasts and, in any case, for the periods legally required for tax and accounting purposes."
+          "We retain each request's data for as long as the resulting business relationship lasts and, once it ends, for the statute-of-limitations period for any obligations that may arise from it — generally 6 years from the last related entry, under Article 30 of Spain's Commercial Code (retention of commercial records), without prejudice to different periods that may apply under tax law.",
+          "If a request never turns into a business relationship, we retain the data only for as long as needed to handle it, and for a maximum of 12 months from receipt."
         ]
       },
       {
         "heading": "6. Recipients and international transfers",
         "paragraphs": [
-          "We do not share your data with third parties for purposes other than managing your request. [Pending confirmation] the hosting and database providers behind the Site may involve processing data outside the European Economic Area; this policy will be updated with exact detail once the final infrastructure is confirmed."
+          "We do not share your data with third parties for purposes other than managing your request. The hosting and database providers behind the Site act as data processors (Art. 28 GDPR), bound by a data processing agreement.",
+          "If any of these providers is located outside the European Economic Area (for example, in the United States), the transfer would rely on a European Commission adequacy decision or, failing that, on standard contractual clauses approved by the European Commission (Art. 46 GDPR)."
         ]
       },
       {
         "heading": "7. Your rights",
         "paragraphs": [
-          "You have the right to access, rectify and erase your data, as well as to request restriction of processing, object to it, and exercise the right to data portability. You can exercise these rights by writing to administracion@ditexmallorca.com. You also have the right to lodge a complaint with the Spanish Data Protection Agency (AEPD) if you believe the processing does not comply with applicable regulations."
+          "You have the right to access, rectify and erase your data, as well as to request restriction of processing, object to it, and exercise the right to data portability. You can exercise these rights by writing to administracion@ditexmallorca.com. You also have the right to lodge a complaint with the Spanish Data Protection Agency (AEPD) if you believe the processing does not comply with applicable regulations.",
+          "Given the nature and scale of our processing, appointing a data protection officer is not required under Article 37 GDPR or Article 34 of Spain's LOPDGDD. Any data protection question can likewise be sent to administracion@ditexmallorca.com."
         ]
       },
       {
