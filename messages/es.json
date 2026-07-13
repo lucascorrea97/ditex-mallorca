@@ -17,8 +17,11 @@
     "description": "Especialistas en espuma a medida y materiales para tapicería profesional en Mallorca y Baleares desde 2010.",
     "navHeading": "Navegación",
     "contactHeading": "Contacto",
-    "legal": "Aviso legal · Política de privacidad · Cookies",
-    "hours": "Lun – Vie: 7:00 a 14:00h"
+    "legalHeading": "Legal",
+    "hours": "Lun – Vie: 7:00 a 14:00h",
+    "avisoLegal": "Aviso legal",
+    "privacidad": "Política de privacidad",
+    "cookies": "Política de cookies"
   },
   "pagePlaceholder": {
     "eyebrow": "En construcción",
@@ -38,12 +41,31 @@
     "trustAccent": "nos compran a nosotros",
     "trustAfter": ".",
     "rangeHeading": "Una gama completa",
-    "range": ["Espuma a medida", "Telas", "Polipieles", "PVC", "Fibras y rellenos", "Accesorios"],
+    "range": [
+      "Espuma a medida",
+      "Telas",
+      "Polipieles",
+      "PVC",
+      "Fibras y rellenos",
+      "Accesorios"
+    ],
     "sectorsHeading": "Para cada sector",
     "segments": [
-      { "imageId": "home-segment-tapiceria", "title": "Tapicería y mobiliario", "text": "Telas, espumas y accesorios para talleres y fabricantes de muebles." },
-      { "imageId": "home-segment-nautica", "title": "Náutica", "text": "Materiales y espumas a medida para tapicería de embarcaciones." },
-      { "imageId": "home-segment-hosteleria", "title": "Hostelería y contract", "text": "Suministro para proyectos de hoteles, restaurantes y rentals." }
+      {
+        "imageId": "home-segment-tapiceria",
+        "title": "Tapicería y mobiliario",
+        "text": "Telas, espumas y accesorios para talleres y fabricantes de muebles."
+      },
+      {
+        "imageId": "home-segment-nautica",
+        "title": "Náutica",
+        "text": "Materiales y espumas a medida para tapicería de embarcaciones."
+      },
+      {
+        "imageId": "home-segment-hosteleria",
+        "title": "Hostelería y contract",
+        "text": "Suministro para proyectos de hoteles, restaurantes y rentals."
+      }
     ]
   },
   "nosotros": {
@@ -66,10 +88,22 @@
     "teamHeading": "El equipo",
     "valuesHeading": "Nuestros valores",
     "values": [
-      { "name": "Profesionalidad", "text": "Equipo altamente formado con décadas de experiencia en el sector textil y de la tapicería." },
-      { "name": "Confianza", "text": "Transparencia y cumplimiento de compromisos como base de cada relación con nuestros clientes." },
-      { "name": "Progreso", "text": "Mejora continua a través del aprendizaje y la innovación en materiales y servicio." },
-      { "name": "Compromiso", "text": "Superar las expectativas de nuestros clientes y construir relaciones a largo plazo." }
+      {
+        "name": "Profesionalidad",
+        "text": "Equipo altamente formado con décadas de experiencia en el sector textil y de la tapicería."
+      },
+      {
+        "name": "Confianza",
+        "text": "Transparencia y cumplimiento de compromisos como base de cada relación con nuestros clientes."
+      },
+      {
+        "name": "Progreso",
+        "text": "Mejora continua a través del aprendizaje y la innovación en materiales y servicio."
+      },
+      {
+        "name": "Compromiso",
+        "text": "Superar las expectativas de nuestros clientes y construir relaciones a largo plazo."
+      }
     ],
     "whyHeading": "Por qué trabajar con nosotros",
     "reasons": [
@@ -100,10 +134,23 @@
     "ctaContact": "Contactar",
     "ctaQuestion": "¿Tienes un proyecto? Cuéntanos qué necesitas y te asesoramos sin compromiso.",
     "services": [
-      { "name": "Telas para tapicería", "text": "Amplia variedad de texturas, colores y estilos — desde opciones durables para muebles de alta rotación hasta tejidos elegantes para proyectos de interiorismo. Disponibles por metro lineal (metraje) o rollo completo (pieza)." },
-      { "name": "Polipieles y PVC", "text": "Excelente alternativa al cuero natural con acabados variados, fácil limpieza y alta durabilidad. El PVC es ideal para exteriores: resistente al agua, moho y rayos UV. Disponibles en múltiples colores para tapicería de muebles, vehículos y embarcaciones." },
-      { "name": "Accesorios y suministros", "text": "Todo lo que el taller necesita: tachas, adhesivos, cinchas, velcros, hilos, grapas, argollas, rieles y sistemas de sujeción para cortinas. Materiales náuticos especializados para proyectos de embarcaciones." },
-      { "imageId": "servicios-reparto", "name": "Reparto a todas las islas", "text": "Servicio de distribución diario a Mallorca, Menorca, Ibiza y Formentera. Entrega eficiente y en condiciones óptimas para que el taller nunca pare de trabajar." }
+      {
+        "name": "Telas para tapicería",
+        "text": "Amplia variedad de texturas, colores y estilos — desde opciones durables para muebles de alta rotación hasta tejidos elegantes para proyectos de interiorismo. Disponibles por metro lineal (metraje) o rollo completo (pieza)."
+      },
+      {
+        "name": "Polipieles y PVC",
+        "text": "Excelente alternativa al cuero natural con acabados variados, fácil limpieza y alta durabilidad. El PVC es ideal para exteriores: resistente al agua, moho y rayos UV. Disponibles en múltiples colores para tapicería de muebles, vehículos y embarcaciones."
+      },
+      {
+        "name": "Accesorios y suministros",
+        "text": "Todo lo que el taller necesita: tachas, adhesivos, cinchas, velcros, hilos, grapas, argollas, rieles y sistemas de sujeción para cortinas. Materiales náuticos especializados para proyectos de embarcaciones."
+      },
+      {
+        "imageId": "servicios-reparto",
+        "name": "Reparto a todas las islas",
+        "text": "Servicio de distribución diario a Mallorca, Menorca, Ibiza y Formentera. Entrega eficiente y en condiciones óptimas para que el taller nunca pare de trabajar."
+      }
     ]
   },
   "productos": {
@@ -126,34 +173,65 @@
         "imageId": "productos-espuma",
         "name": "Espuma a medida",
         "description": "Gomaespuma de alta calidad en diferentes densidades y grosores, cortada a medida para cada pedido. Disponible a volumen (m³) para proyectos de gran escala.",
-        "highlights": ["Múltiples densidades (blanda, media, alta)", "Corte a medida en cualquier formato", "Corte a volumen (m³)", "Para tapicería, colchonería, náutica y contract"]
+        "highlights": [
+          "Múltiples densidades (blanda, media, alta)",
+          "Corte a medida en cualquier formato",
+          "Corte a volumen (m³)",
+          "Para tapicería, colchonería, náutica y contract"
+        ]
       },
       {
         "imageId": "productos-telas",
         "name": "Telas",
         "description": "Amplia variedad de estilos, colores y texturas para adaptarse a cualquier proyecto. Desde telas durables para muebles de alta rotación hasta elegantes acabados para interiorismo.",
-        "highlights": ["Venta por metro lineal (metraje) o rollo completo (pieza)", "Múltiples colecciones y acabados", "Opciones para interior y exterior", "Adecuadas para muebles, hostelería y náutica"]
+        "highlights": [
+          "Venta por metro lineal (metraje) o rollo completo (pieza)",
+          "Múltiples colecciones y acabados",
+          "Opciones para interior y exterior",
+          "Adecuadas para muebles, hostelería y náutica"
+        ]
       },
       {
         "imageId": "productos-polipieles",
         "name": "Polipieles",
         "description": "Excelente alternativa al cuero natural, con acabados variados, fácil limpieza y alta durabilidad. Ideales para muebles de salón, tapicería de vehículos y embarcaciones.",
-        "highlights": ["Gran variedad de colores y acabados", "Fácil mantenimiento y limpieza", "Alta durabilidad", "Adecuadas para uso intensivo"]
+        "highlights": [
+          "Gran variedad de colores y acabados",
+          "Fácil mantenimiento y limpieza",
+          "Alta durabilidad",
+          "Adecuadas para uso intensivo"
+        ]
       },
       {
         "name": "PVC",
         "description": "Material de alta calidad especialmente indicado para exteriores y entorns húmedos. Resistente al agua, moho y rayos UV.",
-        "highlights": ["Resistente al agua y a la intemperie", "Protección UV", "Múltiples colores y diseños", "Ideal para muebles de exterior y náutica"]
+        "highlights": [
+          "Resistente al agua y a la intemperie",
+          "Protección UV",
+          "Múltiples colores y diseños",
+          "Ideal para muebles de exterior y náutica"
+        ]
       },
       {
         "name": "Fibras y rellenos",
         "description": "Rellenos y materiales complementarios para proyectos de tapicería: fibra de poliéster, vatelina, guata y otros materiales de refuerzo y confort.",
-        "highlights": ["Fibra de poliéster", "Vatelina y guata", "Materiales de refuerzo", "Complementos para espumas"]
+        "highlights": [
+          "Fibra de poliéster",
+          "Vatelina y guata",
+          "Materiales de refuerzo",
+          "Complementos para espumas"
+        ]
       },
       {
         "name": "Accesorios",
         "description": "Todo lo necesario para el taller: sistemas de sujeción, herrajes, materiales de acabado y componentes especializados para náutica.",
-        "highlights": ["Tachas, grapas y adhesivos", "Cinchas y velcros", "Hilos para tapicería", "Argollas, rieles y sistemas para cortinas", "Materiales náuticos especializados"]
+        "highlights": [
+          "Tachas, grapas y adhesivos",
+          "Cinchas y velcros",
+          "Hilos para tapicería",
+          "Argollas, rieles y sistemas para cortinas",
+          "Materiales náuticos especializados"
+        ]
       }
     ]
   },
@@ -286,6 +364,8 @@
     "phoneLabel": "Teléfono",
     "emailLabel": "Correo electrónico",
     "contactHint": "Indica al menos un teléfono o correo electrónico.",
+    "rgpdNoticeBefore": "Al enviar este formulario, tus datos se tratarán para gestionar tu solicitud conforme a nuestra",
+    "rgpdNoticeLinkLabel": "política de privacidad",
     "generalNoteLabel": "Nota general (opcional)",
     "submitButton": "Enviar solicitud",
     "submitting": "Enviando…",
@@ -327,7 +407,191 @@
     "formNameLabel": "Nombre",
     "formEmailLabel": "Email",
     "formMessageLabel": "Mensaje",
-    "formPrivacy": "Responsable del tratamiento: RIBOT FUSTER, S.L. (D.TEX MALLORCA). Los datos se tratarán para gestionar su consulta conforme a nuestra política de privacidad.",
+    "formPrivacyBefore": "Responsable del tratamiento: RIBOT FUSTER, S.L. (D.TEX MALLORCA). Los datos se tratarán para gestionar su consulta conforme a nuestra",
+    "formPrivacyLinkLabel": "política de privacidad",
     "hours": "Lun – Vie: 7:00 a 14:00h"
+  },
+  "avisoLegal": {
+    "title": "Aviso legal — D.TEX Mallorca",
+    "description": "Datos identificativos y condiciones de uso del sitio web de D.TEX Mallorca (RIBOT FUSTER, S.L.), conforme a la LSSI-CE.",
+    "eyebrow": "Información legal",
+    "h1": "Aviso legal",
+    "draftNotice": "BORRADOR — texto pendiente de revisión final por el negocio/gestoría antes del lanzamiento.",
+    "spanishPrevailsNote": "La versión en español de este documento es la legalmente vinculante; esta es una traducción a título informativo.",
+    "lastUpdated": "Última actualización: julio de 2026",
+    "sections": [
+      {
+        "heading": "1. Datos identificativos",
+        "paragraphs": [
+          "En cumplimiento del artículo 10 de la Ley 34/2002, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de los siguientes datos:"
+        ],
+        "list": [
+          "Titular: RIBOT FUSTER, S.L. (D.TEX Mallorca)",
+          "CIF: B57668352",
+          "Domicilio: C/ 4 de Noviembre, 4, Polígono Industrial Can Valero, 07011 Palma de Mallorca, Illes Balears (España)",
+          "Correo electrónico: administracion@ditexmallorca.com",
+          "Teléfono: +34 971 25 44 63"
+        ]
+      },
+      {
+        "heading": "2. Objeto",
+        "paragraphs": [
+          "El presente aviso legal regula el uso del sitio web ditexmallorca.es (el «Sitio»), propiedad de RIBOT FUSTER, S.L. El acceso y uso del Sitio atribuye la condición de persona usuaria e implica la aceptación de las condiciones aquí recogidas."
+        ]
+      },
+      {
+        "heading": "3. Condiciones de uso",
+        "paragraphs": [
+          "La persona usuaria se compromete a utilizar el Sitio de conformidad con la ley, la buena fe y el presente aviso legal, absteniéndose de utilizarlo de forma contraria al orden público, con fines ilícitos o lesivos, o de un modo que pueda dañar, inutilizar o sobrecargar el Sitio, o que impida su normal utilización por otras personas usuarias."
+        ]
+      },
+      {
+        "heading": "4. Propiedad intelectual e industrial",
+        "paragraphs": [
+          "Todos los contenidos del Sitio (textos, imágenes, marcas, logotipos, diseño, código fuente y estructura de navegación) son propiedad de RIBOT FUSTER, S.L. o de terceros que han autorizado su uso, y están protegidos por la normativa de propiedad intelectual e industrial. Queda prohibida su reproducción, distribución o transformación sin autorización expresa, salvo para uso personal y privado."
+        ]
+      },
+      {
+        "heading": "5. Protección de datos",
+        "paragraphs": [
+          "El tratamiento de los datos personales facilitados a través del Sitio se rige por nuestra Política de Privacidad."
+        ]
+      },
+      {
+        "heading": "6. Exclusión de responsabilidad",
+        "paragraphs": [
+          "RIBOT FUSTER, S.L. no se hace responsable de los daños y perjuicios de cualquier naturaleza que pudieran derivarse de la falta de disponibilidad o continuidad del funcionamiento del Sitio, de interrupciones, virus informáticos, averías o desconexiones, ni de intrusiones de terceros ajenas a su control."
+        ]
+      },
+      {
+        "heading": "7. Enlaces",
+        "paragraphs": [
+          "El Sitio puede incluir enlaces a sitios web de terceros. RIBOT FUSTER, S.L. no asume responsabilidad alguna por los contenidos, informaciones o servicios que pudieran aparecer en dichos sitios."
+        ]
+      },
+      {
+        "heading": "8. Legislación aplicable y jurisdicción",
+        "paragraphs": [
+          "Las presentes condiciones se rigen por la legislación española. Para la resolución de cualquier controversia, las partes se someten a los Juzgados y Tribunales del domicilio de RIBOT FUSTER, S.L., salvo que la normativa aplicable en materia de consumidores y usuarios disponga otra cosa."
+        ]
+      }
+    ]
+  },
+  "privacidad": {
+    "title": "Política de privacidad — D.TEX Mallorca",
+    "description": "Cómo D.TEX Mallorca (RIBOT FUSTER, S.L.) trata los datos personales de quienes usan el Área de Clientes y envían solicitudes de pedido.",
+    "eyebrow": "Información legal",
+    "h1": "Política de privacidad",
+    "draftNotice": "BORRADOR — texto pendiente de revisión final por el negocio/gestoría antes del lanzamiento.",
+    "spanishPrevailsNote": "La versión en español de este documento es la legalmente vinculante; esta es una traducción a título informativo.",
+    "lastUpdated": "Última actualización: julio de 2026",
+    "sections": [
+      {
+        "heading": "1. Responsable del tratamiento",
+        "paragraphs": [],
+        "list": [
+          "Responsable: RIBOT FUSTER, S.L. (D.TEX Mallorca)",
+          "CIF: B57668352",
+          "Domicilio: C/ 4 de Noviembre, 4, Polígono Industrial Can Valero, 07011 Palma de Mallorca, Illes Balears (España)",
+          "Contacto: administracion@ditexmallorca.com"
+        ]
+      },
+      {
+        "heading": "2. Qué datos tratamos",
+        "paragraphs": [
+          "Solicitudes de pedido (Área de Clientes): nombre del negocio, teléfono y/o correo electrónico de contacto, y el contenido de la solicitud (productos, cantidades, notas) que nos envías desde el Área de Clientes.",
+          "Sesión de acceso: el Área de Clientes y la administración usan una contraseña compartida, no personal — la sesión creada al iniciar sesión no identifica a una persona concreta, solo mantiene activo el acceso autorizado.",
+          "No tratamos datos de navegación con fines analíticos o publicitarios: nuestra analítica web es agregada y no utiliza cookies de seguimiento (ver Política de Cookies)."
+        ]
+      },
+      {
+        "heading": "3. Finalidad del tratamiento",
+        "paragraphs": [
+          "Gestionar y responder a las solicitudes de pedido enviadas desde el Área de Clientes.",
+          "Mantener el acceso autorizado al Área de Clientes y a la administración del Sitio."
+        ]
+      },
+      {
+        "heading": "4. Base jurídica",
+        "paragraphs": [
+          "El tratamiento de los datos de la solicitud se basa en la ejecución de medidas precontractuales a solicitud tuya (art. 6.1.b RGPD). El mantenimiento de la sesión de acceso se basa en nuestro interés legítimo en prestar el servicio del Área de Clientes de forma segura (art. 6.1.f RGPD)."
+        ]
+      },
+      {
+        "heading": "5. Plazo de conservación",
+        "paragraphs": [
+          "Conservamos los datos de cada solicitud mientras se mantiene la relación comercial derivada de ella y, una vez finalizada, durante el plazo de prescripción de las obligaciones que pudieran derivarse — con carácter general, 6 años desde el último asiento relacionado, conforme al artículo 30 del Código de Comercio (conservación de documentación mercantil), sin perjuicio de plazos distintos que resulten de aplicación conforme a la normativa fiscal.",
+          "Si una solicitud no llega a materializarse en una relación comercial, conservamos los datos únicamente el tiempo necesario para gestionarla y, como máximo, 12 meses desde su recepción."
+        ]
+      },
+      {
+        "heading": "6. Destinatarios y transferencias internacionales",
+        "paragraphs": [
+          "No cedemos tus datos a terceros para fines distintos de la gestión de tu solicitud. Los proveedores de alojamiento web y base de datos que prestan servicio al Sitio actúan como encargados del tratamiento (art. 28 RGPD), sujetos a un contrato de encargo de tratamiento.",
+          "Si alguno de estos proveedores estuviera ubicado fuera del Espacio Económico Europeo (por ejemplo, en Estados Unidos), la transferencia se ampararía en una decisión de adecuación de la Comisión Europea o, en su defecto, en cláusulas contractuales tipo aprobadas por la Comisión Europea (art. 46 RGPD)."
+        ]
+      },
+      {
+        "heading": "7. Tus derechos",
+        "paragraphs": [
+          "Tienes derecho a acceder, rectificar y suprimir tus datos, así como a solicitar la limitación de su tratamiento, oponerte a él y ejercer el derecho a la portabilidad. Puedes ejercer estos derechos escribiendo a administracion@ditexmallorca.com. También tienes derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD) si consideras que el tratamiento no se ajusta a la normativa vigente.",
+          "Dada la naturaleza y el volumen de nuestros tratamientos, no resulta obligatoria la designación de un delegado de protección de datos conforme al artículo 37 RGPD ni al artículo 34 de la LOPDGDD. Cualquier cuestión sobre protección de datos puede dirigirse igualmente a administracion@ditexmallorca.com."
+        ]
+      },
+      {
+        "heading": "8. Seguridad",
+        "paragraphs": [
+          "Aplicamos medidas técnicas y organizativas razonables para proteger tus datos frente a accesos no autorizados, su pérdida o alteración."
+        ]
+      },
+      {
+        "heading": "9. Cambios en esta política",
+        "paragraphs": [
+          "Podemos actualizar esta política para reflejar cambios legales o en el funcionamiento del Sitio. La fecha de la última actualización figura al inicio de este documento."
+        ]
+      }
+    ]
+  },
+  "cookies": {
+    "title": "Política de cookies — D.TEX Mallorca",
+    "description": "Qué cookies usa el sitio de D.TEX Mallorca y por qué no mostramos un banner de consentimiento.",
+    "eyebrow": "Información legal",
+    "h1": "Política de cookies",
+    "draftNotice": "BORRADOR — texto pendiente de revisión final por el negocio/gestoría antes del lanzamiento.",
+    "spanishPrevailsNote": "La versión en español de este documento es la legalmente vinculante; esta es una traducción a título informativo.",
+    "lastUpdated": "Última actualización: julio de 2026",
+    "intro": "Una cookie es un pequeño archivo que un sitio web guarda en tu navegador. Este Sitio utiliza únicamente las cookies técnicas necesarias para su funcionamiento — no utilizamos cookies de analítica, publicidad ni redes sociales.",
+    "tableHeadName": "Cookie",
+    "tableHeadPurpose": "Finalidad",
+    "tableHeadDuration": "Duración",
+    "cookieList": [
+      {
+        "name": "authjs.session-token",
+        "purpose": "Mantiene tu sesión iniciada en el Área de Clientes o en la administración.",
+        "duration": "30 días, o hasta cerrar sesión"
+      },
+      {
+        "name": "authjs.csrf-token",
+        "purpose": "Protege el formulario de acceso frente a la falsificación de peticiones entre sitios.",
+        "duration": "Sesión del navegador"
+      },
+      {
+        "name": "authjs.callback-url",
+        "purpose": "Recuerda a qué página volver justo después de iniciar sesión.",
+        "duration": "Sesión del navegador"
+      },
+      {
+        "name": "NEXT_LOCALE",
+        "purpose": "Recuerda el idioma elegido (español, catalán o inglés).",
+        "duration": "1 año"
+      }
+    ],
+    "whyNoBannerHeading": "Por qué no verás un banner de cookies",
+    "whyNoBannerParagraphs": [
+      "La normativa (art. 22.2 LSSI y el criterio del Comité Europeo de Protección de Datos, recogido por la AEPD) exime del deber de solicitar consentimiento a las cookies estrictamente necesarias para prestar un servicio expresamente solicitado por la persona usuaria, como mantener una sesión iniciada o recordar un idioma. Todas las cookies de este Sitio son de ese tipo, por lo que no mostramos ningún banner de consentimiento.",
+      "Esto es un cambio deliberado respecto al sitio anterior, que usaba Google Analytics y cookies de redes sociales (Instagram, LinkedIn) y por ello sí requería un banner. La analítica de este Sitio es agregada y no usa cookies de seguimiento — una ventaja directa de ese cambio (ver ADR-0012)."
+    ],
+    "manageHeading": "Cómo gestionar las cookies",
+    "manageParagraph": "Puedes eliminar o bloquear estas cookies desde la configuración de tu navegador, aunque hacerlo puede afectar a tu sesión en el Área de Clientes o a que recordemos tu idioma preferido."
   }
 }

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/container";
 import { business } from "@/lib/site";
-import { getDictionary, hasLocale } from "@/lib/i18n";
+import { getDictionary, hasLocale, localePath } from "@/lib/i18n";
 import { localizedMetadata } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -173,7 +174,13 @@ export default async function Page({
                 </div>
                 <div className="h-11 rounded-full bg-stone-200" />
               </div>
-              <p className="mt-5 text-xs text-stone-400">{d.formPrivacy}</p>
+              <p className="mt-5 text-xs text-stone-400">
+                {d.formPrivacyBefore}{" "}
+                <Link href={localePath(lang, "/privacidad")} className="underline hover:text-stone-600">
+                  {d.formPrivacyLinkLabel}
+                </Link>
+                .
+              </p>
             </div>
           </div>
         </div>

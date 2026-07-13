@@ -16,6 +16,16 @@ export const navRoutes = [
 
 export type NavKey = (typeof navRoutes)[number]["key"];
 
+// Footer-only legal pages (#79, LSSI/RGPD) — deliberately separate from navRoutes: these
+// don't belong in the main nav, only the footer's legal-links column.
+export const legalRoutes = [
+  { key: "avisoLegal", href: "/aviso-legal" },
+  { key: "privacidad", href: "/privacidad" },
+  { key: "cookies", href: "/cookies" },
+] as const satisfies ReadonlyArray<{ key: string; href: string }>;
+
+export type LegalKey = (typeof legalRoutes)[number]["key"];
+
 export const business = {
   name: "D.TEX Mallorca",
   legalName: "RIBOT FUSTER, S.L.",

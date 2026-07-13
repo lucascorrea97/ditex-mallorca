@@ -16,9 +16,10 @@
     "Destinations are hardcoded to /es/... (not locale-relative) because the old WordPress",
     "site had no CA/EN content — see docs/launch/301-map.md's rationale section.",
     "",
-    "The four `_gap` entries redirect to home (`/es`) as a placeholder only, per",
-    "docs/launch/301-map.md's content-parity-gap section — update these once real",
-    "legal/cookie/privacy/accessibility pages exist on the new site.",
+    "Update (#79): aviso-legal-imprint, politica-de-cookies-ue, and declaracion-de-privacidad-ue",
+    "now point at real pages, upgraded to high confidence. Only accesibilidad remains a `_gap`",
+    "entry redirecting to home (`/es`) as a placeholder, per docs/launch/301-map.md's",
+    "content-parity-gap section — update it once a real accessibility page exists.",
     "",
     "Not included here (needs no config): the bare '/' root, which already resolves via",
     "proxy.ts's own locale detection with no explicit redirect needed. WWW/non-WWW and",
@@ -86,24 +87,24 @@
     },
     {
       "source": "/aviso-legal-imprint/",
-      "destination": "/es",
+      "destination": "/es/aviso-legal",
       "permanent": true,
-      "_confidence": "low",
-      "_gap": "no legal notice page exists on the new site yet (real CIF/legal-entity content — likely launch-blocking) — placeholder target"
+      "_confidence": "high",
+      "_note": "upgraded by #79 — real page now exists (LSSI identification data, CIF B57668352)"
     },
     {
       "source": "/politica-de-cookies-ue/",
-      "destination": "/es",
+      "destination": "/es/cookies",
       "permanent": true,
-      "_confidence": "low",
-      "_gap": "no cookie policy page exists on the new site yet — placeholder target"
+      "_confidence": "high",
+      "_note": "upgraded by #79 — real page now exists (cookie inventory + no-banner reasoning)"
     },
     {
       "source": "/declaracion-de-privacidad-ue/",
-      "destination": "/es",
+      "destination": "/es/privacidad",
       "permanent": true,
-      "_confidence": "low",
-      "_gap": "no GDPR privacy statement exists on the new site yet — placeholder target"
+      "_confidence": "high",
+      "_note": "upgraded by #79 — real page now exists (RGPD notice for Request flow + Client Area)"
     }
   ]
 }
