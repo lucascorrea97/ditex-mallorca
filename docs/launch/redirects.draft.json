@@ -1,0 +1,109 @@
+{
+  "_comment": [
+    "DRAFT — issue #23 preparation only. NOT wired into next.config.ts and must not be",
+    "until the full launch scope (#23's other acceptance criteria) is signed off.",
+    "",
+    "Shape matches Next.js 16's `redirects()` config array exactly",
+    "(node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/redirects.md):",
+    "each entry is { source, destination, permanent }. To wire this up at cutover, copy the",
+    "`entries` array into next.config.ts's `async redirects() { return [...] }` verbatim.",
+    "",
+    "`permanent: true` emits a 308 (Next.js's permanent-redirect status, method-preserving)",
+    "rather than a literal 301 — functionally equivalent for SEO purposes (both signal",
+    "'cache this redirect permanently' to crawlers and browsers); flagging the distinction",
+    "since the issue calls this a '301 map' but Next.js doesn't emit literal 301s here.",
+    "",
+    "Destinations are hardcoded to /es/... (not locale-relative) because the old WordPress",
+    "site had no CA/EN content — see docs/launch/301-map.md's rationale section.",
+    "",
+    "The four `_gap` entries redirect to home (`/es`) as a placeholder only, per",
+    "docs/launch/301-map.md's content-parity-gap section — update these once real",
+    "legal/cookie/privacy/accessibility pages exist on the new site.",
+    "",
+    "Not included here (needs no config): the bare '/' root, which already resolves via",
+    "proxy.ts's own locale detection with no explicit redirect needed. WWW/non-WWW and",
+    "HTTP/HTTPS are a Vercel domain-settings task at cutover, not a next.config concern —",
+    "see docs/launch/301-map.md."
+  ],
+  "entries": [
+    {
+      "source": "/productos/",
+      "destination": "/es/productos",
+      "permanent": true,
+      "_confidence": "high"
+    },
+    {
+      "source": "/mas-de-30-anos-al-sector-textil/",
+      "destination": "/es/nosotros",
+      "permanent": true,
+      "_confidence": "high"
+    },
+    {
+      "source": "/sobre-nosotros/",
+      "destination": "/es/nosotros",
+      "permanent": true,
+      "_confidence": "medium",
+      "_note": "orphan duplicate, not in sitemap/not indexed on the old site"
+    },
+    {
+      "source": "/materiales-textiles/",
+      "destination": "/es/servicios",
+      "permanent": true,
+      "_confidence": "high"
+    },
+    {
+      "source": "/servicios/",
+      "destination": "/es/servicios",
+      "permanent": true,
+      "_confidence": "medium",
+      "_note": "orphan duplicate, not in sitemap/not indexed on the old site"
+    },
+    {
+      "source": "/contacto-2/",
+      "destination": "/es/contacto",
+      "permanent": true,
+      "_confidence": "high"
+    },
+    {
+      "source": "/contacto/",
+      "destination": "/es/contacto",
+      "permanent": true,
+      "_confidence": "medium",
+      "_note": "orphan duplicate/older slug, not in sitemap"
+    },
+    {
+      "source": "/clientes/",
+      "destination": "/es/area-clientes/acceder",
+      "permanent": true,
+      "_confidence": "high"
+    },
+    {
+      "source": "/accesibilidad/",
+      "destination": "/es",
+      "permanent": true,
+      "_confidence": "low",
+      "_gap": "no accessibility statement exists on the new site yet — placeholder target"
+    },
+    {
+      "source": "/aviso-legal-imprint/",
+      "destination": "/es",
+      "permanent": true,
+      "_confidence": "low",
+      "_gap": "no legal notice page exists on the new site yet (real CIF/legal-entity content — likely launch-blocking) — placeholder target"
+    },
+    {
+      "source": "/politica-de-cookies-ue/",
+      "destination": "/es",
+      "permanent": true,
+      "_confidence": "low",
+      "_gap": "no cookie policy page exists on the new site yet — placeholder target"
+    },
+    {
+      "source": "/declaracion-de-privacidad-ue/",
+      "destination": "/es",
+      "permanent": true,
+      "_confidence": "low",
+      "_gap": "no GDPR privacy statement exists on the new site yet — placeholder target"
+    }
+  ]
+}
