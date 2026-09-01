@@ -52,8 +52,10 @@ resumes.
 
 - New work: a parity-flag/gating mechanism, a PDF-serving Client Area, an accesibilidad page,
   and a content-parity check on the static pages. Tracked as M0 issues.
-- The `Catálogo-nov-2025.pdf` is ~82 MB — too big to commit to git. Serve it via blob/object
-  storage or compress it first; decided in the Client-Area issue, not here.
+- The 3 Client-Area PDFs (incl. the ~82 MB catalogue) are served from **private Vercel Blob
+  via an authenticated route**, not git/`/public` — see ADR-0007's 2026-09-01 update (gating
+  correctness + admin-upload workflow). Compressing the catalogue is still worthwhile but
+  secondary.
 - Existing feature issues (#42 configurator, #18–#21 A3/self-service, guides content #32/#12)
   are **not** cancelled — they are post-M0, unchanged.
 - Flipping `NEXT_PUBLIC_PARITY_MODE` off restores the full experience for the eventual
