@@ -66,7 +66,24 @@
         "title": "Hostaleria i contract",
         "text": "Subministrament per a projectes d'hotels, restaurants i lloguer vacacional."
       }
-    ]
+    ],
+    "whyHeading": "Per què triar-nos",
+    "why": [
+      {
+        "name": "Especialistes en escuma",
+        "text": "Tallem a qualsevol mida i densitat, inclòs a volum (m³) — la capacitat que ens ha convertit en referència a Balears."
+      },
+      {
+        "name": "Una gamma completa",
+        "text": "Teles, polipells, PVC, fibres i accessoris al costat de l'escuma: un sol proveïdor per a tot el taller, sense coordinar comandes entre cases."
+      },
+      {
+        "name": "Repartiment a totes les illes",
+        "text": "Servei de distribució diari a Mallorca, Menorca, Eivissa i Formentera, perquè el taller no s'aturi mai."
+      }
+    ],
+    "contactHeading": "On som",
+    "contactCta": "Veure la pàgina de contacte"
   },
   "nosotros": {
     "title": "Nosaltres — D.TEX Mallorca",
@@ -79,6 +96,8 @@
     "storyP1": "D.TEX Mallorca va néixer el 2010 amb la vocació de donar un servei seriós i professional al sector de la tapisseria a les Illes Balears. Dos emprenedors amb dècades d'experiència en el tèxtil van posar en marxa una distribuïdora que avui és referència a l'arxipèlag.",
     "storyP2": "Amb el temps ens hem convertit en el proveïdor de referència per a escuma a mida a Balears. Tallem escuma a qualsevol dimensió, inclòs a volum (m³) i en altes densitats — una capacitat que pocs poden oferir. De fet, altres distribuïdors que ofereixen tall d'escuma ens compren a nosaltres per cobrir les seves comandes.",
     "storyP3": "Al voltant d'aquest nucli hem construït una gamma completa de materials de tapisseria — teixits, similcuirs, PVC, fibres i accessoris — perquè els nostres clients puguin resoldre qualsevol projecte des d'un sol proveïdor, sense perdre temps ni assumir riscos de coordinació.",
+    "missionHeading": "La nostra missió",
+    "missionBody": "Oferir solucions tèxtils a mida que ajudin els nostres clients a treballar millor: producte de qualitat, assessorament honest i lliurament puntual a qualsevol illa. Volem ser el soci de confiança a qui un taller pot trucar sabent que el material arribarà bé i a temps.",
     "stat1Value": "+30",
     "stat1Label": "Anys d'experiència acumulada en el sector tèxtil",
     "stat2Value": "2010",
@@ -420,6 +439,7 @@
     "mapLabel": "Mapa",
     "mapNote": "Polígon Industrial Can Valero, Palma",
     "mapLink": "Obrir a Google Maps →",
+    "socialHeading": "Les nostres xarxes socials",
     "formHeading": "Envia'ns un missatge",
     "formNote": "Formulari de contacte — properament disponible.",
     "formNameLabel": "Nom",

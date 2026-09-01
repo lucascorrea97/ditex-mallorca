@@ -66,7 +66,24 @@
         "title": "Hospitality & contract",
         "text": "Supply for hotel, restaurant and rental property projects."
       }
-    ]
+    ],
+    "whyHeading": "Why work with us",
+    "why": [
+      {
+        "name": "Foam specialists",
+        "text": "We cut to any size and density, including by volume (m³) — the capability that made us the reference in the Balearics."
+      },
+      {
+        "name": "A complete range",
+        "text": "Fabrics, faux leather, PVC, fibres and fittings alongside the foam: one supplier for the whole workshop, with no orders to coordinate between houses."
+      },
+      {
+        "name": "Delivery to every island",
+        "text": "A daily distribution service to Mallorca, Menorca, Ibiza and Formentera, so the workshop never stands still."
+      }
+    ],
+    "contactHeading": "Where to find us",
+    "contactCta": "Go to the contact page"
   },
   "nosotros": {
     "title": "About — D.TEX Mallorca",
@@ -79,6 +96,8 @@
     "storyP1": "D.TEX Mallorca was founded in 2010 with the aim of providing a serious and professional service to the upholstery sector in the Balearic Islands. Two entrepreneurs with decades of experience in textiles launched a distributorship that is now the reference in the archipelago.",
     "storyP2": "Over time we have become the go-to supplier for custom foam in the Balearics. We cut foam to any dimension, including by volume (m³) and in high densities — a capability that very few can offer. In fact, other distributors who offer foam cutting buy from us to fulfil their orders.",
     "storyP3": "Around that core we have built a complete range of upholstery materials — fabrics, faux leather, PVC, fibres and accessories — so that our clients can complete any project from a single supplier, without wasting time or taking on coordination risk.",
+    "missionHeading": "Our mission",
+    "missionBody": "To offer made-to-measure textile solutions that help our customers work better: quality products, honest advice and punctual delivery to any island. We want to be the trusted partner a workshop can call knowing the material will arrive in good condition and on time.",
     "stat1Value": "+30",
     "stat1Label": "Years of accumulated experience in the textile sector",
     "stat2Value": "2010",
@@ -420,6 +439,7 @@
     "mapLabel": "Map",
     "mapNote": "Polígono Industrial Can Valero, Palma",
     "mapLink": "Open in Google Maps →",
+    "socialHeading": "Our social media",
     "formHeading": "Send us a message",
     "formNote": "Contact form — coming soon.",
     "formNameLabel": "Name",

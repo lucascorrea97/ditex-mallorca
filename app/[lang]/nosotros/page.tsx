@@ -58,6 +58,12 @@ export default async function Page({
               <p>{d.storyP2}</p>
               <p>{d.storyP3}</p>
             </div>
+
+            {/* Misión (#86 content parity). The current site devotes a whole section of its
+                About page to a mission statement and ours had none. Condensed from the
+                business's own published wording — no new claims introduced. */}
+            <h2 className="mt-10 type-h2">{d.missionHeading}</h2>
+            <p className="mt-5 text-stone-600 leading-relaxed">{d.missionBody}</p>
           </div>
 
           <div className="flex flex-col gap-6">

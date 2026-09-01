@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ImageSlot } from "@/components/ui/image-slot";
 import { getDictionary, hasLocale, localePath } from "@/lib/i18n";
 import { localizedMetadata } from "@/lib/seo";
+import { business } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -102,6 +103,74 @@ export default async function Home({
               </div>
             </div>
           ))}
+        </div>
+      </Container>
+
+      {/* Why us (#86 content parity). The current site carries a "Por qué elegirnos"
+          trio on its home page and ours had nothing equivalent. The three reasons are
+          drawn from claims this site already makes elsewhere (the foam moat of ADR-0008,
+          the one-stop range, daily island delivery) rather than imported from the old
+          copy — the old version leans on the disputed years figure (#76). #32 may
+          rewrite the wording; the section is what closes the parity gap. */}
+      <section className="border-y border-stone-200 bg-stone-50">
+        <Container className="py-section">
+          <h2 className="type-h2">{d.whyHeading}</h2>
+          <div className="mt-8 grid gap-5 sm:grid-cols-3">
+            {d.why.map((w) => (
+              <div key={w.name} className="rounded-2xl border border-stone-200 bg-white p-6">
+                <h3 className="font-semibold">{w.name}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-stone-600">{w.text}</p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Contact details (#86 content parity). The current home shows the phone and email
+          in its hero and a full address/hours block further down; ours showed neither, so
+          a visitor landing here had to navigate away to find a phone number. Rendered from
+          lib/site's `business` — the single source of truth — and labelled from the
+          contacto dictionary rather than duplicating four label strings per locale. */}
+      <Container className="py-section">
+        <h2 className="type-h2">{d.contactHeading}</h2>
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <p className="type-eyebrow text-stone-400">{dict.contacto.addressLabel}</p>
+            <address className="mt-2 text-sm not-italic leading-relaxed text-stone-600">
+              {business.address.street}
+              <br />
+              {business.address.area}
+              <br />
+              {business.address.postalCode} {business.address.city}
+            </address>
+          </div>
+          <div>
+            <p className="type-eyebrow text-stone-400">{dict.contacto.phoneLabel}</p>
+            <a
+              href={business.phone.href}
+              className="mt-2 block text-sm text-stone-600 hover:text-ink"
+            >
+              {business.phone.display}
+            </a>
+          </div>
+          <div>
+            <p className="type-eyebrow text-stone-400">{dict.contacto.emailLabel}</p>
+            <a
+              href={`mailto:${business.email}`}
+              className="mt-2 block break-all text-sm text-stone-600 hover:text-ink"
+            >
+              {business.email}
+            </a>
+          </div>
+          <div>
+            <p className="type-eyebrow text-stone-400">{dict.contacto.hoursLabel}</p>
+            <p className="mt-2 text-sm text-stone-600">{dict.footer.hours}</p>
+          </div>
+        </div>
+        <div className="mt-8">
+          <Button variant="outline" href={localePath(lang, "/contacto")}>
+            {d.contactCta}
+          </Button>
         </div>
       </Container>
     </>

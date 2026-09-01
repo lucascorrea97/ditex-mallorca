@@ -144,6 +144,31 @@ export default async function Page({
                 </a>
               </div>
             </div>
+
+            {/* Social links (#86 content parity). The current contact page has a
+                "Nuestras redes sociales" block; ours only linked them from the global
+                footer. Rendered from lib/site's `business.social`. */}
+            <div className="mt-10">
+              <h2 className="type-h2-minor">{d.socialHeading}</h2>
+              <div className="mt-4 flex gap-4 text-sm">
+                <a
+                  href={business.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand-600 hover:underline"
+                >
+                  Instagram
+                </a>
+                <a
+                  href={business.social.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand-600 hover:underline"
+                >
+                  LinkedIn
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* Contact form */}
