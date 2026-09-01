@@ -27,30 +27,34 @@ export interface ImageSlotDef {
 export const imageManifest: ImageSlotDef[] = [
   // ── Inicio ────────────────────────────────────────────────────────────────
   {
+    // Reserved for a photo-led hero once a real foam-cut shot exists (#36). Deliberately
+    // NOT rendered on the home page today: the hero is text-first (a weak/off-message
+    // stand-in in the most valuable slot works against the foam-led message — ADR-0001/0008).
+    // When the real shot lands, re-add <ImageSlot id="home-hero"> to app/[lang]/page.tsx.
     id: 'home-hero',
     page: 'inicio',
     section: 'hero',
-    // Target shot for the eventual replacement (ADR-0008 foam-led). The current src is an
-    // interim image carried over from the live .es site's hero — a styled interior render,
-    // not own foam photography — so `source` is 'stock' and the alt describes what's
-    // actually shown. Swap to a real foam-cut photo via #36 to restore the moat framing.
     purpose: 'Espuma siendo cortada a volumen (m³) — la capacidad estrella de D.TEX',
     aspectRatio: '16/9',
     priority: 'P1',
-    source: 'stock',
-    alt: 'Salón contemporáneo con mobiliario tapizado — materiales de tapicería D.TEX Mallorca',
-    src: '/images/home-hero.jpg',
+    source: 'own',
+    alt: 'Corte de espuma a medida en el almacén de D.TEX Mallorca',
+    src: null,
   },
   {
     id: 'home-segment-tapiceria',
     page: 'inicio',
     section: 'segmentos',
+    // purpose = the ideal own shot (a real workshop) for the eventual replacement. The
+    // current src is the interim interior render moved here from the hero — it shows
+    // upholstered furniture, so it's on-theme for the tapicería segment (and small enough
+    // here that its low resolution doesn't show). source 'stock', alt describes the image.
     purpose: 'Taller de tapicería profesional: telas, espumas y accesorios D.TEX',
     aspectRatio: '4/3',
     priority: 'P2',
-    source: 'own',
-    alt: 'Taller de tapicería con materiales D.TEX: telas y espuma para mobiliario',
-    src: null,
+    source: 'stock',
+    alt: 'Salón con sofás tapizados — tapicería de mobiliario con materiales D.TEX Mallorca',
+    src: '/images/home-segment-tapiceria.jpg',
   },
   {
     id: 'home-segment-nautica',
