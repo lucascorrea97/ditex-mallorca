@@ -21,7 +21,8 @@
     "hours": "Mon – Fri: 7:00 am – 2:00 pm",
     "avisoLegal": "Legal notice",
     "privacidad": "Privacy policy",
-    "cookies": "Cookie policy"
+    "cookies": "Cookie policy",
+    "accesibilidad": "Accessibility"
   },
   "pagePlaceholder": {
     "eyebrow": "Under construction",
@@ -631,5 +632,74 @@
     ],
     "manageHeading": "Managing cookies",
     "manageParagraph": "You can delete or block these cookies from your browser settings, though doing so may affect your Client Area session or our ability to remember your preferred language."
+  },
+  "accesibilidad": {
+    "title": "Accessibility — D.TEX Mallorca",
+    "description": "D.TEX Mallorca (RIBOT FUSTER, S.L.) accessibility commitment for this website, and how to report a barrier.",
+    "eyebrow": "Legal information",
+    "h1": "Accessibility",
+    "draftNotice": "DRAFT — text pending final review by the business/its gestor before launch.",
+    "spanishPrevailsNote": "The Spanish version of this document is the legally binding text; this is a translation provided for convenience.",
+    "lastUpdated": "Last updated: September 2026",
+    "sections": [
+      {
+        "heading": "1. Our commitment",
+        "paragraphs": [
+          "At D.TEX Mallorca (RIBOT FUSTER, S.L.) we want everyone to be able to browse our catalogue, read about our services and get in touch with us, whatever their abilities or the technology they use.",
+          "We use the Web Content Accessibility Guidelines (WCAG) 2.2 at level AA as our working reference, and consider accessibility while designing and building each new page rather than as an afterthought."
+        ]
+      },
+      {
+        "heading": "2. What we already do",
+        "paragraphs": [
+          "Measures already built into the site include:"
+        ],
+        "list": [
+          "Semantic structure with headings and landmarks (header, main content and footer) that make screen-reader navigation easier.",
+          "The language of each page is declared (Spanish, Catalan or English) so screen readers pronounce it correctly.",
+          "Keyboard navigation, with a visible focus indicator on links, buttons and form fields.",
+          "Text alternatives for informative images; purely decorative ones are marked as such so screen readers skip them.",
+          "Buttons and links with generous tap targets, intended both for mobile use and for people with reduced motor precision.",
+          "A responsive layout that lets you enlarge the text or use the site on a small screen without losing content.",
+          "Attention to the contrast between text and background to aid readability."
+        ]
+      },
+      {
+        "heading": "3. Conformance status",
+        "paragraphs": [
+          "This site is under continuous development. No external accessibility audit has been carried out yet, so we do not claim formal conformance with WCAG 2.2 AA or with the EN 301 549 standard.",
+          "We are working towards that level and fix the problems we find ourselves or that users report to us."
+        ]
+      },
+      {
+        "heading": "4. Accuracy of the information",
+        "paragraphs": [
+          "We aim to keep this website accurate and up to date. If you find anything incorrect or out of date, we would be grateful if you told us which page you found it on. We will review it as soon as we can."
+        ]
+      },
+      {
+        "heading": "5. Limitation of liability",
+        "paragraphs": [
+          "We accept no liability for losses arising from inaccuracies or incomplete data, nor for losses arising from problems inherent in distributing information over the internet, such as interruptions or service failures.",
+          "In the site's forms we try to keep the number of required fields to a minimum."
+        ]
+      },
+      {
+        "heading": "6. Intellectual property",
+        "paragraphs": [
+          "All intellectual property rights in the content of this website belong to RIBOT FUSTER, S.L. Copying, distributing or otherwise using this material is not permitted without written authorisation, except to the extent allowed by mandatory law, such as the right of quotation."
+        ]
+      },
+      {
+        "heading": "7. How to report a barrier",
+        "paragraphs": [
+          "If you come across an accessibility barrier on the site, please write to us and we will reply as soon as we can. It helps a great deal if you tell us which page is affected and which browser or assistive technology you use."
+        ],
+        "list": [
+          "Email: administracion@ditexmallorca.com",
+          "Telephone: +34 971 25 44 63"
+        ]
+      }
+    ]
   }
 }

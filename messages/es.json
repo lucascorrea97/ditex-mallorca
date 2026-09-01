@@ -21,7 +21,8 @@
     "hours": "Lun – Vie: 7:00 a 14:00h",
     "avisoLegal": "Aviso legal",
     "privacidad": "Política de privacidad",
-    "cookies": "Política de cookies"
+    "cookies": "Política de cookies",
+    "accesibilidad": "Accesibilidad"
   },
   "pagePlaceholder": {
     "eyebrow": "En construcción",
@@ -631,5 +632,74 @@
     ],
     "manageHeading": "Cómo gestionar las cookies",
     "manageParagraph": "Puedes eliminar o bloquear estas cookies desde la configuración de tu navegador, aunque hacerlo puede afectar a tu sesión en el Área de Clientes o a que recordemos tu idioma preferido."
+  },
+  "accesibilidad": {
+    "title": "Accesibilidad — D.TEX Mallorca",
+    "description": "Compromiso de accesibilidad del sitio web de D.TEX Mallorca (RIBOT FUSTER, S.L.) y cómo informarnos de una barrera.",
+    "eyebrow": "Información legal",
+    "h1": "Accesibilidad",
+    "draftNotice": "BORRADOR — texto pendiente de revisión final por el negocio/gestoría antes del lanzamiento.",
+    "spanishPrevailsNote": "La versión en español de este documento es la legalmente vinculante; esta es una traducción a título informativo.",
+    "lastUpdated": "Última actualización: septiembre de 2026",
+    "sections": [
+      {
+        "heading": "1. Nuestro compromiso",
+        "paragraphs": [
+          "En D.TEX Mallorca (RIBOT FUSTER, S.L.) queremos que cualquier persona pueda consultar nuestro catálogo, conocer nuestros servicios y ponerse en contacto con nosotros, con independencia de sus capacidades o de la tecnología que utilice.",
+          "Tomamos como referencia de trabajo las Pautas de Accesibilidad para el Contenido Web (WCAG) 2.2 en su nivel AA, y tenemos en cuenta la accesibilidad al diseñar y construir cada página nueva, no como una corrección posterior."
+        ]
+      },
+      {
+        "heading": "2. Medidas que aplicamos",
+        "paragraphs": [
+          "Entre las medidas que ya forman parte del sitio se encuentran:"
+        ],
+        "list": [
+          "Estructura semántica con encabezados y regiones (cabecera, contenido principal y pie) que facilitan la navegación con lector de pantalla.",
+          "El idioma de cada página está declarado (español, catalán o inglés), para que los lectores de pantalla lo pronuncien correctamente.",
+          "Navegación con teclado, con un indicador de foco visible en enlaces, botones y campos de formulario.",
+          "Textos alternativos en las imágenes informativas; las puramente decorativas se marcan como tales para que los lectores de pantalla las omitan.",
+          "Botones y enlaces con áreas de pulsación amplias, pensados tanto para el móvil como para personas con menor precisión motriz.",
+          "Diseño adaptable que permite ampliar el tamaño del texto o usar el sitio en pantallas pequeñas sin pérdida de contenido.",
+          "Atención al contraste entre el texto y el fondo para favorecer la lectura."
+        ]
+      },
+      {
+        "heading": "3. Grado de cumplimiento",
+        "paragraphs": [
+          "Este sitio se encuentra en desarrollo continuo. Todavía no se ha realizado una auditoría externa de accesibilidad, por lo que no declaramos una conformidad formal con las WCAG 2.2 AA ni con la norma UNE-EN 301 549.",
+          "Trabajamos para acercarnos a ese nivel y corregimos los problemas que detectamos internamente o que nos comunican las personas usuarias."
+        ]
+      },
+      {
+        "heading": "4. Exactitud de la información",
+        "paragraphs": [
+          "Nos comprometemos a mantener esta web actualizada y precisa. Si encuentra algún contenido incorrecto o desactualizado, le agradeceremos que nos lo comunique indicando en qué página lo ha encontrado. Lo revisaremos lo antes posible."
+        ]
+      },
+      {
+        "heading": "5. Limitación de responsabilidad",
+        "paragraphs": [
+          "No nos responsabilizamos de las pérdidas derivadas de inexactitudes o de datos incompletos, ni de las derivadas de problemas inherentes a la difusión de información a través de Internet, como interrupciones o fallos del servicio.",
+          "En los formularios del sitio procuramos limitar al mínimo el número de campos obligatorios."
+        ]
+      },
+      {
+        "heading": "6. Propiedad intelectual",
+        "paragraphs": [
+          "Todos los derechos de propiedad intelectual sobre el contenido de esta web pertenecen a RIBOT FUSTER, S.L. No se permite la copia, difusión ni cualquier otro uso de estos materiales sin autorización escrita, salvo en la medida en que lo permita la normativa de obligado cumplimiento, como el derecho de cita."
+        ]
+      },
+      {
+        "heading": "7. Cómo informarnos de una barrera",
+        "paragraphs": [
+          "Si encuentra una barrera de accesibilidad en el sitio, puede escribirnos y le responderemos lo antes posible. Nos ayuda mucho que nos indique la página afectada y el navegador o la tecnología de apoyo que utiliza."
+        ],
+        "list": [
+          "Correo electrónico: administracion@ditexmallorca.com",
+          "Teléfono: +34 971 25 44 63"
+        ]
+      }
+    ]
   }
 }
