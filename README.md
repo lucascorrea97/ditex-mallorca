@@ -38,6 +38,8 @@ Balearics**.
 17. [i18n: built-in Next.js routing with JSON dictionaries](./docs/adr/0017-i18n-built-in-dictionary-approach.md)
 18. [Catalogue seed: multi-file A3 export join, tariff-row pricing, curated Familias](./docs/adr/0018-catalogue-seed-from-a3-exports-multi-file-join.md)
 19. [Product/variant model keyed on the article-name colour convention](./docs/adr/0019-product-variant-model-keyed-on-a3-familia.md)
+20. [Request / reorder-enquiry flow](./docs/adr/0020-request-reorder-enquiry-flow.md)
+21. [Parity-first demo milestone (M0): reproduce the current site, feature-flag the rest](./docs/adr/0021-parity-first-demo-milestone.md)
 
 ## The one-paragraph version
 
