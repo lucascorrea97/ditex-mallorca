@@ -67,7 +67,24 @@
         "title": "Hostelería y contract",
         "text": "Suministro para proyectos de hoteles, restaurantes y rentals."
       }
-    ]
+    ],
+    "whyHeading": "Por qué elegirnos",
+    "why": [
+      {
+        "name": "Especialistas en espuma",
+        "text": "Cortamos a cualquier medida y densidad, incluido a volumen (m³) — la capacidad que nos ha convertido en referencia en Baleares."
+      },
+      {
+        "name": "Una gama completa",
+        "text": "Telas, polipieles, PVC, fibras y accesorios junto a la espuma: un solo proveedor para todo el taller, sin coordinar pedidos entre casas."
+      },
+      {
+        "name": "Reparto a todas las islas",
+        "text": "Servicio de distribución diario a Mallorca, Menorca, Ibiza y Formentera, para que el taller nunca se quede parado."
+      }
+    ],
+    "contactHeading": "Dónde estamos",
+    "contactCta": "Ver página de contacto"
   },
   "nosotros": {
     "title": "Nosotros — D.TEX Mallorca",
@@ -80,6 +97,8 @@
     "storyP1": "D.TEX Mallorca nació en 2010 con la vocación de dar un servicio serio y profesional al sector de la tapicería en las Islas Baleares. Dos emprendedores con décadas de experiencia en el textil pusieron en marcha una distribuidora que hoy es referencia en el archipiélago.",
     "storyP2": "Con el tiempo nos hemos convertido en el proveedor de referencia para espuma a medida en Baleares. Cortamos espuma a cualquier dimensión, incluido a volumen (m³) y en altas densidades — una capacidad que pocos pueden ofrecer. De hecho, otros distribuidores que ofrecen corte de espuma nos compran a nosotros para cubrir sus pedidos.",
     "storyP3": "Alrededor de ese núcleo hemos construido una gama completa de materiales de tapicería — telas, polipieles, PVC, fibras y accesorios — para que nuestros clientes puedan resolver cualquier proyecto desde un solo proveedor, sin perder tiempo ni asumir riesgos de coordinación.",
+    "missionHeading": "Nuestra misión",
+    "missionBody": "Ofrecer soluciones textiles a medida que ayuden a nuestros clientes a trabajar mejor: producto de calidad, asesoramiento honesto y entrega puntual en cualquier isla. Queremos ser el socio de confianza al que un taller puede llamar sabiendo que el material llegará bien y a tiempo.",
     "stat1Value": "+30",
     "stat1Label": "Años de experiencia acumulada en el sector textil",
     "stat2Value": "2010",
@@ -205,7 +224,7 @@
       },
       {
         "name": "PVC",
-        "description": "Material de alta calidad especialmente indicado para exteriores y entorns húmedos. Resistente al agua, moho y rayos UV.",
+        "description": "Material de alta calidad especialmente indicado para exteriores y entornos húmedos. Resistente al agua, moho y rayos UV.",
         "highlights": [
           "Resistente al agua y a la intemperie",
           "Protección UV",
@@ -421,6 +440,7 @@
     "mapLabel": "Mapa",
     "mapNote": "Polígono Industrial Can Valero, Palma",
     "mapLink": "Abrir en Google Maps →",
+    "socialHeading": "Nuestras redes sociales",
     "formHeading": "Envíanos un mensaje",
     "formNote": "Formulario de contacto — próximamente disponible.",
     "formNameLabel": "Nombre",
