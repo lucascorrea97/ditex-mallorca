@@ -7,6 +7,7 @@ import { DownloadPriceListButton } from "@/components/site/download-price-list-b
 import { getDictionary, hasLocale, localePath } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import { auth, signOut } from "@/auth";
+import { parityMode } from "@/lib/flags";
 
 export async function generateMetadata({
   params,
@@ -83,17 +84,21 @@ export default async function ClientAreaPage({
       </section>
 
       {/* Prices now live on the catalogue pages (ADR-0011): one product DB, two views.
-          The Client Area is the gate; browsing reveals the Price List in context. */}
+          The Client Area is the gate; browsing reveals the Price List in context.
+          This block links into the hidden /catalogue area, so it is suppressed in
+          parity mode (M0, ADR-0021 / #83) — flag off restores it verbatim. */}
       <Container className="py-section-lg">
-        <div className="rounded-2xl border border-stone-200 bg-stone-50 px-8 py-12">
-          <h2 className="type-h2-minor">{d.pricesLiveTitle}</h2>
-          <p className="mt-4 max-w-2xl text-stone-600">{d.pricesLiveBody}</p>
-          <div className="mt-8">
-            <Button href={localePath(lang, "/catalogo")}>
-              {d.browseCatalogueCta}
-            </Button>
+        {!parityMode && (
+          <div className="rounded-2xl border border-stone-200 bg-stone-50 px-8 py-12">
+            <h2 className="type-h2-minor">{d.pricesLiveTitle}</h2>
+            <p className="mt-4 max-w-2xl text-stone-600">{d.pricesLiveBody}</p>
+            <div className="mt-8">
+              <Button href={localePath(lang, "/catalogo")}>
+                {d.browseCatalogueCta}
+              </Button>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Auto-generated Price List PDF (#15, ADR-0011): a transition bridge for
             Clients who'd rather keep downloading a PDF than browse the site.
@@ -108,16 +113,20 @@ export default async function ClientAreaPage({
         </div>
 
         {/* Reorder/enquiry Request flow (#21, ADR-0020): builds on the add-to-request
-            widget on each Catalogue product page. */}
-        <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 px-8 py-12">
-          <h2 className="type-h2-minor">{d.requestSectionTitle}</h2>
-          <p className="mt-4 max-w-2xl text-stone-600">{d.requestSectionBody}</p>
-          <div className="mt-8">
-            <Button href={localePath(lang, "/area-clientes/solicitud")}>
-              {d.requestSectionCta}
-            </Button>
+            widget on each Catalogue product page. The flow (area-clientes/solicitud)
+            is hidden for M0 (ADR-0021 / #83), so this whole block is suppressed in
+            parity mode — flag off restores it verbatim. */}
+        {!parityMode && (
+          <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 px-8 py-12">
+            <h2 className="type-h2-minor">{d.requestSectionTitle}</h2>
+            <p className="mt-4 max-w-2xl text-stone-600">{d.requestSectionBody}</p>
+            <div className="mt-8">
+              <Button href={localePath(lang, "/area-clientes/solicitud")}>
+                {d.requestSectionCta}
+              </Button>
+            </div>
           </div>
-        </div>
+        )}
       </Container>
     </>
   );

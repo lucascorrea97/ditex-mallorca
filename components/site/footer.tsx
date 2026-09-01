@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
-import { navRoutes, legalRoutes, business, type NavKey, type LegalKey } from "@/lib/site";
+import { visibleNavRoutes, legalRoutes, business, type NavKey, type LegalKey } from "@/lib/site";
 import { localePath, type Locale, type Dictionary } from "@/lib/i18n";
 
 interface FooterProps {
@@ -30,7 +30,7 @@ export function Footer({ locale, dict }: FooterProps) {
             {dict.footer.navHeading}
           </h3>
           <ul className="mt-4 space-y-2.5">
-            {navRoutes.map((item) => (
+            {visibleNavRoutes.map((item) => (
               <li key={item.key}>
                 <Link
                   href={localePath(locale, item.href)}

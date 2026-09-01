@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ImageSlot } from "@/components/ui/image-slot";
 import { getDictionary, hasLocale, localePath } from "@/lib/i18n";
 import { localizedMetadata } from "@/lib/seo";
+import { parityMode } from "@/lib/flags";
 
 export async function generateMetadata({
   params,
@@ -51,11 +52,16 @@ export default async function Page({
             <strong className="text-stone-700">{d.clientAreaLabel}</strong>{" "}
             {d.clientAreaNote2}
           </p>
-          <div className="mt-8">
-            <Button href={localePath(lang, "/catalogo")}>
-              {d.ctaBrowseCatalogue}
-            </Button>
-          </div>
+          {/* The "browse the catalogue" CTA points into the hidden /catalogo area,
+              so it is suppressed in parity mode (M0, ADR-0021 / #83). Flag off →
+              the CTA returns unchanged. */}
+          {!parityMode && (
+            <div className="mt-8">
+              <Button href={localePath(lang, "/catalogo")}>
+                {d.ctaBrowseCatalogue}
+              </Button>
+            </div>
+          )}
         </Container>
       </section>
 

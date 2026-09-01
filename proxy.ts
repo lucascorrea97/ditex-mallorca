@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { hasLocalePrefix, resolvePreferredLocale } from "@/lib/i18n";
+import { parityMode, isHiddenPath } from "@/lib/flags";
 
 const LOCALE_COOKIE = "NEXT_LOCALE";
 
@@ -43,6 +44,16 @@ export const proxy = auth(function proxy(request) {
   // guard) or the Auth.js API routes (/api/auth/**).
   const lang = pathname.split("/")[1]; // "es" | "ca" | "en"
   const afterLang = pathname.slice(lang.length + 1); // e.g. "/area-clientes"
+
+  // ── Parity gate (M0, ADR-0021 / #83) ───────────────────────────────────────
+  // While NEXT_PUBLIC_PARITY_MODE is on, the built-but-not-yet-parity areas
+  // (/catalogo + sub-routes, /guias, the request flow) are unreachable by URL —
+  // redirected to the locale home. The code stays; flip the flag off to restore
+  // them. Runs before the Client Area gate so a hidden request-flow URL redirects
+  // home rather than bouncing an anonymous visitor to the login page first.
+  if (parityMode && isHiddenPath(afterLang)) {
+    return NextResponse.redirect(new URL(`/${lang}`, request.url));
+  }
 
   const isClientArea = afterLang.startsWith("/area-clientes");
   const isLoginPage = afterLang.startsWith("/area-clientes/acceder");

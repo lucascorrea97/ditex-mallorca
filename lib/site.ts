@@ -5,6 +5,8 @@
 // Nav labels are NOT here — they live in messages/*.json so each locale renders its own.
 // Use navRoutes[].key to look up the label from the active dictionary.
 
+import { parityMode, isHiddenPath } from "@/lib/flags";
+
 export const navRoutes = [
   { key: "home", href: "/" },
   { key: "nosotros", href: "/nosotros" },
@@ -15,6 +17,14 @@ export const navRoutes = [
 ] as const satisfies ReadonlyArray<{ key: string; href: string }>;
 
 export type NavKey = (typeof navRoutes)[number]["key"];
+
+// The nav/footer links visible in the current mode. In parity mode (M0, ADR-0021)
+// this drops Guías — the only nav route pointing into a hidden area. Flip the flag
+// off and the full nav returns. Header and footer both render from this list so the
+// filter lives in exactly one place (the flag itself, lib/flags).
+export const visibleNavRoutes = parityMode
+  ? navRoutes.filter((route) => !isHiddenPath(route.href))
+  : navRoutes;
 
 // Footer-only legal pages (#79, LSSI/RGPD) — deliberately separate from navRoutes: these
 // don't belong in the main nav, only the footer's legal-links column.
