@@ -3,6 +3,7 @@ import { readFile, stat } from "node:fs/promises";
 import { homedir } from "node:os";
 import path from "node:path";
 import { put } from "@vercel/blob";
+import { blobCredentials, blobCredentialsProblem } from "../lib/blob-credentials";
 import { clientDocs, type ClientDocSlug } from "../lib/client-docs";
 
 // One-time upload of the three real Client Area PDFs (#84) into the PRIVATE
@@ -50,11 +51,8 @@ const sources: Record<ClientDocSlug, string> = {
 };
 
 async function main() {
-  if (!process.env.BLOB_STORE_ID) {
-    throw new Error(
-      "BLOB_STORE_ID is not set. Run `vercel link && vercel env pull` to write .env.local.",
-    );
-  }
+  const problem = blobCredentialsProblem();
+  if (problem) throw new Error(problem);
 
   console.log(`Uploading ${clientDocs.length} documents from ${SOURCE_DIR}\n`);
 
@@ -65,6 +63,8 @@ async function main() {
 
     const result = await put(doc.blobPathname, body, {
       access: "private",
+      // Same per-environment naming shim as the serving route; see lib/blob-credentials.
+      ...blobCredentials(),
       contentType: "application/pdf",
       // Fixed pathnames — the registry hard-codes them, so no random suffix.
       addRandomSuffix: false,

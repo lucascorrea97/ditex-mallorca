@@ -1,5 +1,6 @@
 import { get } from "@vercel/blob";
 import { auth } from "@/auth";
+import { blobCredentials } from "@/lib/blob-credentials";
 import { findClientDoc } from "@/lib/client-docs";
 
 // Serves the three real Client Area PDFs (#84) from the PRIVATE `ditex-documents` Blob
@@ -40,7 +41,13 @@ export async function GET(
     return new Response("Documento no encontrado.", { status: 404 });
   }
 
-  const result = await get(doc.blobPathname, { access: "private" });
+  // Credentials passed explicitly: the store's injected variable names differ between
+  // Development and Preview/Production, and the SDK only checks the unprefixed ones.
+  // See lib/blob-credentials.ts — without this the route works locally and 500s deployed.
+  const result = await get(doc.blobPathname, {
+    access: "private",
+    ...blobCredentials(),
+  });
   if (!result || result.statusCode !== 200) {
     // The registry and the store have drifted (a doc listed here was never uploaded).
     // 404 rather than 500: from the Client's side the document simply isn't there.
