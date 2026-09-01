@@ -30,12 +30,16 @@ export const imageManifest: ImageSlotDef[] = [
     id: 'home-hero',
     page: 'inicio',
     section: 'hero',
+    // Target shot for the eventual replacement (ADR-0008 foam-led). The current src is an
+    // interim image carried over from the live .es site's hero — a styled interior render,
+    // not own foam photography — so `source` is 'stock' and the alt describes what's
+    // actually shown. Swap to a real foam-cut photo via #36 to restore the moat framing.
     purpose: 'Espuma siendo cortada a volumen (m³) — la capacidad estrella de D.TEX',
     aspectRatio: '16/9',
     priority: 'P1',
-    source: 'own',
-    alt: 'Corte de espuma a medida en el almacén de D.TEX Mallorca',
-    src: null,
+    source: 'stock',
+    alt: 'Salón contemporáneo con mobiliario tapizado — materiales de tapicería D.TEX Mallorca',
+    src: '/images/home-hero.jpg',
   },
   {
     id: 'home-segment-tapiceria',
