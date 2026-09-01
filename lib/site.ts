@@ -32,6 +32,7 @@ export const legalRoutes = [
   { key: "avisoLegal", href: "/aviso-legal" },
   { key: "privacidad", href: "/privacidad" },
   { key: "cookies", href: "/cookies" },
+  { key: "accesibilidad", href: "/accesibilidad" },
 ] as const satisfies ReadonlyArray<{ key: string; href: string }>;
 
 export type LegalKey = (typeof legalRoutes)[number]["key"];

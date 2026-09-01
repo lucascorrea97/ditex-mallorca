@@ -21,7 +21,8 @@
     "hours": "Dl – Dv: 7:00 a 14:00h",
     "avisoLegal": "Avís legal",
     "privacidad": "Política de privacitat",
-    "cookies": "Política de galetes"
+    "cookies": "Política de galetes",
+    "accesibilidad": "Accessibilitat"
   },
   "pagePlaceholder": {
     "eyebrow": "En construcció",
@@ -611,5 +612,74 @@
     ],
     "manageHeading": "Com gestionar les galetes",
     "manageParagraph": "Pots eliminar o bloquejar aquestes galetes des de la configuració del teu navegador, encara que fer-ho pot afectar la teva sessió a l'Àrea de Clients o que recordem el teu idioma preferit."
+  },
+  "accesibilidad": {
+    "title": "Accessibilitat — D.TEX Mallorca",
+    "description": "Compromís d'accessibilitat del lloc web de D.TEX Mallorca (RIBOT FUSTER, S.L.) i com informar-nos d'una barrera.",
+    "eyebrow": "Informació legal",
+    "h1": "Accessibilitat",
+    "draftNotice": "ESBORRANY — text pendent de revisió final per part del negoci/gestoria abans del llançament.",
+    "spanishPrevailsNote": "La versió en castellà d'aquest document és la legalment vinculant; aquesta és una traducció a títol informatiu.",
+    "lastUpdated": "Darrera actualització: setembre de 2026",
+    "sections": [
+      {
+        "heading": "1. El nostre compromís",
+        "paragraphs": [
+          "A D.TEX Mallorca (RIBOT FUSTER, S.L.) volem que qualsevol persona pugui consultar el nostre catàleg, conèixer els nostres serveis i posar-se en contacte amb nosaltres, amb independència de les seves capacitats o de la tecnologia que faci servir.",
+          "Prenem com a referència de treball les Pautes d'Accessibilitat per al Contingut Web (WCAG) 2.2 en el nivell AA, i tenim en compte l'accessibilitat en dissenyar i construir cada pàgina nova, no com una correcció posterior."
+        ]
+      },
+      {
+        "heading": "2. Mesures que apliquem",
+        "paragraphs": [
+          "Entre les mesures que ja formen part del lloc hi ha:"
+        ],
+        "list": [
+          "Estructura semàntica amb encapçalaments i regions (capçalera, contingut principal i peu) que faciliten la navegació amb lector de pantalla.",
+          "L'idioma de cada pàgina està declarat (castellà, català o anglès), perquè els lectors de pantalla el pronunciïn correctament.",
+          "Navegació amb teclat, amb un indicador de focus visible en enllaços, botons i camps de formulari.",
+          "Textos alternatius a les imatges informatives; les purament decoratives es marquen com a tals perquè els lectors de pantalla les ometin.",
+          "Botons i enllaços amb àrees de pulsació àmplies, pensats tant per al mòbil com per a persones amb menys precisió motriu.",
+          "Disseny adaptable que permet ampliar la mida del text o utilitzar el lloc en pantalles petites sense pèrdua de contingut.",
+          "Atenció al contrast entre el text i el fons per afavorir la lectura."
+        ]
+      },
+      {
+        "heading": "3. Grau de compliment",
+        "paragraphs": [
+          "Aquest lloc es troba en desenvolupament continu. Encara no s'ha fet una auditoria externa d'accessibilitat, per la qual cosa no declarem una conformitat formal amb les WCAG 2.2 AA ni amb la norma UNE-EN 301 549.",
+          "Treballem per acostar-nos a aquest nivell i corregim els problemes que detectem internament o que ens comuniquen les persones usuàries."
+        ]
+      },
+      {
+        "heading": "4. Exactitud de la informació",
+        "paragraphs": [
+          "Ens comprometem a mantenir aquest web actualitzat i precís. Si trobeu algun contingut incorrecte o desactualitzat, us agrairem que ens ho comuniqueu indicant en quina pàgina l'heu trobat. Ho revisarem al més aviat possible."
+        ]
+      },
+      {
+        "heading": "5. Limitació de responsabilitat",
+        "paragraphs": [
+          "No ens responsabilitzem de les pèrdues derivades d'inexactituds o de dades incompletes, ni de les derivades de problemes inherents a la difusió d'informació a través d'Internet, com ara interrupcions o fallades del servei.",
+          "En els formularis del lloc procurem limitar al mínim el nombre de camps obligatoris."
+        ]
+      },
+      {
+        "heading": "6. Propietat intel·lectual",
+        "paragraphs": [
+          "Tots els drets de propietat intel·lectual sobre el contingut d'aquest web pertanyen a RIBOT FUSTER, S.L. No es permet la còpia, difusió ni qualsevol altre ús d'aquests materials sense autorització escrita, llevat de la mesura en què ho permeti la normativa de compliment obligat, com ara el dret de cita."
+        ]
+      },
+      {
+        "heading": "7. Com informar-nos d'una barrera",
+        "paragraphs": [
+          "Si trobeu una barrera d'accessibilitat al lloc, podeu escriure'ns i us respondrem al més aviat possible. Ens ajuda molt que ens indiqueu la pàgina afectada i el navegador o la tecnologia de suport que feu servir."
+        ],
+        "list": [
+          "Correu electrònic: administracion@ditexmallorca.com",
+          "Telèfon: +34 971 25 44 63"
+        ]
+      }
+    ]
   }
 }
