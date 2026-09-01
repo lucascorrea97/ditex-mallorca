@@ -241,6 +241,24 @@
     "eyebrow": "Área de Clientes",
     "h1": "Bienvenido al Área de Clientes",
     "lead": "Desde aquí podrás consultar la tarifa de precios actualizada.",
+    "documentsTitle": "Documentos",
+    "documentsLead": "La tarifa vigente y el catálogo, en PDF. Ábrelos en el navegador o descárgalos.",
+    "documentUpdatedLabel": "Actualizado:",
+    "documentOpenLabel": "Abrir PDF",
+    "documents": {
+      "tarifa-telas": {
+        "title": "Tarifa telas",
+        "description": "Precios por metro y por pieza de toda la gama de telas."
+      },
+      "tarifa-material": {
+        "title": "Tarifa material",
+        "description": "Precios de espumas, accesorios y material de tapicería."
+      },
+      "catalogo": {
+        "title": "Catálogo",
+        "description": "El catálogo completo de productos, con fotografías y referencias."
+      }
+    },
     "pricesLiveTitle": "Precios visibles en el catálogo",
     "pricesLiveBody": "Ahora que has accedido, los precios (Mallorca y Menorca / Ibiza) aparecen en las fichas de producto del catálogo. Navega o busca como siempre y verás la tarifa actualizada.",
     "browseCatalogueCta": "Ver el catálogo con precios",

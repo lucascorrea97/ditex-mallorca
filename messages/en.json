@@ -241,6 +241,24 @@
     "eyebrow": "Client Area",
     "h1": "Welcome to the Client Area",
     "lead": "From here you can view the up-to-date price list.",
+    "documentsTitle": "Documents",
+    "documentsLead": "The current price list and the catalogue, as PDFs. Open them in your browser or download them.",
+    "documentUpdatedLabel": "Updated:",
+    "documentOpenLabel": "Open PDF",
+    "documents": {
+      "tarifa-telas": {
+        "title": "Fabric price list",
+        "description": "Prices per metre and per roll across the full fabric range."
+      },
+      "tarifa-material": {
+        "title": "Materials price list",
+        "description": "Prices for foam, fittings and upholstery materials."
+      },
+      "catalogo": {
+        "title": "Catalogue",
+        "description": "The complete product catalogue, with photographs and references."
+      }
+    },
     "pricesLiveTitle": "Prices are visible in the catalogue",
     "pricesLiveBody": "Now that you are signed in, prices (Mallorca and Menorca / Ibiza) appear on the product pages in the catalogue. Browse or search as usual and you will see the up-to-date price list.",
     "browseCatalogueCta": "View the catalogue with prices",
