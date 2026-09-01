@@ -52,9 +52,6 @@ export default async function Home({
               {d.ctaContact}
             </Button>
           </div>
-          <div className="mt-12">
-            <ImageSlot id="home-hero" sizes="(max-width: 768px) 100vw, 80vw" />
-          </div>
         </Container>
       </section>
 
