@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
@@ -33,24 +35,52 @@ export default async function Home({
 
   return (
     <>
-      {/* Hero */}
-      <section className="border-b border-stone-200 bg-stone-50">
-        <Container className="py-hero sm:py-hero-sm">
-          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 type-eyebrow font-medium text-brand-700">
-            {d.badge}
-          </p>
-          <h1 className="max-w-3xl type-h1-hero">
-            {d.h1Before} <span className="text-brand-600">{d.h1Accent}</span>{" "}
-            {d.h1After}
-          </h1>
-          <p className="mt-6 max-w-xl type-lead text-stone-600">
-            {d.lead}
-          </p>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <Button href={localePath(lang, "/productos")}>{d.ctaProducts}</Button>
-            <Button href={localePath(lang, "/contacto")} variant="outline">
-              {d.ctaContact}
-            </Button>
+      {/* Hero — full-bleed cinematic. The image is an AI-generated INTERIM placeholder
+          (demo-only exception to ADR-0016, see its 2026-09-01 update); replace with a real
+          foam-cutting photograph via #36 before public launch. Mirrored so the dark
+          negative space sits left, under the headline; foam blocks bleed off to the right. */}
+      <section className="relative isolate flex min-h-[70vh] items-center overflow-hidden bg-ink">
+        <Image
+          src="/images/home-hero.jpg"
+          alt={d.heroImageAlt}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-right"
+        />
+        {/* Legibility scrim (ADR-0001): darkest on the left under the text, fading toward
+            the foam blocks on the right; a subtle bottom vignette anchors the type. */}
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/10"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"
+          aria-hidden
+        />
+        <Container className="relative py-hero sm:py-hero-sm">
+          <div className="max-w-xl">
+            <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 type-eyebrow font-medium text-white/90 backdrop-blur-sm">
+              {d.badge}
+            </p>
+            <h1 className="type-h1-hero text-white">
+              {d.h1Before} <span className="text-brand-500">{d.h1Accent}</span>{" "}
+              {d.h1After}
+            </h1>
+            <p className="mt-6 max-w-lg type-lead text-stone-200">{d.lead}</p>
+            {/* Proof strip — the moat (ADR-0008). Wording pending owner sign-off (#76). */}
+            <p className="mt-8 border-l-2 border-brand-500 pl-4 text-base font-semibold text-white">
+              {d.heroProof}
+            </p>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Button href={localePath(lang, "/productos")}>{d.ctaProducts}</Button>
+              <Link
+                href={localePath(lang, "/contacto")}
+                className="inline-flex h-11 items-center justify-center rounded-full border border-white/40 px-6 text-sm font-medium text-white transition-colors hover:border-white hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
+              >
+                {d.ctaContact}
+              </Link>
+            </div>
           </div>
         </Container>
       </section>

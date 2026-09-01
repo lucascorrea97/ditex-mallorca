@@ -27,19 +27,20 @@ export interface ImageSlotDef {
 export const imageManifest: ImageSlotDef[] = [
   // ── Inicio ────────────────────────────────────────────────────────────────
   {
-    // Reserved for a photo-led hero once a real foam-cut shot exists (#36). Deliberately
-    // NOT rendered on the home page today: the hero is text-first (a weak/off-message
-    // stand-in in the most valuable slot works against the foam-led message — ADR-0001/0008).
-    // When the real shot lands, re-add <ImageSlot id="home-hero"> to app/[lang]/page.tsx.
+    // The home hero is a BESPOKE full-bleed treatment rendered directly in
+    // app/[lang]/page.tsx (next/image), not via <ImageSlot> — so this entry is a record,
+    // not a render source. The current image is an AI-generated INTERIM placeholder
+    // (demo-only exception to ADR-0016); replace `/images/home-hero.jpg` with a real
+    // foam-cutting photograph via #36 before public launch. `purpose` is that target shot.
     id: 'home-hero',
     page: 'inicio',
     section: 'hero',
     purpose: 'Espuma siendo cortada a volumen (m³) — la capacidad estrella de D.TEX',
     aspectRatio: '16/9',
     priority: 'P1',
-    source: 'own',
-    alt: 'Corte de espuma a medida en el almacén de D.TEX Mallorca',
-    src: null,
+    source: 'stock',
+    alt: 'Bloques de espuma cortados a medida en distintas densidades — D.TEX Mallorca',
+    src: '/images/home-hero.jpg',
   },
   {
     id: 'home-segment-tapiceria',

@@ -22,3 +22,20 @@ Content migration (#28) confirmed the current `ditexmallorca.es` uses base64 pix
 - Alt text is Spanish and doubles as SEO (foam/segment keywords).
 - Priority 1 = hero + foam-cutting shots; everything else can ride branded placeholders until captured, so launch is never blocked on a full shoot.
 - Annotated screenshots of pages are fine as a *human communication aid* for the shot list, but the manifest — not screenshots — is the machine-readable contract.
+
+## Update (2026-09-01): demo-only exception — AI-generated interim hero
+
+This ADR bars AI imagery. For the **M0 parity demo** (ADR-0021) the owner chose to use a
+single **AI-generated hero image** as a temporary placeholder, to present a powerful,
+foam-led home page while real photography is gathered. This is an explicit, narrow exception:
+
+- **Scope:** the home hero only (`/images/home-hero.jpg`), and only while the site is a
+  private demo behind the auth wall. Not the public launch.
+- **Why allowed here:** the goal is to win family buy-in now; the image is abstract
+  (precision-cut foam blocks, no people/uncanny industrial action), so it reads as premium
+  materials imagery rather than a fabricated scene.
+- **Must be replaced before public launch** with a real foam-cutting photograph (#36). The
+  no-AI rule stands for every other slot and for anything that ships publicly.
+- The manifest `home-hero` entry and the hero comment in `app/[lang]/page.tsx` both flag the
+  swap. The hero copy's proof line ("even competitors buy our cut foam") is pending owner
+  sign-off on wording (#76).
