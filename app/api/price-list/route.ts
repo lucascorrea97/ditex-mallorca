@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { db } from "@/db";
+import { parityMode } from "@/lib/flags";
 import { renderPriceListPdf, type PdfProduct } from "@/lib/pdf/price-list";
 
 // Client Area-only (ADR-0011): behind the same auth check as the gated pages —
@@ -17,6 +18,16 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 30;
 
 export async function GET() {
+  // Parity gate (M0, ADR-0021 / #84). The generated Price List is hidden from the
+  // Client Area in parity mode, so the endpoint behind it answers as if it does not
+  // exist — otherwise a bookmarked URL would still hand out a document the M0 site is
+  // not supposed to have. Checked before auth: in parity mode this route is absent for
+  // everyone, session or not. The proxy can't do this (its matcher excludes /api/), so
+  // the gate lives here, still reading the one flag in lib/flags.
+  if (parityMode) {
+    return new Response("No disponible.", { status: 404 });
+  }
+
   const session = await auth();
   if (!session) {
     return new Response("No autorizado.", { status: 401 });

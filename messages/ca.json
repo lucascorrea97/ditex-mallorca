@@ -241,6 +241,24 @@
     "eyebrow": "Àrea de Clients",
     "h1": "Benvingut a l'Àrea de Clients",
     "lead": "Des d'aquí podràs consultar la tarifa de preus actualitzada.",
+    "documentsTitle": "Documents",
+    "documentsLead": "La tarifa vigent i el catàleg, en PDF. Obre'ls al navegador o descarrega'ls.",
+    "documentUpdatedLabel": "Actualitzat:",
+    "documentOpenLabel": "Obrir PDF",
+    "documents": {
+      "tarifa-telas": {
+        "title": "Tarifa teles",
+        "description": "Preus per metre i per peça de tota la gamma de teles."
+      },
+      "tarifa-material": {
+        "title": "Tarifa material",
+        "description": "Preus d'escumes, accessoris i material de tapisseria."
+      },
+      "catalogo": {
+        "title": "Catàleg",
+        "description": "El catàleg complet de productes, amb fotografies i referències."
+      }
+    },
     "pricesLiveTitle": "Preus visibles al catàleg",
     "pricesLiveBody": "Ara que has accedit, els preus (Mallorca i Menorca / Eivissa) apareixen a les fitxes de producte del catàleg. Navega o cerca com sempre i veuràs la tarifa actualitzada.",
     "browseCatalogueCta": "Veure el catàleg amb preus",
