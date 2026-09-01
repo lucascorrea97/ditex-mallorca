@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/site/language-switcher";
-import { navRoutes, business, type NavKey } from "@/lib/site";
+import { visibleNavRoutes, business, type NavKey } from "@/lib/site";
 import { localePath, type Locale, type Dictionary } from "@/lib/i18n";
 import logo from "@/public/brand/ditex-logo.png";
 
@@ -21,7 +21,7 @@ export function Header({ locale, dict }: HeaderProps) {
         </Link>
 
         <nav className="hidden items-center gap-7 md:flex">
-          {navRoutes.map((item) => (
+          {visibleNavRoutes.map((item) => (
             <Link
               key={item.key}
               href={localePath(locale, item.href)}
@@ -54,7 +54,7 @@ export function Header({ locale, dict }: HeaderProps) {
             </svg>
           </summary>
           <div className="absolute right-0 mt-2 w-56 rounded-xl border border-stone-200 bg-white p-2 shadow-lg">
-            {navRoutes.map((item) => (
+            {visibleNavRoutes.map((item) => (
               <Link
                 key={item.key}
                 href={localePath(locale, item.href)}

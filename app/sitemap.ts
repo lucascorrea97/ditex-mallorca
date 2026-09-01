@@ -5,6 +5,7 @@ import { alternatesFor } from "@/lib/seo";
 import { CATEGORY_ORDER, CATEGORY_SLUGS } from "@/lib/catalogue";
 import { db, schema } from "@/db";
 import { activeProductIds } from "@/lib/products";
+import { parityMode, isHiddenPath } from "@/lib/flags";
 
 // Dynamic: the sitemap reads the product DB, which isn't available at build time
 // (matches the catalogue pages — ADR-0006/0007).
@@ -42,7 +43,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/nosotros", priority: 0.6 },
     { path: "/guias", priority: 0.7 },
     { path: "/contacto", priority: 0.6 },
-  ];
+  ].filter((p) => !parityMode || !isHiddenPath(p.path));
+
+  // Parity mode (M0, ADR-0021 / #83): only the parity static pages are listed —
+  // the catalogue, guides and their DB-driven child routes stay out of the sitemap
+  // entirely. Short-circuit here so the sitemap needs no DB while the flag is on.
+  if (parityMode) {
+    return staticPaths.flatMap((p) =>
+      localized(p.path, { priority: p.priority, changeFrequency: "weekly" }),
+    );
+  }
 
   // Category landing pages — foam first (ADR-0008).
   const categoryPaths = CATEGORY_ORDER.map((category) => ({
