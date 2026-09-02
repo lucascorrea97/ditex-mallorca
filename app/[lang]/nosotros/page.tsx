@@ -1,10 +1,20 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { ImageSlot } from "@/components/ui/image-slot";
 import { getDictionary, hasLocale, localePath } from "@/lib/i18n";
 import { localizedMetadata } from "@/lib/seo";
+
+// The real team photos (owner-supplied). Numbered for now: the name + department for
+// each is pending the owner's mapping (the WhatsApp files were unlabelled). Once
+// confirmed, `#n` becomes the person's name and the grid groups by department, like the
+// current site's "Quiénes somos" chart — but cleaner.
+const teamPhotos = Array.from({ length: 11 }, (_, i) => ({
+  n: i + 1,
+  photo: `/images/team/team-${String(i + 1).padStart(2, "0")}.jpg`,
+}));
 
 export async function generateMetadata({
   params,
@@ -88,12 +98,28 @@ export default async function Page({
         </div>
       </Container>
 
-      {/* Team image */}
+      {/* Team — Quiénes somos. Real headshots; numbered until the owner maps names +
+          departments, then this groups by department like the current site's chart. */}
       <section className="border-y border-stone-200 bg-stone-50">
         <Container className="py-section">
           <h2 className="type-h2">{d.teamHeading}</h2>
-          <div className="mt-8 max-w-2xl">
-            <ImageSlot id="nosotros-equipo" sizes="(max-width: 768px) 100vw, 672px" />
+          <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+            {teamPhotos.map((t) => (
+              <figure key={t.n} className="flex flex-col items-center text-center">
+                <div className="relative h-28 w-28 overflow-hidden rounded-full shadow-sm ring-2 ring-white sm:h-32 sm:w-32">
+                  <Image
+                    src={t.photo}
+                    alt={`Equipo D.TEX — ${t.n}`}
+                    fill
+                    sizes="128px"
+                    className="object-cover"
+                  />
+                </div>
+                <figcaption className="mt-3 text-sm font-semibold text-stone-400">
+                  #{t.n}
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </Container>
       </section>
