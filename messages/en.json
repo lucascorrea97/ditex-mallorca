@@ -107,6 +107,12 @@
     "locationLabel": "Polígono Industrial Can Valero, Palma de Mallorca — delivery to",
     "locationAccent": "all islands",
     "teamHeading": "The team",
+    "departments": {
+      "admin": "Administration",
+      "almacen": "Warehouse",
+      "corte": "Foam cutting",
+      "reparto": "Delivery"
+    },
     "valuesHeading": "Our values",
     "values": [
       {

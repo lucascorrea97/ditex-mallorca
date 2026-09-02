@@ -107,6 +107,12 @@
     "locationLabel": "Polígon Industrial Can Valero, Palma de Mallorca — distribució a",
     "locationAccent": "totes les illes",
     "teamHeading": "L'equip",
+    "departments": {
+      "admin": "Administració",
+      "almacen": "Magatzem",
+      "corte": "Tall d'escuma",
+      "reparto": "Repartiment"
+    },
     "valuesHeading": "Els nostres valors",
     "values": [
       {

@@ -107,6 +107,12 @@
     "locationLabel": "Polígono Industrial Can Valero, Palma de Mallorca — distribución a",
     "locationAccent": "todas las islas",
     "teamHeading": "El equipo",
+    "departments": {
+      "admin": "Administración",
+      "almacen": "Almacén",
+      "corte": "Corte de espuma",
+      "reparto": "Reparto"
+    },
     "valuesHeading": "Nuestros valores",
     "values": [
       {

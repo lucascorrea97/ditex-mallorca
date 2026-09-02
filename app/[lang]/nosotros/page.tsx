@@ -7,14 +7,41 @@ import { ImageSlot } from "@/components/ui/image-slot";
 import { getDictionary, hasLocale, localePath } from "@/lib/i18n";
 import { localizedMetadata } from "@/lib/seo";
 
-// The real team photos (owner-supplied). Numbered for now: the name + department for
-// each is pending the owner's mapping (the WhatsApp files were unlabelled). Once
-// confirmed, `#n` becomes the person's name and the grid groups by department, like the
-// current site's "Quiénes somos" chart — but cleaner.
-const teamPhotos = Array.from({ length: 11 }, (_, i) => ({
-  n: i + 1,
-  photo: `/images/team/team-${String(i + 1).padStart(2, "0")}.jpg`,
-}));
+// The real team (owner-supplied photos + names, mapped 2026-09-02), grouped by
+// department like the current site's "Quiénes somos" chart — cleaner. Department labels
+// are i18n (dict.nosotros.departments); names are not translated.
+// Pending owner confirmation: which Pedro is Almacén vs Corte de espuma; and photos for
+// Javier (Gerencia) and Pablo (Comercial), who aren't in this photo batch.
+const teamDepartments = [
+  {
+    key: "admin",
+    members: [
+      { name: "Pia", photo: "/images/team/team-03.jpg" },
+      { name: "Manolo", photo: "/images/team/team-08.jpg" },
+      { name: "Paula", photo: "/images/team/team-11.jpg" },
+    ],
+  },
+  {
+    key: "almacen",
+    members: [
+      { name: "Miguel Ángel", photo: "/images/team/team-07.jpg" },
+      { name: "Pere", photo: "/images/team/team-06.jpg" },
+      { name: "Pedro", photo: "/images/team/team-01.jpg" },
+    ],
+  },
+  {
+    key: "corte",
+    members: [
+      { name: "Pau", photo: "/images/team/team-02.jpg" },
+      { name: "Xavi", photo: "/images/team/team-04.jpg" },
+      { name: "Pedro", photo: "/images/team/team-09.jpg" },
+    ],
+  },
+  {
+    key: "reparto",
+    members: [{ name: "Albert", photo: "/images/team/team-05.jpg" }],
+  },
+] as const;
 
 export async function generateMetadata({
   params,
@@ -98,27 +125,36 @@ export default async function Page({
         </div>
       </Container>
 
-      {/* Team — Quiénes somos. Real headshots; numbered until the owner maps names +
-          departments, then this groups by department like the current site's chart. */}
+      {/* Team — Quiénes somos: real headshots grouped by department, mirroring the
+          current site's chart. */}
       <section className="border-y border-stone-200 bg-stone-50">
         <Container className="py-section">
           <h2 className="type-h2">{d.teamHeading}</h2>
-          <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-            {teamPhotos.map((t) => (
-              <figure key={t.n} className="flex flex-col items-center text-center">
-                <div className="relative h-28 w-28 overflow-hidden rounded-full shadow-sm ring-2 ring-white sm:h-32 sm:w-32">
-                  <Image
-                    src={t.photo}
-                    alt={`Equipo D.TEX — ${t.n}`}
-                    fill
-                    sizes="128px"
-                    className="object-cover"
-                  />
+          <div className="mt-10 space-y-12">
+            {teamDepartments.map((dept) => (
+              <div key={dept.key}>
+                <h3 className="text-sm font-semibold uppercase tracking-widest text-brand-600">
+                  {d.departments[dept.key]}
+                </h3>
+                <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+                  {dept.members.map((m) => (
+                    <figure key={m.photo} className="flex flex-col items-center text-center">
+                      <div className="relative h-28 w-28 overflow-hidden rounded-full shadow-sm ring-2 ring-white sm:h-32 sm:w-32">
+                        <Image
+                          src={m.photo}
+                          alt={`${m.name}, equipo de D.TEX Mallorca`}
+                          fill
+                          sizes="128px"
+                          className="object-cover"
+                        />
+                      </div>
+                      <figcaption className="mt-3 text-sm font-semibold text-ink">
+                        {m.name}
+                      </figcaption>
+                    </figure>
+                  ))}
                 </div>
-                <figcaption className="mt-3 text-sm font-semibold text-stone-400">
-                  #{t.n}
-                </figcaption>
-              </figure>
+              </div>
             ))}
           </div>
         </Container>
