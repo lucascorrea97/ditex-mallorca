@@ -108,10 +108,12 @@
     "locationAccent": "all islands",
     "teamHeading": "The team",
     "departments": {
+      "gerencia": "Management",
       "admin": "Administration",
       "almacen": "Warehouse",
       "corte": "Foam cutting",
-      "reparto": "Delivery"
+      "reparto": "Delivery",
+      "comercial": "Sales"
     },
     "valuesHeading": "Our values",
     "values": [

@@ -7,40 +7,22 @@ import { ImageSlot } from "@/components/ui/image-slot";
 import { getDictionary, hasLocale, localePath } from "@/lib/i18n";
 import { localizedMetadata } from "@/lib/seo";
 
-// The real team (owner-supplied photos + names, mapped 2026-09-02), grouped by
-// department like the current site's "Quiénes somos" chart — cleaner. Department labels
-// are i18n (dict.nosotros.departments); names are not translated.
-// Pending owner confirmation: which Pedro is Almacén vs Corte de espuma; and photos for
-// Javier (Gerencia) and Pablo (Comercial), who aren't in this photo batch.
-const teamDepartments = [
-  {
-    key: "admin",
-    members: [
-      { name: "Pia", photo: "/images/team/team-03.jpg" },
-      { name: "Manolo", photo: "/images/team/team-08.jpg" },
-      { name: "Paula", photo: "/images/team/team-11.jpg" },
-    ],
-  },
-  {
-    key: "almacen",
-    members: [
-      { name: "Miguel Ángel", photo: "/images/team/team-07.jpg" },
-      { name: "Pere", photo: "/images/team/team-06.jpg" },
-      { name: "Pedro", photo: "/images/team/team-01.jpg" },
-    ],
-  },
-  {
-    key: "corte",
-    members: [
-      { name: "Pau", photo: "/images/team/team-02.jpg" },
-      { name: "Xavi", photo: "/images/team/team-04.jpg" },
-      { name: "Pedro", photo: "/images/team/team-09.jpg" },
-    ],
-  },
-  {
-    key: "reparto",
-    members: [{ name: "Albert", photo: "/images/team/team-05.jpg" }],
-  },
+// The real team (owner-supplied photos + names, confirmed 2026-09-02). One flat list
+// rendered as a compact card grid; the department shows on each card (dict.nosotros
+// .departments, i18n — names are not translated). Order = departments top-to-bottom.
+const team = [
+  { name: "Javier", dept: "gerencia", photo: "/images/team/team-javier.jpg" },
+  { name: "Pia", dept: "admin", photo: "/images/team/team-03.jpg" },
+  { name: "Manolo", dept: "admin", photo: "/images/team/team-08.jpg" },
+  { name: "Paula", dept: "admin", photo: "/images/team/team-11.jpg" },
+  { name: "Miguel Ángel", dept: "almacen", photo: "/images/team/team-07.jpg" },
+  { name: "Pere", dept: "almacen", photo: "/images/team/team-06.jpg" },
+  { name: "Pedro", dept: "almacen", photo: "/images/team/team-01.jpg" },
+  { name: "Pau", dept: "corte", photo: "/images/team/team-02.jpg" },
+  { name: "Xavi", dept: "corte", photo: "/images/team/team-04.jpg" },
+  { name: "Albert", dept: "reparto", photo: "/images/team/team-05.jpg" },
+  { name: "Marcial", dept: "reparto", photo: "/images/team/team-09.jpg" },
+  { name: "Pablo", dept: "comercial", photo: "/images/team/team-pablo.jpg" },
 ] as const;
 
 export async function generateMetadata({
@@ -125,36 +107,33 @@ export default async function Page({
         </div>
       </Container>
 
-      {/* Team — Quiénes somos: real headshots grouped by department, mirroring the
-          current site's chart. */}
+      {/* Team — Quiénes somos: compact modern card grid that fills the width; the
+          department shows on each card. */}
       <section className="border-y border-stone-200 bg-stone-50">
         <Container className="py-section">
           <h2 className="type-h2">{d.teamHeading}</h2>
-          <div className="mt-10 space-y-12">
-            {teamDepartments.map((dept) => (
-              <div key={dept.key}>
-                <h3 className="text-sm font-semibold uppercase tracking-widest text-brand-600">
-                  {d.departments[dept.key]}
-                </h3>
-                <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-                  {dept.members.map((m) => (
-                    <figure key={m.photo} className="flex flex-col items-center text-center">
-                      <div className="relative h-28 w-28 overflow-hidden rounded-full shadow-sm ring-2 ring-white sm:h-32 sm:w-32">
-                        <Image
-                          src={m.photo}
-                          alt={`${m.name}, equipo de D.TEX Mallorca`}
-                          fill
-                          sizes="128px"
-                          className="object-cover"
-                        />
-                      </div>
-                      <figcaption className="mt-3 text-sm font-semibold text-ink">
-                        {m.name}
-                      </figcaption>
-                    </figure>
-                  ))}
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+            {team.map((m) => (
+              <figure
+                key={m.photo}
+                className="overflow-hidden rounded-xl bg-white ring-1 ring-stone-200"
+              >
+                <div className="relative aspect-square">
+                  <Image
+                    src={m.photo}
+                    alt={`${m.name} — ${d.departments[m.dept]}, D.TEX Mallorca`}
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
+                    className="object-cover"
+                  />
                 </div>
-              </div>
+                <figcaption className="px-3 py-2">
+                  <p className="truncate text-sm font-semibold text-ink">{m.name}</p>
+                  <p className="truncate text-xs font-medium text-brand-600">
+                    {d.departments[m.dept]}
+                  </p>
+                </figcaption>
+              </figure>
             ))}
           </div>
         </Container>

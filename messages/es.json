@@ -108,10 +108,12 @@
     "locationAccent": "todas las islas",
     "teamHeading": "El equipo",
     "departments": {
+      "gerencia": "Gerencia",
       "admin": "Administración",
       "almacen": "Almacén",
       "corte": "Corte de espuma",
-      "reparto": "Reparto"
+      "reparto": "Reparto",
+      "comercial": "Comercial"
     },
     "valuesHeading": "Nuestros valores",
     "values": [
