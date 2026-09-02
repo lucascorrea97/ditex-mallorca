@@ -17,7 +17,7 @@ export function Header({ locale, dict }: HeaderProps) {
     <header className="sticky top-0 z-50 border-b border-stone-200 bg-white/90 backdrop-blur">
       <Container className="flex h-16 items-center justify-between gap-4">
         <Link href={localePath(locale, "/")} aria-label={business.name} className="shrink-0">
-          <Image src={logo} alt={business.name} priority className="h-8 w-auto" />
+          <Image src={logo} alt={business.name} priority className="h-10 w-auto" />
         </Link>
 
         <nav className="hidden items-center gap-7 md:flex">
