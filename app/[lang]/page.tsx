@@ -68,10 +68,6 @@ export default async function Home({
               {d.h1After}
             </h1>
             <p className="mt-6 max-w-lg type-lead text-stone-200">{d.lead}</p>
-            {/* Proof strip — the moat (ADR-0008). Wording pending owner sign-off (#76). */}
-            <p className="mt-8 border-l-2 border-brand-500 pl-4 text-base font-semibold text-white">
-              {d.heroProof}
-            </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Button href={localePath(lang, "/productos")}>{d.ctaProducts}</Button>
               <Link
